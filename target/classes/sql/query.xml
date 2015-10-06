@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment>Course Teaching Survey Queries</comment>
+    <entry key="access.survey">
+    	<![CDATA[ 
+		    	  SELECT  EMP_COURSE (:paramEmpNumber, :paramCourseCode , :paramSection) 					AS IS_ACCESS_EMP_COURSE
+		                              ,ACCESS_ALL_SURVEYS(:paramEmpNumber)               					AS IS_ACCESS_ALL_SURVEY
+		                              ,IS_ASSISTANT_DEAN(to_number(:paramEmpNumber)) 						AS IS_ACCESS_ASST_DEAN
+		                              ,IS_ADMIN (:paramEmpNumber)											AS IS_ADMIN
+		                              
+		          FROM DUAL    	
+    	]]>
+    </entry>
+    <entry key="access.survey.report">
+    	<![CDATA[ 
+    			 SELECT   ACCESS_TEACHING_SURVEY_REP(:paramEmpNumber)   									AS IS_ACCESS_REPORT
+    			 		  ,IS_ASSISTANT_DEAN(to_number(:paramEmpNumber))               						AS IS_ACCESS_ASST_DEAN
+    			 		  ,ACCESS_ALL_SURVEYS(:paramEmpNumber)               								AS IS_ACCESS_ALL_SURVEY
+    			 		  ,IS_ADMIN (:paramEmpNumber)														AS IS_ADMIN
+                  FROM     DUAL      
+    	]]>
+    </entry>
+    
+    <entry key="student.current.response.for.faculty">
+    	<![CDATA[ 
+			    	SELECT  			 COURSE_CODE														AS	COURSE_CODE,                                           
+			                             NVL(DECODE(:paramLocale,                      
+			                                             'en',CRSNAME,A_CRSNAME),'-')						AS 	COURSE_NAME,   
+			                             SECTNO 															AS	SECTION_NO,                                     
+			                             SEATSTAKEN															AS  SEATS_TAKEN,                                            
+			                             GET_STD_RESPONSES
+			                             (
+			                             	L_ABR_YRSEM, COURSE_CODE, 
+			                             	SECTNO, EMPNO,
+			                             	NULL, NULL
+			                             ) 																	AS	STUDENT_RESPONSE,        
+			                             L_ABR_YRSEM														AS  YR_SEM,                                  
+			                             EMPNO  															AS  EMP_NUMBER                                           
+			         FROM    V_COURSE_DETAILS  ,                                    
+			         		 V_CURRENT_YRSEM_PORTAL                                 
+			         WHERE   EMPNO  = :paramEmpNumber                                               
+			              --AND   (EVALUATE_COURSE(COURSE_CODE, CRS_TYPE_CODE)='Y')             
+			              --AND   IS_SEMESTER_EVALUATED(L_ABR_YRSEM)='N'                 
+			        	  AND  SEATSTAKEN > 4   
+    	]]>
+    </entry>
+    <entry key="survey.all">
+    	<![CDATA[ 
+    		SELECT  	DISTINCT                                                                           
+                            DECODE(
+                            		 SUBSTR(SEM_CODE,3,4)                                              
+                                    ,'FL','20'||SUBSTR(SEM_CODE,0,2)||'-'||                           
+                                           TO_CHAR(TO_NUMBER('20'||SUBSTR(SEM_CODE,0,2))+1)            
+                                    ,'SP', DECODE
+                                    			(
+                                    				LENGTH(TO_CHAR(TO_NUMBER(SUBSTR(SEM_CODE,0,2))-1))  
+                                                 	,1,'200'||TO_CHAR(TO_NUMBER(SUBSTR(SEM_CODE,0,2))-1) 
+                                                   ,'20'||TO_CHAR(TO_NUMBER(SUBSTR(SEM_CODE,0,2))-1)    
+                                                 )                                                    
+                                         ||'-20'||SUBSTR(SEM_CODE,0,2)                                                                   
+                              )																					AS ACADEMIC_YEAR                                                     
+                      ,SEM_CODE	 																				AS YR_SEM                                                                                                   
+                      ,COURSE_CODE   																			AS COURSE_CODE                                                                                                              
+                      ,SECTION_NO        																		AS SECTION_NO                                                                                                     
+                      ,INSTRUCTOR_ID  																			AS EMP_NUMBER                                                                
+              FROM    COURSE_TEACHING_SURVEY                                                          
+              WHERE   INSTRUCTOR_ID =:paramEmpNumber                                                    
+                  AND IS_SEMESTER_EVALUATED(SEM_CODE) ='Y'                                                     
+
+
+              ORDER BY ACADEMIC_YEAR DESC,                                                            
+                       SEM_CODE DESC
+    	 ]]>
+    </entry>
+    <entry key="teaching.survey.analysis">
+    	<![CDATA[  
+    				SELECT              COURSE_CODE																AS COURSE_CODE,
+    									SECTNO																	AS	SECTION_NO,
+    									QUESTION                                       							AS QUESTION_NO,                              
+                                        STR_DISAGREE                                   							AS STRONG_DISAGREE,                           
+                                        DISAGREE                                       							AS DISAGREE,                              
+                                        AGREE                                          							AS AGREE,                                 
+                                        STR_AGREE                                      							AS STRONG_AGREE,                             
+                                        NOT_APPLICABLE                                 							AS NOT_APPLICABLE,                        
+                                        TOTAL                                          							AS TOTAL,                                 
+                                        PCT_FAV                                        							AS PERCENTAGE_RESPONSE,                               
+                                        SECT_MEAN                                      							AS SECTION_MEAN,                              
+                                        GET_RESPONSE_MEAN( :paramSemester   
+                                                           ,:paramCourseCode
+                                                           ,'CRS'                        
+                                                           ,QUESTION)                  							AS COURSE_MEAN,                   
+                                        GET_RESPONSE_MEAN( :paramSemester      
+                                                           ,:paramCourseCode
+                                                           ,'DPT'                        
+                                                           ,QUESTION)                 							AS DEPARTMENT_MEAN,                   
+                                        GET_RESPONSE_MEAN( :paramSemester      
+                                                           ,:paramCourseCode
+                                                           ,'COL'                        
+                                                           ,QUESTION)                							AS COLLEGE_MEAN,                    
+                           -- this column to select the right question label since some questions are omitted 
+                                        substr(QUESTION,2)                           							AS QUEST_LABEL                   
+                       FROM        TEACHING_SURVEY_ANALYSIS                     
+                       WHERE       SEM_CODE=:paramSemester               
+                             AND   COURSE_CODE =:paramCourseCode            
+                             AND   SECTNO =:paramSection          
+                             AND   INSTRUCTOR_ID =:paramEmpNumber
+                       ORDER BY    TO_NUMBER(SUBSTR(QUESTION,2))                
+    	]]>
+    	
+    </entry>
+    <entry key="survey.analysis.heading">
+    	<![CDATA[  
+				    	SELECT DISTINCT CEH.COURSE_CODE    														AS COURSE_CODE                  
+	                                 ,DECODE( :paramLocale, 
+	                                          'en', CEH.CRSNAME, CEH.A_CRSNAME)  								AS COURSE_NAME                   
+	                                 ,CEH.SECTNO    															AS SECTION_NO                           
+	                                 ,CEH.SEATSTAKEN   															AS SEATS_TAKEN                    
+	                                 ,DECODE( :paramLocale, 
+	                                          'en', F.EMP_NAME, F.A_EMP_NAME)   								AS EMP_NAME                     
+	                                 ,DECODE( :paramLocale, 
+	                                          'en', CEH.CRS_COL_NAME, CEH.CRS_COL_NAME_ARABIC)  				AS COLLEGE_NAME                         
+	                                 ,DECODE( :paramLocale, 
+	                                          'en', CEH.CRS_DEPT_NAME, CEH.CRS_DEPT_NAME_ARABIC)  				AS DEPARTMENT_NAME                             
+	                                 ,COURSE_SURVEY_VALID_MSG
+											(
+												GET_STD_RESPONSES
+												(      
+                                                   CEH.YR_SEM            
+                                                   ,CEH.COURSE_CODE       
+                                                   ,CEH.SECTNO
+												   ,CEH.EMPNO  
+				                                   ,null,null
+												)            
+                                           ,CEH.SEATSTAKEN            
+                                           ,:paramLocale 
+                                           ) 																	AS	COURSE_SURVEY_VALID_MSG      
+	                     FROM        V_COURSE_EVALUATION_HISTORY CEH,  
+	                                 V_FACULTY_PORTAL   F              
+	                     WHERE       CEH.EMPNO = F.EMPNO                              
+	                           AND   CEH.YR_SEM=:paramSemester            
+	                           AND   CEH.COURSE_CODE=:paramCourseCode           
+	                           AND   CEH.sectno =:paramSection         
+	                           AND   CEH.EMPNO= :paramEmpNumber
+	    	
+    	]]>
+    </entry>
+    <entry key="survey.open.end.questions">
+		<![CDATA[ 
+						SELECT      NVL(OPEN_ENDED_Q1,'-')       												AS	OPEN_END_QUESTION1              
+	                               ,NVL(OPEN_ENDED_Q2,'-')                     									AS	OPEN_END_QUESTION2
+	                               ,NVL(OPEN_ENDED_Q3,'-')                     									AS	OPEN_END_QUESTION3
+	                    FROM        COURSE_TEACHING_SURVEY                             
+	                    WHERE       SEM_CODE=:paramSemester      
+	                          AND   COURSE_CODE =:paramCourseCode          
+	                          AND   SECTION_NO =:paramSection   
+	                          AND   INSTRUCTOR_ID =:paramEmpNumber              
+	                    ORDER BY    1,2,3   
+		 ]]>    	
+    </entry>
+    
+    <entry key="report.academic.year">
+    	<![CDATA[ 
+    		  SELECT DISTINCT SEM_CODE																			AS	YR_SEM,                                                             
+                              DECODE( SUBSTR(SEM_CODE,3,4)                                                                                            
+                                        ,'FL','20'||SUBSTR(SEM_CODE,0,2)||'-'||                          
+                                                TO_CHAR(TO_NUMBER('20'||SUBSTR(SEM_CODE,0,2))+1)          
+                                        ,'SP', DECODE(LENGTH(TO_CHAR(TO_NUMBER(SUBSTR(SEM_CODE,0,2))-1)) 
+                                                  ,1,'200'||TO_CHAR(TO_NUMBER(SUBSTR(SEM_CODE,0,2))-1)   
+                                                    ,'20'||TO_CHAR(TO_NUMBER(SUBSTR(SEM_CODE,0,2))-1)    
+               
+                                                  )                                                    
+                                          ||'-20'||SUBSTR(SEM_CODE,0,2)                                                                    
+                                    )																			AS ACADEMIC_YEAR                                                     
+               FROM COURSE_TEACHING_RANKING                                                        
+               ORDER BY ACADEMIC_YEAR DESC,                                                        
+               SEM_CODE DESC   
+
+    	 ]]>
+    </entry>
+    <entry key="staff.role">
+    	<![CDATA[ 
+    		SELECT  
+    				STAFF_ID   																					AS EMP_NUMBER,
+    				STAFF_ROLE 																					AS STAFF_ROLE,                          
+            		STAFF_COL  																					AS COLLEGE_CODE,                           
+                    STAFF_DEPT		 																			AS DEPARTMENT_CODE                          
+            FROM    V_SIS_STAFF                                      
+            WHERE   STAFF_ID = TO_NUMBER(:paramEmpNumber) 
+            AND 	ROWNUM < 2 
+    	 ]]>
+    </entry>
+    <entry key="valid.survey.report.summary">
+    	<![CDATA[  
+    	    SELECT     		r.SEM_CODE    																		AS YR_SEM                                        
+                           ,r.UNI_RANK    																		AS UNIVERSITY_RANK                                       
+                           ,r.COL_RANK    																		AS COLLEGE_RANK                                       
+                           ,r.DEPT_RANK   																		AS DEPARTMENT_RANK                                       
+                           ,r.INSTRUCTOR_ID  																	AS EMP_NUMBER                                    
+                           ,get_instructor_name(r.INSTRUCTOR_ID,decode(:paramLocale,'en','E','ar')) 			AS EMP_NAME
+                           ,get_course_col_code(SEM_CODE,COURSE_CODE)  											AS COLLEGE_CODE
+                           ,get_course_dept_name(r.SEM_CODE,r.COURSE_CODE,decode(:paramLocale,'en','en','ar')) 	AS DEPARTMENT_NAME        
+                           ,r.COURSE_CODE  																		AS COURSE_CODE                                      
+                           ,r.SECTNO 																			AS SECTION_NO                                                             
+                           ,r.REGISTERED_STD 																	AS REGISTERED_STUDENT                            
+                           ,get_std_responses(r.SEM_CODE,r.COURSE_CODE, r.SECTNO,r.INSTRUCTOR_ID,null,null)	  	AS STUDENT_NO_RESPONSE              
+                           ,get_teaching_mean_pctfav(r.SEM_CODE,r.COURSE_CODE, r.SECTNO,r.INSTRUCTOR_ID)	    AS TEACHING_MEAN           
+                           ,get_teaching_mean_pctfav(r.SEM_CODE,r.COURSE_CODE, r.SECTNO,r.INSTRUCTOR_ID,'Fav') 	AS TEACHING_PCTFAV 
+                           ,get_statement_info(r.SEM_CODE,r.COURSE_CODE, r.SECTNO,r.INSTRUCTOR_ID,:paramQuestion) 	AS Q_MEAN                    
+                           ,get_statement_info(r.SEM_CODE,r.COURSE_CODE, r.SECTNO,r.INSTRUCTOR_ID,:paramQuestion,'pct') 
+                           																						AS Q_PCTFAV                                                                                         
+                 FROM      COURSE_TEACHING_RANKING     r                         
+                 WHERE     UNI_RANK is not null                                   
+                        AND (   (:paramStaffRole = 'DEAN' and get_course_col_code(r.SEM_CODE,r.COURSE_CODE) = :paramCollege) 
+                             OR (:paramStaffRole = 'HOD' and get_course_dept(r.SEM_CODE,r.COURSE_CODE) = :paramDepartment  and :paramCollege != 'LAN')   
+                            OR (ACCESS_ALL_SURVEYS(:paramEmpNumber)='Y' )                         
+                            )                                                     
+                        AND SEM_CODE = :paramSemester 
+                 ORDER BY  UNI_RANK ,COL_RANK,DEPT_RANK DESC
+
+    	]]>
+    </entry>
+    <entry key="not.valid.survey.report.summary">
+    	<![CDATA[ 
+					SELECT  SEM_CODE    																		AS YR_SEM                                         
+                           ,get_course_col_code(SEM_CODE,COURSE_CODE) 											AS COLLEGE_CODE  
+                           ,get_course_dept_name(SEM_CODE,COURSE_CODE,:paramLocale) 							AS DEPARTMENT_NAME 
+                           ,get_course_dept(SEM_CODE,COURSE_CODE) 												AS DEPARTMENT_CODE      
+                           ,COURSE_CODE      																	AS COURSE_CODE                                    
+                           ,SECTNO           																	AS SECTION_NO                                    
+                           ,INSTRUCTOR_ID    																	AS EMP_NUMBER                                     
+                           ,get_instructor_name(r.INSTRUCTOR_ID,decode(:paramLocale,'en','E','ar')) 			AS EMP_NAME   
+                           ,REGISTERED_STD 																		AS REGISTERED_STUDENT                               
+                           ,get_std_responses(SEM_CODE,COURSE_CODE, SECTNO,INSTRUCTOR_ID,null,null)	  			AS STUDENT_NO_RESPONSE               
+                           ,get_teaching_mean_pctfav(SEM_CODE,COURSE_CODE, SECTNO,INSTRUCTOR_ID)	      		AS TEACHING_MEAN            
+                           ,get_teaching_mean_pctfav(SEM_CODE,COURSE_CODE, SECTNO,INSTRUCTOR_ID,'Fav') 			AS TEACHING_PCTFAV 
+                           ,get_statement_info(SEM_CODE,COURSE_CODE, SECTNO,INSTRUCTOR_ID,:paramQuestion) 	    AS Q_MEAN                    
+                           ,get_statement_info(SEM_CODE,COURSE_CODE, SECTNO,INSTRUCTOR_ID,:paramQuestion,'pct') AS Q_PCTFAV                                                                                           
+                 FROM      COURSE_TEACHING_RANKING    r                                    
+                 WHERE    UNI_RANK is null                  
+                        AND (   (:paramStaffRole = 'DEAN' and get_course_col_code(r.SEM_CODE,r.COURSE_CODE) = :paramCollege) 
+                              OR (:paramStaffRole = 'HOD' and get_course_dept(r.SEM_CODE,r.COURSE_CODE) = :paramDepartment  and :paramCollege != 'LAN')   
+                              OR (ACCESS_ALL_SURVEYS(:paramEmpNumber)='Y')                         
+                            )                                                     
+                        AND   SEM_CODE = :paramSemester      
+     		
+    	]]>
+    </entry>
+    <entry key="college.courses.for.asst.dean">
+    	<![CDATA[
+		    	 SELECT   	 
+					        c.CRS_DEPT_CODE																		AS	DEPARTMENT_CODE,
+					        DECODE(:paramLocale,'en',c.CRS_DEPT_NAME, CRS_DEPT_NAME_ARABIC)						AS	DEPARTMENT_NAME,
+		        			DECODE(	clinical_course(c.COURSE_CODE, c.CRS_TYPE_CODE),'Y','Clinical',
+		        					DECODE(is_course_included_assistdean(c.COURSE_CODE),
+		        					        'Y',DECODE(:paramLocale,'en','Included','يشمل'),DECODE(:paramLocale,'en','Excluded','لا يشمل'))
+		        				  )																				AS INCLUDE_EXCLUDE,
+				          	c.COURSE_CODE  																		AS COURSE_CODE,
+				          	c.SECTNO  																			AS SECTION_NO   , 
+				          	c.EMPNO 																			AS EMP_NUMBER,
+				          	DECODE (:paramLocale, 'en',f.EMP_NAME,f.A_EMP_NAME)									AS EMP_NAME,
+				          	c.SEATSTAKEN  																		AS SEATS_TAKEN,
+				          	get_std_responses(sem.L_ABR_YRSEM,c.COURSE_CODE, c.SECTNO,c.EMPNO,null,null) 		AS STUDENT_RESPONSE
+				      FROM	V_COURSE_DETAILS@SIS_LINK.SQU.EDU.OM		c,
+				        	V_FACULTY_PORTAL@SIS_LINK.SQU.EDU.OM		f,
+				        	V_CURRENT_YRSEM_PORTAL@SIS_LINK.SQU.EDU.OM	sem
+				      WHERE   	c.EMPNO 										= f.EMPNO(+)
+				           AND	COURSE_CODE NOT LIKE '%BOOK%'
+				    	   AND  IS_ASSISTANT_DEAN(to_number(:paramEmpNumber))	= 'Y'
+				           AND	CRS_COL_CODE 									= assistant_dean_col(to_number(:paramEmpNumber))
+				              
+				    ORDER BY    DEPARTMENT_NAME, COURSE_CODE, SECTION_NO 
+    	]]>
+    </entry>
+    <entry key="committee.members.in">
+    	<![CDATA[ 
+	    		SELECT 
+				    F.EMPNO               																		AS EMP_NUMBER
+				    ,DECODE
+				        (
+				          :paramLocale,
+				          'en', F.EMP_NAME,F.A_EMP_NAME
+				        )             																			AS EMP_NAME
+				    , COMMITTEE_MEMBER_TYPE_CODE 																AS COMMITTEE_ROLE
+				FROM
+				  	V_FACULTY_PORTAL F,
+				  	TEACHING_SURVEY_COMMITTEE C
+				WHERE 	F.EMPNO = LPAD(C.EMP_CODE,7,0)
+				  	AND C.COMMITTEE_IN_OUT_FLAG = 'in'
+    	]]>
+    </entry>
+    
+    <entry key="current.yrsem.admin">
+    	<![CDATA[
+    			SELECT  
+    				GET_CURR_YRSEM_ADMIN() 																		AS YR_SEM
+   				FROM DUAL
+    	]]>
+    </entry>
+    
+    <entry key="view.survey.committee.faculty.admin">
+    	<![CDATA[ 
+    		SELECT 
+      			TO_CHAR(COMMITTEE_VIEW_DATE,'mm/dd/yyyy')														AS COMMITTEE_VIEW_DATE,
+      			TO_CHAR(OTHERS_VIEW_DATE,'mm/dd/yyyy')															AS OTHERS_VIEW_DATE
+  			FROM 
+    			TEACHING_SURVEY_ADMIN_START
+  			WHERE L_ABR_YRSEM = (SELECT L_ABR_YRSEM FROM  V_CURRENT_YRSEM_PORTAL )
+    	 ]]>
+    	
+    </entry>
+    
+    <entry key="update.date.admin.committee.view">
+    	<![CDATA[ 
+    		UPDATE 
+			  TEACHING_SURVEY_ADMIN_START
+			SET 
+			  COMMITTEE_VIEW_DATE = TO_DATE(:paramDate, 'dd/mm/yyyy')
+			WHERE
+			  L_ABR_YRSEM = :paramSemester
+    	 ]]>
+    </entry>
+     <entry key="update.date.admin.faculty.view">
+    	<![CDATA[ 
+    		UPDATE 
+			  TEACHING_SURVEY_ADMIN_START
+			SET 
+			  OTHERS_VIEW_DATE = TO_DATE(:paramDate, 'dd/mm/yyyy')
+			WHERE
+			  L_ABR_YRSEM = :paramSemester
+    	 ]]>
+    </entry> 
+    
+    
+</properties>

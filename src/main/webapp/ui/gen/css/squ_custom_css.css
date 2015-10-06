@@ -1,0 +1,145 @@
+/*
+ SQU CSS 
+ Compatible with Bootstrap 3.1
+ * */
+/* squ-btn-add   -- SQU ADD Button */
+ 
+.squ-btn-add {
+  color: #9C9C49;
+  background-color: #fff;
+  border-color: #9C9C49;
+}
+.squ-btn-add:hover,
+.squ-btn-add:focus,
+.squ-btn-add:active,
+.squ-btn-add.active,
+.open .dropdown-toggle.squ-btn-add {
+  color: #CC9933;
+  background-color: #ebebeb;
+  border-color: #CC9933;
+}
+.squ-btn-add:active,
+.squ-btn-add.active,
+.open .dropdown-toggle.squ-btn-add {
+  background-image: none;
+}
+.squ-btn-add.disabled,
+.squ-btn-add[disabled],
+fieldset[disabled] .squ-btn-add,
+.squ-btn-add.disabled:hover,
+.squ-btn-add[disabled]:hover,
+fieldset[disabled] .squ-btn-add:hover,
+.squ-btn-add.disabled:focus,
+.squ-btn-add[disabled]:focus,
+fieldset[disabled] .squ-btn-add:focus,
+.squ-btn-add.disabled:active,
+.squ-btn-add[disabled]:active,
+fieldset[disabled] .squ-btn-add:active,
+.squ-btn-add.disabled.active,
+.squ-btn-add[disabled].active,
+fieldset[disabled] .squ-btn-add.active {
+  background-color: #fff;
+  border-color: #9C9C49;
+}
+.squ-btn-add .badge {
+  color: #9C9C49;
+  background-color: #333;
+}
+ 
+/* squ-btn-del   -- SQU DELETE Button */
+
+.squ-btn-del {
+  color: #ff0000;
+  background-color: #fff;
+  border-color: #ff0000;
+}
+.squ-btn-del:hover,
+.squ-btn-del:focus,
+.squ-btn-del:active,
+.squ-btn-del.active,
+.open .dropdown-toggle.squ-btn-del {
+  color: #ff0000;
+  background-color: #ebebeb;
+  border-color: #ff0000;
+}
+.squ-btn-del:active,
+.squ-btn-del.active,
+.open .dropdown-toggle.squ-btn-del {
+  background-image: none;
+}
+.squ-btn-del.disabled,
+.squ-btn-del[disabled],
+fieldset[disabled] .squ-btn-del,
+.squ-btn-del.disabled:hover,
+.squ-btn-del[disabled]:hover,
+fieldset[disabled] .squ-btn-del:hover,
+.squ-btn-del.disabled:focus,
+.squ-btn-del[disabled]:focus,
+fieldset[disabled] .squ-btn-del:focus,
+.squ-btn-del.disabled:active,
+.squ-btn-del[disabled]:active,
+fieldset[disabled] .squ-btn-del:active,
+.squ-btn-del.disabled.active,
+.squ-btn-del[disabled].active,
+fieldset[disabled] .squ-btn-del.active {
+  background-color: #fff;
+  border-color: #ff0000;
+}
+.squ-btn-del .badge {
+  color: #ff0000;
+  background-color: #333;
+}
+ 
+/* Boot strap drop down menu width*/
+.dropdown-menu {
+    width: 500px !important;
+    height: 400px !important;
+}
+
+/**
+ 
+ 
+.btn-default {
+  color: #333;
+  background-color: #fff;
+  border-color: #ccc;
+}
+.btn-default:hover,
+.btn-default:focus,
+.btn-default:active,
+.btn-default.active,
+.open .dropdown-toggle.btn-default {
+  color: #333;
+  background-color: #ebebeb;
+  border-color: #adadad;
+}
+.btn-default:active,
+.btn-default.active,
+.open .dropdown-toggle.btn-default {
+  background-image: none;
+}
+.btn-default.disabled,
+.btn-default[disabled],
+fieldset[disabled] .btn-default,
+.btn-default.disabled:hover,
+.btn-default[disabled]:hover,
+fieldset[disabled] .btn-default:hover,
+.btn-default.disabled:focus,
+.btn-default[disabled]:focus,
+fieldset[disabled] .btn-default:focus,
+.btn-default.disabled:active,
+.btn-default[disabled]:active,
+fieldset[disabled] .btn-default:active,
+.btn-default.disabled.active,
+.btn-default[disabled].active,
+fieldset[disabled] .btn-default.active {
+  background-color: #fff;
+  border-color: #ccc;
+}
+.btn-default .badge {
+  color: #fff;
+  background-color: #333;
+}
+ 
+ 
+ */
