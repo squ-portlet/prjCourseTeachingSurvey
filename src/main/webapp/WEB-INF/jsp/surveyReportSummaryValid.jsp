@@ -96,6 +96,7 @@
                 pagerButtonsCount: 10,
                 pageSizeOptions: ['10','20','50','100'],
                 source: dataAdapter,
+                localization: getLocalization(),
                 columnsResize: true,
                 columns: [
                 <c:if test='${staffRole.staffRole != "HOD"}'>

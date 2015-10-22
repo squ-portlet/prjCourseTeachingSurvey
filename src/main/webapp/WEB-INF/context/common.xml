@@ -90,6 +90,7 @@
  	</bean>	 
 
 	<bean id="teachingSurveyServiceDao"	class="om.edu.squ.squportal.portlet.tsurvey.dao.service.TeachingSurveyServiceImpl"/>
+	
 	<bean id="utilService"	class="om.edu.squ.squportal.portlet.tsurvey.utility.UtilService"/>
 
 	<bean id="accessVisibilitySurveyServlet" class="om.edu.squ.squportal.servlet.tsurvey.AccessVisibilitySurveyServlet"></bean>

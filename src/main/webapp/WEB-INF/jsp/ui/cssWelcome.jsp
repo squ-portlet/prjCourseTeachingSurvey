@@ -127,6 +127,8 @@
 <c:url value="/ui/jqwidgets3.8.2/js/jqxdatetimeinput.js" var="urlJsJqxDateTimeInput"/>
 <c:url value="/ui/jqwidgets3.8.2/js/jqxcalendar.js" var="urlJsJqxCalendar"/>
 
+<c:url value="/ui/jqwidgets3.8.2/js/locale/globalize.js" var="urlJsJqxLocaleGlobal"/>
+<c:url value="/ui/jqwidgets3.8.2/js/locale/globalize.culture.ar.js" var="urlJsJqxLocaleAr"/>
 <c:url value="/ui/jqwidgets3.8.2/js/locale/globalize.culture.ar.js" var="urlJsJqxLocaleAr"/>
 <c:url value="/ui/jqwidgets3.8.2/js/locale/globalize.culture.ar-OM.js" var="urlJsJqxLocaleArOm"/>
 <c:url value="/ui/bootstrap-toggle/js/bootstrap-toggle.min.js" var="urlJsBootstrapToggle"/>
@@ -208,6 +210,7 @@
 <script type="text/javascript" src="${urlJsJqxCalendar}"></script>
 
 <c:if test="${rc.locale.language == 'ar'}">
+	<script type="text/javascript" src="${urlJsJqxLocaleGlobal}"></script>
 	<script type="text/javascript" src="${urlJsJqxLocaleAr}"></script>
 	<script type="text/javascript" src="${urlJsJqxLocaleArOm}"></script>
 </c:if>
@@ -359,6 +362,115 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffcc0000', en
 /*********************************************/
 
 </style>
+
+<script>
+
+    var getLocalization = function () {
+                var localizationobj = {};
+                //localizationobj.pagerGoToPageString = "اذهب:";
+                localizationobj.pagerGoToPageString='<spring:message code="localizationobj.pagerGoToPageString"/>';
+                localizationobj.pagerShowRowsString = '<spring:message code="localizationobj.pagerShowRowsString"/>';
+                localizationobj.pagerRangeString = ' <spring:message code="localizationobj.pagerRangeString"/> ';
+                localizationobj.pagerNextButtonString = '<spring:message code="localizationobj.pagerNextButtonString"/>';
+                localizationobj.pagerFirstButtonString = '<spring:message code="localizationobj.pagerFirstButtonString"/>';
+                localizationobj.pagerLastButtonString = '<spring:message code="localizationobj.pagerLastButtonString"/>';
+                localizationobj.pagerPreviousButtonString = '<spring:message code="localizationobj.pagerPreviousButtonString"/>';
+                localizationobj.sortAscendingString = '<spring:message code="localizationobj.sortAscendingString"/>';
+                localizationobj.sortDescendingString = '<spring:message code="localizationobj.sortDescendingString"/>';
+                localizationobj.sortRemoveString = '<spring:message code="localizationobj.sortRemoveString"/>';
+                localizationobj.emptydatastring = '<spring:message code="localizationobj.emptydatastring"/>';
+                localizationobj.firstDay = 1;
+                localizationobj.percentSymbol = "%";
+                localizationobj.currencySymbol = "€";
+                localizationobj.currencySymbolPosition = '<spring:message code="localizationobj.currencySymbolPosition"/>';
+                localizationobj.decimalSeparator = ".";
+                localizationobj.thousandsSeparator = ",";
+                var days = {
+                    // full day names
+                    names: [
+		                    "Sonntag", 
+		                    "Montag", 
+		                    "Dienstag", 
+		                    "Mittwoch", 
+		                    "Donnerstag", 
+		                    "Freitag", 
+		                    "Samstag"
+		                    ],
+                    // abbreviated day names
+                    namesAbbr: [
+	                    		"Sonn", 
+	                    		"Mon", 
+	                    		"Dien", 
+	                    		"Mitt", 
+	                    		"Donn", 
+	                    		"Fre", 
+	                    		"Sams"
+                    		],
+                    // shortest day names
+                    namesShort: [
+	                    		"So", 
+	                    		"Mo", 
+	                    		"Di", 
+	                    		"Mi", 
+	                    		"Do", 
+	                    		"Fr", 
+	                    		"Sa"
+                    		]
+                };
+                localizationobj.days = days;
+                var months = {
+                    // full month names (13 months for lunar calendards -- 13th month should be "" if not lunar)
+                    names: [
+                    		"Januar", 
+                    		"Februar", 
+                    		"März", 
+                    		"April", 
+                    		"Mai", 
+                    		"Juni", 
+                    		"Juli", 
+                    		"August", 
+                    		"September", 
+                    		"Oktober", 
+                    		"November", 
+                    		"Dezember", 
+                    		""
+                    		],
+                    // abbreviated month names
+                    namesAbbr: [
+                    			"Jan", 
+                    			"Feb", 
+                    			"Mär", 
+                    			"Apr", 
+                    			"Mai", 
+                    			"Jun", 
+                    			"Jul", 
+                    			"Aug", 
+                    			"Sep", 
+                    			"Oct", 
+                    			"Nov", 
+                    			"Dez", 
+                    			""
+                    		   ]
+                };
+                var patterns = {
+                    d: "dd.MM.yyyy",
+                    D: "dddd, d. MMMM yyyy",
+                    t: "HH:mm",
+                    T: "HH:mm:ss",
+                    f: "dddd, d. MMMM yyyy HH:mm",
+                    F: "dddd, d. MMMM yyyy HH:mm:ss",
+                    M: "dd MMMM",
+                    Y: "MMMM yyyy"
+                }
+                localizationobj.patterns = patterns;
+                localizationobj.months = months;
+                return localizationobj;
+            };
+
+
+</script>
+
+
 
 <c:if test="${rc.locale.language == 'en'}" >
 	<c:set value="ltr" var="varDirection"/>
