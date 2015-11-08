@@ -38,6 +38,7 @@ import om.edu.squ.squportal.portlet.tsurvey.bo.ReportSummary;
 import om.edu.squ.squportal.portlet.tsurvey.bo.ReportYrSem;
 import om.edu.squ.squportal.portlet.tsurvey.bo.StaffRole;
 import om.edu.squ.squportal.portlet.tsurvey.bo.StudentResponse;
+import om.edu.squ.squportal.portlet.tsurvey.bo.load.StatementSqlBo;
 import om.edu.squ.squportal.portlet.tsurvey.bo.survey.Analysis;
 import om.edu.squ.squportal.portlet.tsurvey.bo.survey.OpenEndQuestion;
 import om.edu.squ.squportal.portlet.tsurvey.bo.survey.Survey;
@@ -310,5 +311,21 @@ public interface TeachingSurveyDbDao
 	 * Date    		:	Sep 27, 2015 9:58:06 AM
 	 */
 	public int setDateAdminFacultyView(String semesterCode, String dateFacultyView);
+
+	/************************************************ SURVEY LOADING OPERATIONS ***************************************/ 
+	
+	/**
+	 * 
+	 * method name  : loadPreSurvey
+	 * @param sqlBo
+	 * @return
+	 * TeachingSurveyDbImpl
+	 * return type  : String
+	 * 
+	 * purpose		: Truncate and load data in different tables from SIS
+	 *
+	 * Date    		:	Nov 5, 2015 12:56:36 PM
+	 */
+	public  String loadPreSurvey(StatementSqlBo  sqlBo);
 	
 }

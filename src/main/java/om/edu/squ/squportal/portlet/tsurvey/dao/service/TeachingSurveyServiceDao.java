@@ -29,6 +29,7 @@
  */
 package om.edu.squ.squportal.portlet.tsurvey.dao.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
@@ -40,6 +41,7 @@ import om.edu.squ.squportal.portlet.tsurvey.bo.Department;
 import om.edu.squ.squportal.portlet.tsurvey.bo.ReportSummary;
 import om.edu.squ.squportal.portlet.tsurvey.bo.StaffRole;
 import om.edu.squ.squportal.portlet.tsurvey.bo.StudentResponse;
+import om.edu.squ.squportal.portlet.tsurvey.bo.load.StatementSqlListBo;
 import om.edu.squ.squportal.portlet.tsurvey.bo.survey.OpenEndQuestion;
 import om.edu.squ.squportal.portlet.tsurvey.bo.survey.Survey;
 import om.edu.squ.squportal.portlet.tsurvey.bo.survey.SurveyYear;
@@ -319,5 +321,21 @@ public interface TeachingSurveyServiceDao
 	 * Date    		:	Sep 21, 2015 4:06:18 PM
 	 */
 	public AccessSurvey getAccessViewRights();
+	
+	/************************************************ SURVEY LOADING OPERATIONS ***************************************/ 
+	
+	/**
+	 * 	
+	 * method name  : loadPreSurvey
+	 * @return
+	 * @throws IOException
+	 * TeachingSurveyServiceImpl
+	 * return type  : String
+	 * 
+	 * purpose		: DB preparation before survey start
+	 *
+	 * Date    		:	Nov 5, 2015 12:36:54 PM
+	 */
+		public String	loadPreSurvey() throws IOException;	
 	
 }

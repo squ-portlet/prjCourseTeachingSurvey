@@ -38,7 +38,7 @@
 <%@include file="../ui/jsCode.jsp" %>
 
 
-<c:if test="${isCurrentSemesterViewable}" >
+<%-- <c:if test="${isCurrentSemesterViewable}" > --%>
 	<div class="row show-grid divColGreen">
 		<div class="col-xs-2 " >
 			<spring:message code="prop.course.teaching.survey.course.code"/>
@@ -92,7 +92,7 @@
 			</div>
 		</div>
 	</c:forEach>
-</c:if>
+<%-- </c:if> --%>
 
 
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">

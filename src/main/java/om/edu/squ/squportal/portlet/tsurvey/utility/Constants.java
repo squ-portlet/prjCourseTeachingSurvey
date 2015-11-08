@@ -140,5 +140,10 @@ public interface Constants
 	
 	public static  String 	CONST_MAPTRACK 										= 	"MAPTRACK";
 	
+	/******************************************************/
+	
+	/**********CONSTANTS XML FILES *************/
+	public static String	CONST_FILE_XML_SQL_PRESURVEY_LOAD					=	"sql/sql_preSurveyLoading.xml";
+	
 	
 }

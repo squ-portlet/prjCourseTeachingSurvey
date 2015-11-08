@@ -29,6 +29,8 @@
  */
 package om.edu.squ.squportal.portlet.tsurvey.dao.service;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -38,6 +40,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import javax.portlet.PortletRequest;
+import javax.xml.transform.stream.StreamSource;
 
 import om.edu.squ.squportal.portlet.tsurvey.bo.AccessSurvey;
 import om.edu.squ.squportal.portlet.tsurvey.bo.CommitteeMember;
@@ -48,17 +51,24 @@ import om.edu.squ.squportal.portlet.tsurvey.bo.ReportSummary;
 import om.edu.squ.squportal.portlet.tsurvey.bo.ReportYrSem;
 import om.edu.squ.squportal.portlet.tsurvey.bo.StaffRole;
 import om.edu.squ.squportal.portlet.tsurvey.bo.StudentResponse;
+import om.edu.squ.squportal.portlet.tsurvey.bo.load.StatementSqlBo;
+import om.edu.squ.squportal.portlet.tsurvey.bo.load.StatementSqlListBo;
 import om.edu.squ.squportal.portlet.tsurvey.bo.survey.OpenEndQuestion;
 import om.edu.squ.squportal.portlet.tsurvey.bo.survey.Survey;
 import om.edu.squ.squportal.portlet.tsurvey.bo.survey.SurveyResponse;
 import om.edu.squ.squportal.portlet.tsurvey.bo.survey.SurveyYear;
 import om.edu.squ.squportal.portlet.tsurvey.dao.db.TeachingSurveyDbDao;
+import om.edu.squ.squportal.portlet.tsurvey.utility.Constants;
 import om.edu.squ.squportal.portlet.tsurvey.utility.UtilProperty;
 import om.edu.squ.squportal.portlet.tsurvey.utility.UtilService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.oxm.Unmarshaller;
 
 import com.google.gson.Gson;
 
@@ -74,6 +84,10 @@ public class TeachingSurveyServiceImpl implements TeachingSurveyServiceDao
 	UtilService	utilService;
 	@Autowired
 	TeachingSurveyDbDao	teachingSurveyDbDao;
+	
+	@Autowired
+	@Qualifier("jaxb2Marshaller")
+	private	 Unmarshaller unmarshaller;
 	
 	/**
 	 * 
@@ -740,5 +754,61 @@ public class TeachingSurveyServiceImpl implements TeachingSurveyServiceDao
 	{
 		return teachingSurveyDbDao.getAccessViewRights();
 	}
+
+	/************************************************ SURVEY LOADING OPERATIONS ***************************************/ 
+	/**
+	 * 
+	 * method name  : getPreSurveyQueries
+	 * @return
+	 * @throws IOException
+	 * TeachingSurveyServiceImpl
+	 * return type  : StatementSqlListBo
+	 * 
+	 * purpose		: Load queries for presurvey loading operation
+	 *
+	 * Date    		:	Nov 5, 2015 12:23:38 PM
+	 */
+	public StatementSqlListBo getPreSurveyQueries() throws IOException
+	{
+		Resource			resource	=	new ClassPathResource(Constants.CONST_FILE_XML_SQL_PRESURVEY_LOAD);
+		InputStream			stream		=	resource.getInputStream();
+				
+		
+		return (StatementSqlListBo) unmarshaller.unmarshal(new StreamSource(stream));
+	}
+/**
+ * 	
+ * method name  : loadPreSurvey
+ * @return
+ * @throws IOException
+ * TeachingSurveyServiceImpl
+ * return type  : String
+ * 
+ * purpose		: DB preparation before survey start
+ *
+ * Date    		:	Nov 5, 2015 12:36:54 PM
+ */
+	public String	loadPreSurvey() throws IOException
+	{
+		//TODO Check dates etc
+		if(true)
+		{
+			StatementSqlListBo	sqlListBo	=	getPreSurveyQueries();
+			try
+			{
+				for(StatementSqlBo sqlBo : sqlListBo.getSqlBos())
+				{
+					logger.info("success");
+					teachingSurveyDbDao.loadPreSurvey(sqlBo);
+				}
+			}
+			catch (Exception ex)
+			{
+				logger.error("failure in pre loading survey data");
+			}
+		}
+		return null;
+	}
+	
 	
 }
