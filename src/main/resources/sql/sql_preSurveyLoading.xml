@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqloads>
+	<sqload stmtno="s1" type="pre" >
+		<stmtTruncate>truncate table TEMP_V_STDTIMETABLE_PORTAL</stmtTruncate>
+		<stmtInsert>insert into TEMP_V_STDTIMETABLE_PORTAL  select * from V_STDTIMETABLE_PORTAL@sis_link.squ.edu.om</stmtInsert>
+		<msgNotSuccess>Insert statement in V_STDTIMETABLE_PORTAL table is not executed successfully</msgNotSuccess>
+	</sqload>
+	
+	<sqload stmtno="s2" type="pre" >
+		<stmtTruncate>truncate table TEMP_V_STDINFO_PORTAL</stmtTruncate>
+		<stmtInsert>insert into TEMP_V_STDINFO_PORTAL  select * from V_STDINFO_PORTAL@sis_link.squ.edu.om</stmtInsert>
+		<msgNotSuccess>Insert statement is in V_STDINFO_PORTAL table not executed successfully</msgNotSuccess>
+	</sqload>
+
+	<sqload stmtno="s3" type="pre" >
+		<stmtTruncate>truncate table TEMP_V_COURSE_DETAILS</stmtTruncate>
+		<stmtInsert>insert into TEMP_V_COURSE_DETAILS  select * from V_COURSE_DETAILS@sis_link.squ.edu.om</stmtInsert>
+		<msgNotSuccess>Insert statement is in V_COURSE_DETAILS table not executed successfully</msgNotSuccess>
+	</sqload>
+		
+	<sqload stmtno="s4" type="pre" >
+		<stmtTruncate>truncate table TEMP_V_CURRENT_YRSEM_PORTAL</stmtTruncate>
+		<stmtInsert>insert into TEMP_V_CURRENT_YRSEM_PORTAL select * from V_CURRENT_YRSEM_PORTAL@sis_link.squ.edu.om</stmtInsert>
+		<msgNotSuccess>Insert statement is in V_CURRENT_YRSEM_PORTAL table not executed successfully</msgNotSuccess>
+	</sqload>
+		
+	<sqload stmtno="s5" type="pre" >
+		<stmtTruncate>truncate table TEMP_V_STDREG_PORTAL</stmtTruncate>
+		<stmtInsert>insert into TEMP_V_STDREG_PORTAL select * from V_STDREG_PORTAL@sis_link.squ.edu.om</stmtInsert>
+		<msgNotSuccess>Insert statement is in V_STDREG_PORTAL table not executed successfully</msgNotSuccess>
+	</sqload>
+		
+	<sqload stmtno="s6" type="pre" >
+		<stmtTruncate>truncate table TEMP_V_FACULTY_PORTAL</stmtTruncate>
+		<stmtInsert>insert into TEMP_V_FACULTY_PORTAL select * from V_FACULTY_PORTAL@sis_link.squ.edu.om</stmtInsert>
+		<msgNotSuccess>Insert statement is in V_FACULTY_PORTAL table not executed successfully</msgNotSuccess>
+	</sqload>
+		
+	<sqload stmtno="s7" type="pre" >
+		<stmtTruncate> truncate table TEMP_V_EVALUATION_YRSEM</stmtTruncate>
+		<stmtInsert>insert into TEMP_V_EVALUATION_YRSEM select * from V_EVALUATION_YRSEM@sis_link.squ.edu.om</stmtInsert>
+		<msgNotSuccess>Insert statement is in V_EVALUATION_YRSEM table not executed successfully</msgNotSuccess>
+	</sqload>
+		
+	<sqload stmtno="s8" type="pre" >
+		<stmtTruncate> truncate table TEMP_V_SIS_STAFF</stmtTruncate>
+		<stmtInsert>insert into TEMP_V_SIS_STAFF select * from V_SIS_STAFF@sis_link.squ.edu.om</stmtInsert>
+		<msgNotSuccess>Insert statement is in V_SIS_STAFF table not executed successfully</msgNotSuccess>
+	</sqload>
+		
+</sqloads>

@@ -35,4 +35,5 @@
         
         
  <context:component-scan base-package="om.edu.squ.squportal.portlet.tsurvey.controller" />
+ <context:component-scan base-package="om.edu.squ.squportal.portlet.tsurvey.dao.service" />
  </beans>

@@ -93,7 +93,8 @@
  	</bean>	 
 
 	<bean id="teachingSurveyServiceDao"	class="om.edu.squ.squportal.portlet.tsurvey.dao.service.TeachingSurveyServiceImpl"/>
-	
+	                                           
+
 	<bean id="utilService"	class="om.edu.squ.squportal.portlet.tsurvey.utility.UtilService"/>
 
 	<bean id="accessVisibilitySurveyServlet" class="om.edu.squ.squportal.servlet.tsurvey.AccessVisibilitySurveyServlet"></bean>
@@ -113,7 +114,12 @@
 	<bean id="preSurveyOperation" class="om.edu.squ.squportal.portlet.tsurvey.schedular.PreSurveyOperation" />
 	
 	<!-- Spring's scheduling support -->
-	<!-- TODO Enable this code for scheduling 
+	
+	<!-- TODO Enable this code for scheduling  0 0 21 11 5 2015 
+	    *******  minute 0,hour 0,day of month 22,month 11 (november),day of week (friday/saturday),year 2015 *****
+	--> 
+	 
+	<!--
     <task:scheduled-tasks scheduler="taskScheduler">
         <task:scheduled ref="preSurveyOperation" method="operation" cron="0 * * * * *"/>
     </task:scheduled-tasks>
