@@ -26,14 +26,17 @@
 -->
 <!-- UI side validation from http://bootstrapvalidator.com/ -->
 <%@ taglib prefix="c"       uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring"  uri="http://www.springframework.org/tags" %>
+
+<spring:message code="url.squ.cdn" var="urlCdn"/>
 
 <!-- **** Bootstrap Glyphicons Halflings **** -->
 
 
-<c:url value="/ui/bootstrap-3.3.1/dist/fonts/glyphicons-halflings-regular.eot" var="urlGlyphRegularEot"/>
-<c:url value="/ui/bootstrap-3.3.1/dist/fonts/glyphicons-halflings-regular.woff" var="urlGlyphregularWoff"/>
-<c:url value="/ui/bootstrap-3.3.1/dist/fonts/glyphicons-halflings-regular.ttf" var="urlGlyphregularTtf"/>
-<c:url value="/ui/bootstrap-3.3.1/dist/fonts/glyphicons-halflings-regular.svg" var="urlGlyphregularSvg"/>
+<c:url value="${urlCdn}/bootstrap/3.1.1/dist/fonts/glyphicons-halflings-regular.eot" var="urlGlyphRegularEot"/>
+<c:url value="${urlCdn}/bootstrap/3.1.1/dist/fonts/glyphicons-halflings-regular.woff" var="urlGlyphregularWoff"/>
+<c:url value="${urlCdn}/bootstrap/3.1.1/dist/fonts/glyphicons-halflings-regular.ttf" var="urlGlyphregularTtf"/>
+<c:url value="${urlCdn}/bootstrap/3.1.1/dist/fonts/glyphicons-halflings-regular.svg" var="urlGlyphregularSvg"/>
 
 <!-- **** Image - icons **** -->
 <c:url value="/ui/bootstrap-3.3.1/images/calendar52.png" var="urlImgGlyphLeaveAnnual"/>
@@ -50,88 +53,82 @@
 <c:url value="/ui/bootstrap-3.3.1/images/glyphicons_308_share_alt.png" var="urlImgGlyphShare"/>
 
 <!-- ******************** CSS Declaration************************ --> 
-<c:url value="/ui/bootstrap-3.3.1/dist/css/bootstrap.css" var="urlCssBootstrap"/>
-<c:url value="/ui/bootstrap-3.3.1/dist/css/bootstrap.min.css" var="urlCssBootstrapMin"/>
-<c:url value="/ui/bootstrap-3.3.1/dist/css/bootstrap-theme.min.css" var="urlCssBootstrapThemeMin"/>
+<c:url value="${urlCdn}/bootstrap/3.1.1/dist/css/bootstrap.css" var="urlCssBootstrap"/>
+<c:url value="${urlCdn}/bootstrap/3.1.1/dist/css/bootstrap.min.css" var="urlCssBootstrapMin"/>
+<c:url value="${urlCdn}/bootstrap/3.1.1/dist/css/bootstrap-theme.min.css" var="urlCssBootstrapThemeMin"/>
 <c:url value="/ui/gen/css/normalize.css" var="urlCssNormalize"/>
-<c:url value="/ui/gen/css/jquery-ui-custom.css" var="urlCssJQueryUiCustom"/>
+<c:url value="${urlCdn}/jqueryui/1.11.4/jquery-ui.min.js" var="urlCssJQueryUiCustom"/>
 
-<c:url value="/ui/bootstrapvalidator-0.5.3/css/bootstrapValidator.min.css" var="urlCssValidatorBootStrap"/>
 <c:url value="/ui/gen/css/squ_custom_css.css" var="urlCssSquCustomCss"/>
 
-<c:url value="/ui/bootstrap-3-arabic-master/dist/css/bootstrap-arabic.css" var="urlCssBootstrapArabic"/>
-<c:url value="/ui/bootstrap-3-arabic-master/dist/css/bootstrap-arabic-theme.css" var="urlCssBootstrapArabicTheme"/>
+<c:url value="${urlCdn}/bootstrap-arabic/bootstrap-3-arabic-master/dist/css/bootstrap-arabic.css" var="urlCssBootstrapArabic"/>
+<c:url value="${urlCdn}/bootstrap-arabic/bootstrap-3-arabic-master/dist/css/bootstrap-arabic-theme.css" var="urlCssBootstrapArabicTheme"/>
 
 	<!-- ------------ jqwidget css declaration -->
-<c:url value="/ui/jqwidgets3.8.2/css/jqx.base.css" var="urlCssJqxBase"/>
-<c:url value="/ui/jqwidgets3.8.2/css/jqx.bootstrap.css" var="urlCssJqxBootStrap"/>
+<c:url value="${urlCdn}/jqwidgets/3.8.2/css/jqx.base.css" var="urlCssJqxBase"/>
+<c:url value="${urlCdn}/jqwidgets/3.8.2/css/jqx.bootstrap.css" var="urlCssJqxBootStrap"/>
 
-	<!-- ------------ awesome-bootstrap-checkbox css declaration -->
-<c:url value="/ui/gen/css/awesome-bootstrap-checkbox.css" var="urlCssAwesomeBootStrap"/>
 
 <!-- ------------ bootstrap toggle css declaration -->
-<c:url value="/ui/bootstrap-toggle/css/bootstrap-toggle.min.css" var="urlCssBootStrapToggle"/>
+<c:url value="${urlCdn}/bootstrap-arabic/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" var="urlCssBootStrapToggle"/>
 
 <!-- ******************** JS Declaration************************ -->
 
-<c:url value="/ui/gen/js/jquery-1.10.1.min.js" var="urlJsJqueryMin"/>
-<%-- <c:url value="/js/jquery-1.7.1.js" var="urlJsJqueryMin"/> --%>
-<c:url value="/ui/bootstrap-3.3.1/dist/js/bootstrap.min.js" var="urlJsBootStrapMin"/>
+<c:url value="${urlCdn}/jquery/1.11.3/jquery-1.11.3.min.js" var="urlJsJqueryMin"/>
+<c:url value="${urlCdn}/bootstrap/3.1.1/dist/js/bootstrap.min.js" var="urlJsBootStrapMin"/>
 <c:url value="/ui/gen/js/html5shiv.js" var="urlJsHtml5shiv"/>
 <c:url value="/ui/gen/js/respond.min.js" var="urlJsRespond"/>
 <c:url value="/ui/gen/js/css3-mediaqueries.js" var="urlJsCss3MediaQueries"/>
-<c:url value="/ui/bootstrap-3.3.1/js/tooltip.js" var="urlJsBSToolTip"/>
-<c:url value="/ui/bootstrap-3.3.1/js/popover.js" var="urlJsBSPopover"/>
-<c:url value="/ui/bootstrap-3.3.1/js/tab.js" var="urlJsBSTab"/>
-<c:url value="/ui/bootstrap-3.3.1/js/collapse.js" var="urlJsBSCollapse"/>
-<c:url value="/ui/bootstrap-3.3.1/js/transition.js" var="urlJsBSTransition"/>
-<c:url value="/ui/gen/js/jquery-ui.min.js" var="urlJsJqueryUIMin"/>
+<c:url value="${urlCdn}/bootstrap/3.1.1/js/tooltip.js" var="urlJsBSToolTip"/>
+<c:url value="${urlCdn}/bootstrap/3.1.1/js/popover.js" var="urlJsBSPopover"/>
+<c:url value="${urlCdn}/bootstrap/3.1.1/js/tab.js" var="urlJsBSTab"/>
+<c:url value="${urlCdn}/bootstrap/3.1.1/js/collapse.js" var="urlJsBSCollapse"/>
+<c:url value="${urlCdn}/bootstrap/3.1.1/js/transition.js" var="urlJsBSTransition"/>
+<c:url value="${urlCdn}/jqueryui/1.11.4/jquery-ui.min.js" var="urlJsJqueryUIMin"/>
 
 
-<c:url value="/ui/bootstrapvalidator-0.5.3/js/bootstrapValidator.min.js" var="urlJsValidatorBootStrap"/>
-<%-- <c:url value="/ui/formValidator/jquery.form-validator.min.js" var="urlJsValidatorJquery"/> --%>
 
-<c:url value="/ui/jqueryvalidation-1.13.1/jquery.validate.min.js" var="urlJsValidatorJquery"/>
-<c:url value="/ui/jqueryvalidation-1.13.1/additional-methods.min.js" var="urlJsValidatorJqueryAddl"/>
+<c:url value="${urlCdn}/jqueryvalidation/1.13.1/jquery.validate.min.js" var="urlJsValidatorJquery"/>
+<c:url value="${urlCdn}/jqueryvalidation/1.13.1/additional-methods.min.js" var="urlJsValidatorJqueryAddl"/>
 
-<c:url value="/ui/bootstrap-3-arabic-master/dist/js/bootstrap-arabic.js" var="urlJsBootstrapArabic"/>
+<c:url value="${urlCdn}/bootstrap-arabic/bootstrap-3-arabic-master/dist/js/bootstrap-arabic.js" var="urlJsBootstrapArabic"/>
 
 	<!-- ------------ jqwidget js declaration -->
-<c:url value="/ui/jqwidgets3.8.2/js/jqxcore.js" var="urlJsJqxCore"/>
-<c:url value="/ui/jqwidgets3.8.2/js/jqxbuttons.js" var="urlJsJqxButtons"/>
-<c:url value="/ui/jqwidgets3.8.2/js/jqxdata.js" var="urlJsJqxData"/>
-<c:url value="/ui/jqwidgets3.8.2/js/jqxdatatable.js" var="urlJsJqxDataTable"/>
-<c:url value="/ui/jqwidgets3.8.2/js/jqxscrollbar.js" var="urlJsJqxScrollbar"/>
-<c:url value="/ui/jqwidgets3.8.2/js/jqxtreegrid.js" var="urlJsJqxTreeGrid"/>
-<c:url value="/ui/jqwidgets3.8.2/js/jqxlistbox.js" var="urlJsJqxlistbox"/>
-<c:url value="/ui/jqwidgets3.8.2/js/jqxdropdownlist.js" var="urlJsJqxdropdownlist"/>
-<c:url value="/ui/jqwidgets3.8.2/js/jqxdata.export.js" var="urlJsJqxDataExport"/>
+<c:url value="${urlCdn}/jqwidgets/3.8.2/js/jqxcore.js" var="urlJsJqxCore"/>
+<c:url value="${urlCdn}/jqwidgets/3.8.2/js/jqxbuttons.js" var="urlJsJqxButtons"/>
+<c:url value="${urlCdn}/jqwidgets/3.8.2/js/jqxdata.js" var="urlJsJqxData"/>
+<c:url value="${urlCdn}/jqwidgets/3.8.2/js/jqxdatatable.js" var="urlJsJqxDataTable"/>
+<c:url value="${urlCdn}/jqwidgets/3.8.2/js/jqxscrollbar.js" var="urlJsJqxScrollbar"/>
+<c:url value="${urlCdn}/jqwidgets/3.8.2/js/jqxtreegrid.js" var="urlJsJqxTreeGrid"/>
+<c:url value="${urlCdn}/jqwidgets/3.8.2/js/jqxlistbox.js" var="urlJsJqxlistbox"/>
+<c:url value="${urlCdn}/jqwidgets/3.8.2/js/jqxdropdownlist.js" var="urlJsJqxdropdownlist"/>
+<c:url value="${urlCdn}/jqwidgets/3.8.2/js/jqxdata.export.js" var="urlJsJqxDataExport"/>
 
-<c:url value="/ui/jqwidgets3.8.2/js/jqxgrid.columnsreorder.js" var="urlJsJqxGridColumnsreorder"/>
-<c:url value="/ui/jqwidgets3.8.2/js/jqxgrid.columnsresize.js" var="urlJsJqxGridColumnsresize"/>
-<c:url value="/ui/jqwidgets3.8.2/js/jqxgrid.edit.js" var="urlJsJqxGridEdit"/>
-<c:url value="/ui/jqwidgets3.8.2/js/jqxgrid.filter.js" var="urlJsJqxGridFilter"/>
-<c:url value="/ui/jqwidgets3.8.2/js/jqxgrid.grouping.js" var="urlJsJqxGridGrouping"/>
-<c:url value="/ui/jqwidgets3.8.2/js/jqxgrid.js" var="urlJsJqxGrid"/>
-<c:url value="/ui/jqwidgets3.8.2/js/jqxgrid.pager.js" var="urlJsJqxGridPager"/>
-<c:url value="/ui/jqwidgets3.8.2/js/jqxgrid.selection.js" var="urlJsJqxGridSelection"/>
-<c:url value="/ui/jqwidgets3.8.2/js/jqxgrid.sort.js" var="urlJsJqxGridSort"/>
-<c:url value="/ui/jqwidgets3.8.2/js/jqxmenu.js" var="urlJsJqxMenu"/>
-<c:url value="/ui/jqwidgets3.8.2/js/jqxdocking.js" var="urlJsJqxDocking"/>
-<c:url value="/ui/jqwidgets3.8.2/js/jqxpanel.js" var="urlJsJqxPanel"/>
-<c:url value="/ui/jqwidgets3.8.2/js/jqxsplitter.js" var="urlJsJqxSplitter"/>
-<c:url value="/ui/jqwidgets3.8.2/js/jqxtabs.js" var="urlJsJqxTabs"/>
-<c:url value="/ui/jqwidgets3.8.2/js/jqxtooltip.js" var="urlJsJqxToolTip"/>
-<c:url value="/ui/jqwidgets3.8.2/js/jqxwindow.js" var="urlJsJqxWindow"/>
+<c:url value="${urlCdn}/jqwidgets/3.8.2/js/jqxgrid.columnsreorder.js" var="urlJsJqxGridColumnsreorder"/>
+<c:url value="${urlCdn}/jqwidgets/3.8.2/js/jqxgrid.columnsresize.js" var="urlJsJqxGridColumnsresize"/>
+<c:url value="${urlCdn}/jqwidgets/3.8.2/js/jqxgrid.edit.js" var="urlJsJqxGridEdit"/>
+<c:url value="${urlCdn}/jqwidgets/3.8.2/js/jqxgrid.filter.js" var="urlJsJqxGridFilter"/>
+<c:url value="${urlCdn}/jqwidgets/3.8.2/js/jqxgrid.grouping.js" var="urlJsJqxGridGrouping"/>
+<c:url value="${urlCdn}/jqwidgets/3.8.2/js/jqxgrid.js" var="urlJsJqxGrid"/>
+<c:url value="${urlCdn}/jqwidgets/3.8.2/js/jqxgrid.pager.js" var="urlJsJqxGridPager"/>
+<c:url value="${urlCdn}/jqwidgets/3.8.2/js/jqxgrid.selection.js" var="urlJsJqxGridSelection"/>
+<c:url value="${urlCdn}/jqwidgets/3.8.2/js/jqxgrid.sort.js" var="urlJsJqxGridSort"/>
+<c:url value="${urlCdn}/jqwidgets/3.8.2/js/jqxmenu.js" var="urlJsJqxMenu"/>
+<c:url value="${urlCdn}/jqwidgets/3.8.2/js/jqxdocking.js" var="urlJsJqxDocking"/>
+<c:url value="${urlCdn}/jqwidgets/3.8.2/js/jqxpanel.js" var="urlJsJqxPanel"/>
+<c:url value="${urlCdn}/jqwidgets/3.8.2/js/jqxsplitter.js" var="urlJsJqxSplitter"/>
+<c:url value="${urlCdn}/jqwidgets/3.8.2/js/jqxtabs.js" var="urlJsJqxTabs"/>
+<c:url value="${urlCdn}/jqwidgets/3.8.2/js/jqxtooltip.js" var="urlJsJqxToolTip"/>
+<c:url value="${urlCdn}/jqwidgets/3.8.2/js/jqxwindow.js" var="urlJsJqxWindow"/>
 
-<c:url value="/ui/jqwidgets3.8.2/js/jqxdatetimeinput.js" var="urlJsJqxDateTimeInput"/>
-<c:url value="/ui/jqwidgets3.8.2/js/jqxcalendar.js" var="urlJsJqxCalendar"/>
+<c:url value="${urlCdn}/jqwidgets/3.8.2/js/jqxdatetimeinput.js" var="urlJsJqxDateTimeInput"/>
+<c:url value="${urlCdn}/jqwidgets/3.8.2/js/jqxcalendar.js" var="urlJsJqxCalendar"/>
 
-<c:url value="/ui/jqwidgets3.8.2/js/locale/globalize.js" var="urlJsJqxLocaleGlobal"/>
-<c:url value="/ui/jqwidgets3.8.2/js/locale/globalize.culture.ar.js" var="urlJsJqxLocaleAr"/>
-<c:url value="/ui/jqwidgets3.8.2/js/locale/globalize.culture.ar.js" var="urlJsJqxLocaleAr"/>
-<c:url value="/ui/jqwidgets3.8.2/js/locale/globalize.culture.ar-OM.js" var="urlJsJqxLocaleArOm"/>
-<c:url value="/ui/bootstrap-toggle/js/bootstrap-toggle.min.js" var="urlJsBootstrapToggle"/>
+<c:url value="${urlCdn}/jqwidgets/3.8.2/js/locale/globalize.js" var="urlJsJqxLocaleGlobal"/>
+<c:url value="${urlCdn}/jqwidgets/3.8.2/js/locale/globalize.culture.ar.js" var="urlJsJqxLocaleAr"/>
+<c:url value="${urlCdn}/jqwidgets/3.8.2/js/locale/globalize.culture.ar.js" var="urlJsJqxLocaleAr"/>
+<c:url value="${urlCdn}/jqwidgets/3.8.2/js/locale/globalize.culture.ar-OM.js" var="urlJsJqxLocaleArOm"/>
+<c:url value="${urlCdn}/bootstrap-arabic/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js" var="urlJsBootstrapToggle"/>
 
 
 
@@ -149,12 +146,11 @@
 
  <link rel="stylesheet" type="text/css" href="${urlCssNormalize}" />
  <link rel="stylesheet" type="text/css" href="${urlCssJQueryUiCustom}" />
- <link rel="stylesheet" type="text/css" href="${urlCssValidatorBootStrap}" />
  <link rel="stylesheet" type="text/css" href="${urlCssSquCustomCss}" />
 	<!-- ------------ jqwidget css implementation --> 
  <link rel="stylesheet" type="text/css" href="${urlCssJqxBase}" />
-	<!-- ------------ awesome-bootstrap-checkbox css implementation -->
-<%--  <link rel="stylesheet" type="text/css" href="${urlCssAwesomeBootStrap}" /> --%>
+
+
  <!-- ------------ bootstrap toggle css implementation -->
   <link rel="stylesheet" type="text/css" href="${urlCssBootStrapToggle}" />
 
@@ -172,7 +168,7 @@
   <script type="text/javascript" src="${urlJsBSTransition}"></script>
  <script type="text/javascript" src="${urlJsJqueryUIMin}"></script>
 
-<%-- <script type="text/javascript" src="${urlJsValidatorBootStrap}"></script> --%>
+
 
 <script type="text/javascript" src="${urlJsValidatorJquery}"></script>
 <script type="text/javascript" src="${urlJsValidatorJqueryAddl}"></script>
@@ -357,7 +353,10 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffcc0000', en
 </c:if>
 
 
-
+ .portlet-body
+{
+	overflow: auto;
+} 
 
 /*********************************************/
 
@@ -482,6 +481,10 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffcc0000', en
 	<c:set value="col-xs-2" var="colxs24"/>
 	<c:set value="col-xs-3" var="colxs34"/>
 	<c:set value="col-xs-4" var="colxs42"/>
+	<c:set value="col-xs-3" var="colxs32"/>
+	<c:set value="col-xs-3" var="colxs33"/>
+	<c:set value="col-xs-2" var="colxs23"/>
+	<c:set value="col-xs-2" var="colxs22"/>
 	
 	
 </c:if>
@@ -498,11 +501,15 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffcc0000', en
 	<c:set value="col-xs-4" var="colxs24"/>
 	<c:set value="col-xs-4" var="colxs34"/>
 	<c:set value="col-xs-2" var="colxs42"/>
+	<c:set value="col-xs-2" var="colxs32"/>
+	<c:set value="col-xs-3" var="colxs33"/>
+	<c:set value="col-xs-3" var="colxs23"/>
+	<c:set value="col-xs-2" var="colxs22"/>
 	<c:set value="text-align: right" var="alnright"/>
 	
 </c:if>
 
-
+<!-- Genaration of bread crumb -->
 
  <ol class="breadcrumb">
 	 <c:forEach items="${track}" var="track" varStatus="status" >
@@ -516,7 +523,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffcc0000', en
 				 			</c:forEach>
 				 		</c:if>
 			 	</portlet:renderURL>
-				<li><a href="${varUrl}">${track.value.linkName}</a></li>
+				<li><a href="${varUrl}">${track.value.linkName}</a> / </li>
 	 		</c:when>
 	 		<c:otherwise>
 				<li class="active">${track.value.linkName}</li>	

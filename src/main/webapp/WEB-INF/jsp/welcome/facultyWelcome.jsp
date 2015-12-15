@@ -39,7 +39,7 @@
 
 
 <%-- <c:if test="${isCurrentSemesterViewable}" > --%>
-	<div class="row show-grid divColGreen">
+	<div class="">
 		<div class="col-xs-2 " >
 			<spring:message code="prop.course.teaching.survey.course.code"/>
 			<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
@@ -47,17 +47,17 @@
 		<div class="col-xs-4" >
 			<spring:message code="prop.course.teaching.survey.course.name"/>
 		</div>
-		<div class="col-xs-6">
-			<div class="row show-grid divColGreen">
-				<div class="col-xs-3" align="${varAlignSection}" >
+		<div class="col-xs-4">
+			<div class="">
+				<div class="${colxs32}" align="${varAlignSection}" >
 					<spring:message code="prop.course.teaching.survey.section.no"/>
 					<span class="glyphicon glyphicon-tag" aria-hidden="true"></span>
 				</div>
-				<div class="${colxs42}" align="center" >
+				<div class="${colxs33}" align="center" ><!--colxs42  -->
 					<spring:message code="prop.course.teaching.survey.student.registered"/>
 					<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
 				</div>
-				<div class="col-xs-4" align="center">
+				<div class="${colxs23}" align="center">
 					<spring:message code="prop.course.teaching.survey.student.perticipate"/>
 					<span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span>
 				</div>
@@ -65,23 +65,23 @@
 		</div>
 	</div>
 	<c:forEach items="${currentSurvey}" var="cSurvey">
-		<div class="row show-grid ">
+		<div class="">
 			<div class="col-xs-2">
 				${cSurvey.courseCode}
 			</div>
 			<div class="col-xs-4">
 				${cSurvey.courseName}
 			</div>
-			<div class="${colxs65}">
+			<div class="col-xs-4">
 				<div class="row show-grid ">
 				<c:forEach items="${cSurvey.surveyResponses}" var="cRes">
-							<div class="${colxs24}"  align="right">
+							<div class="${colxs33}"  align="right">
 									${cRes.sectionNo}
 							</div>
-							<div class="${colxs34}" align="right">
+							<div class="${colxs33}" align="right">
 									${cRes.seatsTaken}
 							</div>
-							<div class="col-xs-4" align="right">
+							<div class="${colxs22}" align="right">
 									${cRes.studentResponse}
 							</div>
 						<div class="clearfix"></div>
@@ -94,7 +94,7 @@
 	</c:forEach>
 <%-- </c:if> --%>
 
-
+<div class="clearfix"></div>
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 	<c:forEach items="${allSurvey}" var="aSurveyYear" varStatus="theCount">
 		<div class="panel panel-default">
@@ -128,7 +128,7 @@
 									<div class="col-xs-2">
 										${aSurvey.courseCode}
 									</div>
-									<div class="col-xs-7">
+									<div class="col-xs-5">
 										<c:forEach items="${aSurvey.surveyResponses}" var="aSurveyResponse">
 												<portlet:renderURL var="varSurveyAnalysis">
 													<portlet:param name="action" value="surveyAnalysis"/>

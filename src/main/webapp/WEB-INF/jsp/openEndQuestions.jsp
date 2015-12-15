@@ -47,10 +47,10 @@
     <div class="col-xs-2"><b><spring:message code="prop.course.teaching.survey.course"/></b></div>
     <div class="col-xs-4">${survey.courseCode} / ${survey.courseName}</div>
     <div class="col-xs-2"><b><spring:message code="prop.course.teaching.survey.analysis.college"/></b></div>
-    <div class="col-xs-4">${survey.collegeName}</div>
+    <div class="col-xs-2">${survey.collegeName}</div>
     
     <div class="col-xs-2"><b><spring:message code="prop.course.teaching.survey.section"/></b></div>
-    <div class="col-xs-4">
+    <div class="col-xs-2">
     	<c:forEach items="${survey.surveyResponses}" var="res">
     		${res.sectionNo}
     		<c:set value="${res.seatsTaken}" var="studentRegistered"/>
@@ -60,7 +60,7 @@
     <div class="col-xs-4">${survey.departmentName}</div>
     
     <div class="col-xs-2"><b><spring:message code="prop.course.teaching.survey.instructor"/></b></div>
-    <div class="col-xs-4">${survey.empName}</div>
+    <div class="col-xs-2">${survey.empName}</div>
     <div class="col-xs-2"><b><spring:message code="prop.course.teaching.survey.students.registered.no"/></b></div>
     <div class="col-xs-4">${studentRegistered}</div>
   </div>

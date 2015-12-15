@@ -79,11 +79,8 @@ public class AccessVisibilitySurveyServlet implements HttpRequestHandler
 			dateFaculty						=	request.getParameter("dateFaculty");
 			semesterCode					=	request.getParameter("yrSem");
 			
-			logger.info("chkSurveyVisibleCommittee : "+chkSurveyVisibleCommittee + " chkSurveyVisibleFaculty : "+chkSurveyVisibleFaculty + " dateCommunity : "+dateCommittee + " dateFaculty : "+dateFaculty + " yrSem : "+semesterCode);
+			//logger.info("chkSurveyVisibleCommittee : "+chkSurveyVisibleCommittee + " chkSurveyVisibleFaculty : "+chkSurveyVisibleFaculty + " dateCommunity : "+dateCommittee + " dateFaculty : "+dateFaculty + " yrSem : "+semesterCode);
 			
-			//chkSurveyVisibleCommittee : na chkSurveyVisibleFaculty : on dateCommunity : na dateFaculty : 27/09/2015 yrSem : 15SP
-			//setDateAdminCommitteeView
-			// setDateAdminFacultyView
 			
 			if(!chkSurveyVisibleCommittee.equals("na"))
 			{

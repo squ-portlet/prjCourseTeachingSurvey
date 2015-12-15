@@ -170,7 +170,7 @@
 	  <div class="panel-body">
 	  <div class="row">
 	   	
-	   	 <div class="col-xs-6">
+	   	 <div class="col-xs-5">
 		    <div class="thumbnail">
 		      <div class="caption">
 		      	
@@ -206,14 +206,16 @@
 		    </div>
 		  </div>
 		  
-			<div class="col-xs-6">
+			<div class="col-xs-5">
 				<div class="thumbnail">
 					<div class="caption">
-							<div class="col-xs-2"><h1> <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></h1></div>
-							<div class="col-xs-10"><h3><spring:message code="prop.course.teaching.survey.committee.member.control"/></h3></div>
-						
+							<div class="col-xs-1"><h1> <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></h1></div>
+							<div class="col-xs-7"><h3><spring:message code="prop.course.teaching.survey.committee.member.control"/></h3></div>
+							
+							<div class="clearfix"></div>
+							
 							<p>&nbsp;</p>						
-							<div class="well col-xs-12">
+							<div class="well col-xs-11">
 								<div>
 									<div class="col-xs-12"><spring:message code="prop.course.teaching.survey.current.semester" arguments="${yrSem}"/>  </div>
 								</div>

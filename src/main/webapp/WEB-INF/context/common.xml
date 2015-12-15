@@ -119,11 +119,11 @@
 	    *******  minute 0,hour 0,day of month 22,month 11 (november),day of week (friday/saturday),year 2015 *****
 	--> 
 	 
-	<!--
+<!--	
     <task:scheduled-tasks scheduler="taskScheduler">
         <task:scheduled ref="preSurveyOperation" method="operation" cron="0 * * * * *"/>
     </task:scheduled-tasks>
-	-->
+-->	
 	
 	<!-- Defines a ThreadPoolTaskScheduler instance with configurable pool size. -->
     <task:scheduler id="taskScheduler" pool-size="1"/>
