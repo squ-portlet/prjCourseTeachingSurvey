@@ -57,7 +57,7 @@
 <c:url value="${urlCdn}/bootstrap/3.1.1/dist/css/bootstrap.min.css" var="urlCssBootstrapMin"/>
 <c:url value="${urlCdn}/bootstrap/3.1.1/dist/css/bootstrap-theme.min.css" var="urlCssBootstrapThemeMin"/>
 <c:url value="/ui/gen/css/normalize.css" var="urlCssNormalize"/>
-<c:url value="${urlCdn}/jqueryui/1.11.4/jquery-ui.min.js" var="urlCssJQueryUiCustom"/>
+<c:url value="${urlCdn}/jqueryui/1.11.4/jquery-ui.css" var="urlCssJQueryUiCustom"/>
 
 <c:url value="/ui/gen/css/squ_custom_css.css" var="urlCssSquCustomCss"/>
 
@@ -222,144 +222,11 @@
     <![endif]-->
     
 <style>
-
-	.ui-widget-content .ui-icon {
-	background-image: url(${urlImg469bdd});
-	}
-
-		.ui-icon {
-		width: 16px;
-		height: 16px;
-		background-image: url(${urlImg469bdd});
-	}
-	
-	
-.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default { border: 1px solid #c5dbec; background: #dfeffc url(${urlImgbgGlass85}) 50% 50% repeat-x; font-weight: bold; color: #cc0000; }
-.ui-widget-content { border: 1px solid #a6c9e2; background: #fcfdfd url(${urlImgbgInsetHard}) 50% bottom repeat-x; color: #222222; }
-.ui-widget-overlay { background: #aaaaaa url(${urlImgbgFlat0}) 50% 50% repeat-x; opacity: .30;filter:Alpha(Opacity=30); }
-.ui-widget-shadow { margin: -8px 0 0 -8px; padding: 8px; background: #aaaaaa url(${urlImgbgFlat0}) 50% 50% repeat-x; opacity: .30;filter:Alpha(Opacity=30); -moz-border-radius: 8px; -khtml-border-radius: 8px; -webkit-border-radius: 8px; border-radius: 8px; }
-.ui-widget-header { border: 1px solid #4297d7; background: #5c9ccc url(${urlImgbgGlossWave55}) 50% 50% repeat-x; color: #ffffff; font-weight: bold; }
-.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus { border: 1px solid #79b7e7; background: #d0e5f5 url(${urlImgbgGloss75}) 50% 50% repeat-x; font-weight: bold; color: #1d5987; }   
-.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight  {border: 1px solid #fad42e; background: #fbec88 url(${urlImgbgFlat55}) 50% 50% repeat-x; color: #363636; }
-.ui-widget-header .ui-icon {background-image: url(${urlImgd8e7f3}); }
-
-/* JqGrid Cell Text Wrapping*/
-   .ui-jqgrid tr.jqgrow td {
-        white-space: normal !important;
-    }
-	
-.panel-primary>.panel-heading {
-background-image: -webkit-linear-gradient(top,#cc0000 0,#357ebd 100%);
-background-image: linear-gradient(to bottom, #cc0000 0,#357ebd 100%);
-background-repeat: repeat-x;
-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffcc0000', endColorstr='#ff357ebd', GradientType=0);
-}	
-
-.error
-{
-	color:Red;
-}	
-
-
-/****** JQuery Validation -- Container style */
-
-	.preferenceModel fieldset p.error label {
-		color: red;
-	}
-	div.container {
-		background-color: #eee;
-		border: 1px solid red;
-		margin: 5px;
-		padding: 5px;
-	}
-	div.container ol li {
-		list-style-type: disc;
-		margin-left: 20px;
-	}
-	div.container {
-		display: none
-	}
-	.container label.error {
-		display: inline;
-	}
-	
-	form.preferenceModel label.error {
-		display: block;
-		margin-left: 1em;
-		width: auto;
-	}
-	
-	input.error {
-    border: 1px solid #FF2323;
-	}
-
-	select.error {
-    border: 1px solid #FF2323;
-	}
-
-#divModalAlertDelPreference .modal-dialog
-{
-    width: 500px; /* your width */
-   
-    margin-left: auto;
-	margin-right: auto;
-	left: 0;
-	right: 0;
-    
-}
-
-#divModalAlertAddPreference .modal-dialog
-{
-    width: 500px; /* your width */
-   
-    margin-left: auto;
-	margin-right: auto;
-	left: 0;
-	right: 0;
-    
-}
-
-#divModalAlertCurrentProg .modal-dialog
-{
-    width: 500px; /* your width */
-   
-    margin-left: auto;
-	margin-right: auto;
-	left: 0;
-	right: 0;
-    
-}
-
-
-@font-face {
-  font-family: 'Glyphicons Halflings';
-
-  src: url('${urlGlyphRegularEot}');
-  src: url('${urlGlyphRegularEot}?#iefix') format('embedded-opentype'), url('${urlGlyphregularWoff}') format('woff'), url('${urlGlyphregularTtf}') format('truetype'), url('${urlGlyphregularSvg}#glyphicons_halflingsregular') format('svg');
-}
-
-
-.divColGreen
-{
-	background-color:#9C9C49
-}
-.divColGold
-{
-	background-color:#CC9933
-}
-
-<c:if test="${rc.locale.language == 'ar'}">
-  		.alnright { text-align: right; }
-</c:if>
-
-
  .portlet-body
 {
 	overflow: auto;
 } 
-
 /*********************************************/
-
 </style>
 
 <script>

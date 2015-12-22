@@ -798,7 +798,7 @@ public class TeachingSurveyServiceImpl implements TeachingSurveyServiceDao
 			{
 				for(StatementSqlBo sqlBo : sqlListBo.getSqlBos())
 				{
-					logger.info("success");
+					logger.info("success in loading survey data");
 					teachingSurveyDbDao.loadPreSurvey(sqlBo);
 				}
 			}
