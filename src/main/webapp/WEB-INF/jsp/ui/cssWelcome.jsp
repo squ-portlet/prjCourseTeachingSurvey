@@ -226,6 +226,8 @@
 {
 	overflow: auto;
 } 
+
+
 /*********************************************/
 </style>
 
@@ -352,6 +354,7 @@
 	<c:set value="col-xs-3" var="colxs33"/>
 	<c:set value="col-xs-2" var="colxs23"/>
 	<c:set value="col-xs-2" var="colxs22"/>
+	<c:set value="text-align: left !important" var="txtAlign"/>
 	
 	
 </c:if>
@@ -372,7 +375,8 @@
 	<c:set value="col-xs-3" var="colxs33"/>
 	<c:set value="col-xs-3" var="colxs23"/>
 	<c:set value="col-xs-2" var="colxs22"/>
-	<c:set value="text-align: right" var="alnright"/>
+	<c:set value="text-align: right !important" var="alnright"/>
+	<c:set value="text-align: right !important" var="txtAlign"/>
 	
 </c:if>
 

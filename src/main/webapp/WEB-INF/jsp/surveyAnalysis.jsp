@@ -59,31 +59,38 @@
 				  </div>
 				  
 				  <div class="panel-body">
-				    <div class="col-xs-2"><b><spring:message code="prop.course.teaching.survey.course"/></b></div>
+				    <div class="col-xs-1"><b><spring:message code="prop.course.teaching.survey.course"/></b></div>
 				    <div class="col-xs-4">${survey.courseCode} / ${survey.courseName}</div>
-				    <div class="col-xs-2"><b><spring:message code="prop.course.teaching.survey.analysis.college"/></b></div>
+				    <div class="col-xs-3"><b><spring:message code="prop.course.teaching.survey.analysis.college"/></b></div>
 				    <div class="col-xs-2">${survey.collegeName}</div>
 				    
-				    <div class="col-xs-2"><b><spring:message code="prop.course.teaching.survey.section"/></b></div>
-				    <div class="col-xs-2">
+				    <div class="clearfix"></div>
+				    
+				    <div class="col-xs-1"><b><spring:message code="prop.course.teaching.survey.section"/></b></div>
+				    <div class="col-xs-4">
 				    	<c:forEach items="${survey.surveyResponses}" var="res">
 				    		${res.sectionNo}
 				    		<c:set value="${res.seatsTaken}" var="studentRegistered"/>
 				    	</c:forEach>
 				    </div>
-				    <div class="col-xs-2"><b><spring:message code="prop.course.teaching.survey.analysis.department"/></b></div>
-				    <div class="col-xs-4">${survey.departmentName}</div>
+				    <div class="col-xs-3"><b><spring:message code="prop.course.teaching.survey.analysis.department"/></b></div>
+				    <div class="col-xs-2">${survey.departmentName}</div>
 				    
-				    <div class="col-xs-2"><b><spring:message code="prop.course.teaching.survey.instructor"/></b></div>
-				    <div class="col-xs-2">${survey.empName}</div>
-				    <div class="col-xs-2"><b><spring:message code="prop.course.teaching.survey.students.registered.no"/></b></div>
-				    <div class="col-xs-4">${studentRegistered}</div>
+				    <div class="clearfix"></div>
+				    
+				    <div class="col-xs-1"><b><spring:message code="prop.course.teaching.survey.instructor"/></b></div>
+				    <div class="col-xs-4">${survey.empName}</div>
+				    <div class="col-xs-3"><b><spring:message code="prop.course.teaching.survey.students.registered.no"/></b></div>
+				    <div class="col-xs-2">${studentRegistered}</div>
+				    
+				    <div class="clearfix"></div>
+				    
 				  </div>
 				  <div class="panel-footer"><div align="center"><b><spring:message code="prop.course.teaching.survey.analysis.heading.summary" arguments="${semesterYear}"/></b></div></div>
 				</div>
 				
-				<div class="well">
-					<table class="table">
+				<div >
+					<table class="table table-bordered">
 						<thead>
 							<tr>
 								<td rowspan="2"> &nbsp;</td>
@@ -99,10 +106,10 @@
 								<td><spring:message code="prop.course.teaching.survey.analysis.agree.strong"/></td>
 								<td><spring:message code="prop.course.teaching.survey.analysis.applicable.not"/></td>
 								<td><spring:message code="prop.course.teaching.survey.analysis.total"/></td>
-								<td><spring:message code="prop.course.teaching.survey.analysis.section"/></td>
-								<td><spring:message code="prop.course.teaching.survey.analysis.course"/></td>
-								<td><spring:message code="prop.course.teaching.survey.analysis.department"/></td>
-								<td><spring:message code="prop.course.teaching.survey.analysis.college"/></td>
+								<td><spring:message code="prop.course.teaching.survey.analysis.sect"/></td>
+								<td><spring:message code="prop.course.teaching.survey.analysis.crs"/></td>
+								<td><spring:message code="prop.course.teaching.survey.analysis.dept"/></td>
+								<td><spring:message code="prop.course.teaching.survey.analysis.col"/></td>
 							</tr>
 						</thead>
 							<tr class="success">
@@ -116,7 +123,7 @@
 										<c:if test="${(analysis.question == 'Q2') || (analysis.question == 'Q14') || analysis.question == questionByYear}">
 												<tr>
 													<td>${analysis.question}</td>
-													<td style="${alnright}"><spring:message code="prop.course.teaching.survey.analysis.question${analysis.questionLabel}"/></td>
+													<td style="${txtAlign}"><spring:message code="prop.course.teaching.survey.analysis.question${analysis.questionLabel}"/></td>
 													<td class="active">${analysis.strongDisagree}</td>
 													<td>${analysis.disAgree}</td>
 													<td class="active">${analysis.agree}</td>
@@ -167,7 +174,7 @@
 										<c:if test="${!((analysis.question == 'Q2') || (analysis.question == 'Q14') || (analysis.question == questionByYear))}">
 												<tr>
 													<td >${analysis.question}</td>
-													<td style="${alnright}"><spring:message code="prop.course.teaching.survey.analysis.question${analysis.questionLabel}"/></td>
+													<td style="${txtAlign}"><spring:message code="prop.course.teaching.survey.analysis.question${analysis.questionLabel}"/></td>
 													<td class="active">${analysis.strongDisagree}</td>
 													<td>${analysis.disAgree}</td>
 													<td class="active">${analysis.agree}</td>

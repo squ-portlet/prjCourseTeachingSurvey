@@ -39,59 +39,61 @@
 
 
 <%-- <c:if test="${isCurrentSemesterViewable}" > --%>
-	<div class="">
-		<div class="col-xs-2 " >
-			<spring:message code="prop.course.teaching.survey.course.code"/>
-			<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-		</div>
-		<div class="col-xs-4" >
-			<spring:message code="prop.course.teaching.survey.course.name"/>
-		</div>
-		<div class="col-xs-4">
-			<div class="">
-				<div class="${colxs32}" align="${varAlignSection}" >
-					<spring:message code="prop.course.teaching.survey.section.no"/>
-					<span class="glyphicon glyphicon-tag" aria-hidden="true"></span>
-				</div>
-				<div class="${colxs33}" align="center" ><!--colxs42  -->
-					<spring:message code="prop.course.teaching.survey.student.registered"/>
-					<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-				</div>
-				<div class="${colxs23}" align="center">
-					<spring:message code="prop.course.teaching.survey.student.perticipate"/>
-					<span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span>
-				</div>
+
+	<div class="panel panel-default">
+			<div class="panel-heading row" >
+		
+			<div class="col-xs-2 " >
+				<b><spring:message code="prop.course.teaching.survey.course.code"/></b>
 			</div>
-		</div>
-	</div>
-	<c:forEach items="${currentSurvey}" var="cSurvey">
-		<div class="">
-			<div class="col-xs-2">
-				${cSurvey.courseCode}
+			<div class="col-xs-4" >
+				<b><spring:message code="prop.course.teaching.survey.course.name"/></b>
 			</div>
 			<div class="col-xs-4">
-				${cSurvey.courseName}
+				<div class="">
+					<div class="${colxs32}" align="${varAlignSection}" >
+						<b><spring:message code="prop.course.teaching.survey.section.no"/></b>
+					</div>
+					<div class="${colxs33}" align="center" ><!--colxs42  -->
+						<b><spring:message code="prop.course.teaching.survey.student.registered"/></b>
+					</div>
+					<div class="${colxs23}" align="center">
+						<b><spring:message code="prop.course.teaching.survey.student.perticipate"/></b>
+					</div>
+				</div>
 			</div>
-			<div class="col-xs-4">
-				<div class="row show-grid ">
-				<c:forEach items="${cSurvey.surveyResponses}" var="cRes">
-							<div class="${colxs33}"  align="right">
-									${cRes.sectionNo}
-							</div>
-							<div class="${colxs33}" align="right">
-									${cRes.seatsTaken}
-							</div>
-							<div class="${colxs22}" align="right">
-									${cRes.studentResponse}
-							</div>
-						<div class="clearfix"></div>
-				</c:forEach>
-						
+		
+		</div>
+		
+		<c:forEach items="${currentSurvey}" var="cSurvey">
+			<div class="panel-body row">
+				<div class="col-xs-2">
+					${cSurvey.courseCode}
+				</div>
+				<div class="col-xs-4">
+					${cSurvey.courseName}
+				</div>
+				<div class="col-xs-4">
+					<div class="">
+					<c:forEach items="${cSurvey.surveyResponses}" var="cRes">
+								<div class="${colxs33} active"  align="right">
+										${cRes.sectionNo}
+								</div>
+								<div class="${colxs33}" align="right">
+										${cRes.seatsTaken}
+								</div>
+								<div class="${colxs22} active" align="right">
+										${cRes.studentResponse}
+								</div>
+							<div class="clearfix"></div>
+					</c:forEach>
 							
+								
+					</div>
 				</div>
 			</div>
-		</div>
-	</c:forEach>
+		</c:forEach>
+	</div>
 <%-- </c:if> --%>
 
 <div class="clearfix"></div>
@@ -110,13 +112,13 @@
 					<div class="panel-body">
 						<div class="row show-grid divColGreen">
 							<div class="col-xs-2">
-								<spring:message code="prop.course.teaching.survey.year"/> / <spring:message code="prop.course.teaching.survey.semester"/>
+								<b><spring:message code="prop.course.teaching.survey.year"/> / <spring:message code="prop.course.teaching.survey.semester"/></b>
 							</div>
 							<div class="col-xs-2">
-								<spring:message code="prop.course.teaching.survey.course.code"/>
+								<b><spring:message code="prop.course.teaching.survey.course.code"/></b>
 							</div>
 							<div class="col-xs-2">
-								<spring:message code="prop.course.teaching.survey.section.no"/>
+								<b><spring:message code="prop.course.teaching.survey.section.no"/></b>
 							</div>							
 						</div>
 					<c:forEach items="${aSurveyYear.surveys}" var="aSurvey">
