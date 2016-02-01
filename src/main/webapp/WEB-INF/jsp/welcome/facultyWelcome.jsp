@@ -38,7 +38,7 @@
 <%@include file="../ui/jsCode.jsp" %>
 
 
-<%-- <c:if test="${isCurrentSemesterViewable}" > --%>
+<c:if test="${ not isCurrentSemesterViewable}" >
 
 	<div class="panel panel-default">
 			<div class="panel-heading row" >
@@ -94,12 +94,13 @@
 			</div>
 		</c:forEach>
 	</div>
-<%-- </c:if> --%>
+</c:if>
 
 <div class="clearfix"></div>
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 	<c:forEach items="${allSurvey}" var="aSurveyYear" varStatus="theCount">
 		<div class="panel panel-default">
+		
 			<div class="panel-heading" role="tab" id="heading${theCount.count}">
 				<h4 class="panel-title">
 					<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse${theCount.count}" aria-expanded="false" aria-controls="collapse${theCount.count}">
@@ -109,7 +110,7 @@
 			</div>
 			
 			<div id="collapse${theCount.count}" class="panel-collapse collapse" role="tabpanel" aria-expanded="false" aria-labelledby="heading${theCount.count}">
-					<div class="panel-body">
+					<div class="panel-body container-fluid">
 						<div class="row show-grid divColGreen">
 							<div class="col-xs-2">
 								<b><spring:message code="prop.course.teaching.survey.year"/> / <spring:message code="prop.course.teaching.survey.semester"/></b>
@@ -121,6 +122,7 @@
 								<b><spring:message code="prop.course.teaching.survey.section.no"/></b>
 							</div>							
 						</div>
+						<br>
 					<c:forEach items="${aSurveyYear.surveys}" var="aSurvey">
 						<c:if test="${ isCurrentSemesterViewable || !(aSurvey.yearSemester == currentSemester) }">
 								<div  class="row show-grid" >
@@ -151,6 +153,7 @@
 												<div class="col-xs-3"><a href="${varSurveyAnalysis}"><spring:message code="prop.course.teaching.survey.link.survey.summary"/></a></div>
 												<div class="col-xs-4"><a href="${varOpenEndQuestion}"><spring:message code="prop.course.teaching.survey.link.open.end.question.summary"/></a></div>
 											</div>
+											<br>
 										</c:forEach>
 									</div>
 								</div>
@@ -158,6 +161,7 @@
 					</c:forEach>
 				</div>
 			</div>
+			
 		</div>
 	</c:forEach>
 </div>
