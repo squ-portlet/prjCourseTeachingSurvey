@@ -74,6 +74,7 @@ public interface Constants
 
 	
 	/**********CONSTANTS - SQL - COLUMN VALUE *************/
+	public 	static	String	CONST_COLMN_SERIAL_NO								=	"SERIAL_NO";
 	public 	static	String	CONST_COLMN_COURSE_CODE								=	"COURSE_CODE";
 	public 	static	String	CONST_COLMN_COURSE_NAME								=	"COURSE_NAME";
 	public 	static	String	CONST_COLMN_COLLEGE_CODE							=	"COLLEGE_CODE";

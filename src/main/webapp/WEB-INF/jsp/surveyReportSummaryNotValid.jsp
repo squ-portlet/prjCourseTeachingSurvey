@@ -39,9 +39,10 @@
 <%@include file="ui/jsCode.jsp" %>
 
 
+
 <script type="text/javascript">
         	var dataMap	=	{};
-        	<c:forEach	items="${notValidSurveyReport}" var="report">
+        	<c:forEach	items="${notValidSurveyReport}" var="report" >
         			<portlet:renderURL var="urlSurveyAnalysis" >
 						<portlet:param name="action" value="surveyAnalysis"/>
 						<portlet:param name="empNumber" value="${report.empNumber}"/>
@@ -49,7 +50,7 @@
 						<portlet:param name="semesterCode" value="${report.yearSemester}"/>
 						<portlet:param name="sectionNo" value="${report.sectionNo}"/>
 					</portlet:renderURL>
-				dataMap['${report.empNumber}']= {url : '${urlSurveyAnalysis}'};
+				dataMap['${report.serialNum}']= {url : '${urlSurveyAnalysis}'};
         	</c:forEach>
 
         $(document).ready(function () {
@@ -60,6 +61,7 @@
             {
                 dataType: "json",
                 dataFields: [
+					{ name: 'serialNum', type: 'number'},                             
                     { name: 'empNumber', type: 'string' },
                     { name: 'empName', type: 'string' },
                     { name: 'collegeCode', type: 'string' },
@@ -82,7 +84,7 @@
             	 rtl:true,
             	</c:if>
             	
-                width: 1400,
+                width: 1360,
                 height: 500,
                //  columnsheight: 60,
                 pageable: true,
@@ -95,12 +97,12 @@
                 source: dataAdapter,
                 columnsResize: true,
                 columns: [
-
                   { 
                   	text: '<spring:message code="prop.course.teaching.survey.instructor.id"/>', dataField: 'empNumber', width:80, align: '${colAlign}', cellsAlign: 'right',
                   	cellsRenderer: function (row, column, value, rowData) {
+                  		var objData = rowData;
                   	     var aref01 = "<a href='";
-                  	     var alink =dataMap[value].url;
+                  	     var alink =dataMap[objData.serialNum].url;
                   	     var aref02 = "'>"
                   	     var adata  = value;
                   	     var aref03="</a>";
@@ -113,6 +115,7 @@
                       } 
                   	
                   },
+                  
                   { 
                   	text: '<spring:message code="prop.course.teaching.survey.instructor.name"/>', dataField: 'empName',width:200,align: '${colAlign}',cellsAlign:'${cellsAlign}',
                   	renderer : function(text,align,height)

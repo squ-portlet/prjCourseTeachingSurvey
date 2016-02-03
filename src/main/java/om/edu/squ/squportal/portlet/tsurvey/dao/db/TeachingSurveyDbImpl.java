@@ -549,6 +549,7 @@ public class TeachingSurveyDbImpl implements TeachingSurveyDbDao
 			public ReportSummary mapRow(ResultSet rs, int rowNum) throws SQLException
 			{
 				ReportSummary	reportSummary	=	new ReportSummary();
+				reportSummary.setSerialNum(rs.getString(Constants.CONST_COLMN_SERIAL_NO));
 				reportSummary.setYearSemester(rs.getString(Constants.CONST_COLMN_YR_SEM));
 				reportSummary.setUniversityRank(rs.getInt(Constants.CONST_COLMN_UNIVERSITY_RANK));
 				reportSummary.setCollegeRank(rs.getInt(Constants.CONST_COLMN_COLLEGE_RANK));
@@ -608,6 +609,7 @@ public class TeachingSurveyDbImpl implements TeachingSurveyDbDao
 			public ReportSummary mapRow(ResultSet rs, int rowNum) throws SQLException
 			{
 				ReportSummary	reportSummary	=	new ReportSummary();
+				reportSummary.setSerialNum(rs.getString(Constants.CONST_COLMN_SERIAL_NO));
 				reportSummary.setYearSemester(rs.getString(Constants.CONST_COLMN_YR_SEM));
 				reportSummary.setCollegeCode(rs.getString(Constants.CONST_COLMN_COLLEGE_CODE));
 				reportSummary.setDepartmentName(rs.getString(Constants.CONST_COLMN_DEPARTMENT_NAME));

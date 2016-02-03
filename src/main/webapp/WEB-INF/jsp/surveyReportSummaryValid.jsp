@@ -48,7 +48,7 @@
 						<portlet:param name="semesterCode" value="${report.yearSemester}"/>
 						<portlet:param name="sectionNo" value="${report.sectionNo}"/>
 				</portlet:renderURL>
-				dataMap['${report.empNumber}']= {url : '${urlSurveyAnalysis}'};
+				dataMap['${report.serialNum}']= {url : '${urlSurveyAnalysis}'};
         	</c:forEach>
 
         $(document).ready(function () {
@@ -59,6 +59,7 @@
             {
                 dataType: "json",
                 dataFields: [
+					{ name: 'serialNum', type: 'string'},
                     { name: 'universityRank', type: 'number' },
                     { name: 'collegeRank', type: 'number' },
                     { name: 'departmentRank', type: 'number' },
@@ -85,7 +86,7 @@
             	<c:if test="${rc.locale.language == 'ar'}">
             	 rtl:true,
             	</c:if>
-                width: 1400,
+                width: 1480,
                 height: 500,
                //  columnsheight: 60,
                 pageable: true,
@@ -104,20 +105,21 @@
                   { text: '<spring:message code="prop.course.teaching.survey.rank.college"/>', dataField: 'collegeRank', width:50,cellsAlign: 'right'},
                   { text: '<spring:message code="prop.course.teaching.survey.rank.department"/>', dataField: 'departmentRank', width:50, cellsAlign: 'right'},
                 </c:if>
-                  { 
-                  	text: '<spring:message code="prop.course.teaching.survey.instructor.id"/>', dataField: 'empNumber', width:80,cellsAlign: 'right',
-                  	cellsRenderer: function (row, column, value, rowData) {
-                  	     var aref01 = "<a href='";
-                  	     var alink =dataMap[value].url;
-                  	     var aref02 = "'>"
-                  	     var adata  = value;
-                  	     var aref03="</a>";
-                  	     
-                  	     var aref = aref01+alink+aref02+adata+aref03;
-                         return aref;
-                      }
-                  	
-                  	
+
+                  { text: '<spring:message code="prop.course.teaching.survey.instructor.id"/>', dataField: 'empNumber',width:80,cellsAlign:'${cellsAlign}',
+                	
+                	  cellsRenderer: function (row, column, value, rowData) {
+                		  var objData = rowData;
+                		 var aref01 = "<a href='";
+                   	     var alink =dataMap[objData.serialNum].url;
+                   	     var aref02 = "'>"
+                   	     var adata  = value;
+                   	     var aref03="</a>";
+                   	     
+                   	     var aref = aref01+alink+aref02+adata+aref03;
+                          return aref;
+                       }
+                  
                   },
 
                   { text: '<spring:message code="prop.course.teaching.survey.instructor.name"/>', dataField: 'empName',width:200,cellsAlign:'${cellsAlign}'},

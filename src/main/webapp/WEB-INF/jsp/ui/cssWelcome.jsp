@@ -124,6 +124,7 @@
 <c:url value="${urlCdn}/jqwidgets/3.8.2/js/jqxdatetimeinput.js" var="urlJsJqxDateTimeInput"/>
 <c:url value="${urlCdn}/jqwidgets/3.8.2/js/jqxcalendar.js" var="urlJsJqxCalendar"/>
 
+
 <c:url value="${urlCdn}/jqwidgets/3.8.2/js/locale/globalize.js" var="urlJsJqxLocaleGlobal"/>
 <c:url value="${urlCdn}/jqwidgets/3.8.2/js/locale/globalize.culture.ar.js" var="urlJsJqxLocaleAr"/>
 <c:url value="${urlCdn}/jqwidgets/3.8.2/js/locale/globalize.culture.ar.js" var="urlJsJqxLocaleAr"/>

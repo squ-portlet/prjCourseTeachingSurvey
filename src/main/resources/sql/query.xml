@@ -192,7 +192,8 @@
     </entry>
     <entry key="valid.survey.report.summary">
     	<![CDATA[  
-    	    SELECT     		r.SEM_CODE    																		AS YR_SEM                                        
+    	    SELECT     		ROWNUM																				AS SERIAL_NO
+    	    			    ,r.SEM_CODE    																		AS YR_SEM                                        
                            ,r.UNI_RANK    																		AS UNIVERSITY_RANK                                       
                            ,r.COL_RANK    																		AS COLLEGE_RANK                                       
                            ,r.DEPT_RANK   																		AS DEPARTMENT_RANK                                       
@@ -216,13 +217,14 @@
                             OR (ACCESS_ALL_SURVEYS(:paramEmpNumber)='Y' )                         
                             )                                                     
                         AND SEM_CODE = :paramSemester 
-                 ORDER BY  UNI_RANK ,COL_RANK,DEPT_RANK DESC
+                 ORDER BY  UNI_RANK ,COL_RANK,ROWNUM, DEPT_RANK DESC
 
     	]]>
     </entry>
     <entry key="not.valid.survey.report.summary">
     	<![CDATA[ 
-					SELECT  SEM_CODE    																		AS YR_SEM                                         
+					SELECT  ROWNUM																				AS SERIAL_NO
+							,SEM_CODE    																		AS YR_SEM                                         
                            ,get_course_col_code(SEM_CODE,COURSE_CODE) 											AS COLLEGE_CODE  
                            ,get_course_dept_name(SEM_CODE,COURSE_CODE,:paramLocale) 							AS DEPARTMENT_NAME 
                            ,get_course_dept(SEM_CODE,COURSE_CODE) 												AS DEPARTMENT_CODE      

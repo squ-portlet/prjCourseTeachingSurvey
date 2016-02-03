@@ -36,6 +36,7 @@ package om.edu.squ.squportal.portlet.tsurvey.bo;
 public class ReportSummary
 {
 
+	private	String	serialNum;
 	private	String 	yearSemester;
 	private	int		universityRank;
 	private	int		collegeRank;
@@ -53,6 +54,27 @@ public class ReportSummary
 	private	float	teachingPercentageFavor;
 	private	float	questionMean;
 	private	float	questionPercentageFavor;
+	
+	/**
+	 * Getter Method	: getSerialNum
+	 * @return the serialNum
+	 * 
+	 * Date				: Feb 2, 2016
+	 */
+	public String getSerialNum()
+	{
+		return this.serialNum;
+	}
+	/**
+	 * Setter method : setSerialNum
+	 * @param serialNum the serialNum to set
+	 * 
+	 * Date          : Feb 2, 2016 1:12:57 PM
+	 */
+	public void setSerialNum(String serialNum)
+	{
+		this.serialNum = serialNum;
+	}
 	/**
 	 * Getter Method	: getYearSemester
 	 * @return the yearSemester
@@ -399,35 +421,21 @@ public class ReportSummary
 	@Override
 	public String toString()
 	{
-		return "ReportSummary ["
-				+ (this.yearSemester != null ? "yearSemester="
-						+ this.yearSemester + ", " : "")
-				+ "universityRank="
-				+ this.universityRank
-				+ ", collegeRank="
-				+ this.collegeRank
-				+ ", departmentRank="
-				+ this.departmentRank
-				+ ", "
-				+ (this.empNumber != null ? "empNumber=" + this.empNumber
-						+ ", " : "")
-				+ (this.empName != null ? "empName=" + this.empName + ", " : "")
-				+ (this.collegeCode != null ? "collegeCode=" + this.collegeCode
-						+ ", " : "")
-				+ (this.departmentCode != null ? "departmentCode="
-						+ this.departmentCode + ", " : "")
-				+ (this.departmentName != null ? "departmentName="
-						+ this.departmentName + ", " : "")
-				+ (this.courseCode != null ? "courseCode=" + this.courseCode
-						+ ", " : "")
-				+ (this.sectionNo != null ? "sectionNo=" + this.sectionNo
-						+ ", " : "") + "registeredStudent="
-				+ this.registeredStudent + ", studentNoResponse="
-				+ this.studentNoResponse + ", teachingMean="
-				+ this.teachingMean + ", teachingPercentageFavor="
-				+ this.teachingPercentageFavor + ", questionMean="
-				+ this.questionMean + ", questionPercentageFavor="
-				+ this.questionPercentageFavor + "]";
+		return "ReportSummary [serialNum=" + this.serialNum + ", yearSemester="
+				+ this.yearSemester + ", universityRank=" + this.universityRank
+				+ ", collegeRank=" + this.collegeRank + ", departmentRank="
+				+ this.departmentRank + ", empNumber=" + this.empNumber
+				+ ", empName=" + this.empName + ", collegeCode="
+				+ this.collegeCode + ", departmentCode=" + this.departmentCode
+				+ ", departmentName=" + this.departmentName + ", courseCode="
+				+ this.courseCode + ", sectionNo=" + this.sectionNo
+				+ ", registeredStudent=" + this.registeredStudent
+				+ ", studentNoResponse=" + this.studentNoResponse
+				+ ", teachingMean=" + this.teachingMean
+				+ ", teachingPercentageFavor=" + this.teachingPercentageFavor
+				+ ", questionMean=" + this.questionMean
+				+ ", questionPercentageFavor=" + this.questionPercentageFavor
+				+ "]";
 	}
 	
 	
