@@ -29,11 +29,16 @@
  */
 package om.edu.squ.squportal.portlet.tsurvey.dao.service;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.Locale;
 
 import javax.portlet.PortletRequest;
+import javax.portlet.ResourceResponse;
+
+import com.itextpdf.text.DocumentException;
 
 import om.edu.squ.squportal.portlet.tsurvey.bo.AccessSurvey;
 import om.edu.squ.squportal.portlet.tsurvey.bo.CommitteeMember;
@@ -337,5 +342,25 @@ public interface TeachingSurveyServiceDao
 	 * Date    		:	Nov 5, 2015 12:36:54 PM
 	 */
 		public String	loadPreSurvey() throws IOException;	
+
+	/************************************************ PDF GENERATION OPERATIONS ***************************************/		
+	/**
+	 * 
+	 * method name  : getPdfContent
+	 * @param strTemplateName
+	 * @param byos
+	 * @param res
+	 * @param locale
+	 * @return
+	 * @throws IOException
+	 * @throws DocumentException
+	 * TeachingSurveyServiceImpl
+	 * return type  : OutputStream
+	 * 
+	 * purpose		: Get PDF Content
+	 *
+	 * Date    		:	Feb 15, 2016 12:56:06 PM
+	 */
+	public OutputStream getPdfContent(String strTemplateName, Object object, ByteArrayOutputStream	byos, String semesterYear, ResourceResponse res, Locale locale) throws IOException, DocumentException;
 	
 }

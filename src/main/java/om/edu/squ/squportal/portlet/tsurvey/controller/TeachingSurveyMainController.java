@@ -29,19 +29,32 @@
  */
 package om.edu.squ.squportal.portlet.tsurvey.controller;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletSession;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
+import javax.portlet.ResourceRequest;
+import javax.portlet.ResourceResponse;
 
 import om.edu.squ.squportal.portlet.tsurvey.bo.AccessSurvey;
 import om.edu.squ.squportal.portlet.tsurvey.bo.Param;
+import om.edu.squ.squportal.portlet.tsurvey.bo.Staff;
 import om.edu.squ.squportal.portlet.tsurvey.bo.StaffRole;
 import om.edu.squ.squportal.portlet.tsurvey.bo.survey.Survey;
 import om.edu.squ.squportal.portlet.tsurvey.bo.survey.SurveyYear;
+import om.edu.squ.squportal.portlet.tsurvey.dao.pdf.TeachingSurveyPdfImpl;
 import om.edu.squ.squportal.portlet.tsurvey.dao.service.TeachingSurveyServiceDao;
 import om.edu.squ.squportal.portlet.tsurvey.utility.Constants;
 import om.edu.squ.squportal.portlet.tsurvey.utility.UtilProperty;
@@ -55,6 +68,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.portlet.bind.annotation.ResourceMapping;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.ColumnText;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfFormField;
+import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.PdfStamper;
+import com.itextpdf.text.pdf.PdfWriter;
 
 /**
  * @author Bhabesh
@@ -255,6 +281,14 @@ public class TeachingSurveyMainController
 		Param			paramSemesterCode	=	new Param("semesterCode", semesterCode);
 		Param			paramSectionNo		=	new Param("sectionNo", sectionNo);
 		
+		PortletSession  portletSession		=	request.getPortletSession();
+
+			portletSession.setAttribute(Constants.CONST_SESSION_STAFF, null);
+			portletSession.setAttribute(Constants.CONST_SESSION_STAFF, new Staff(empNumber, courseCode, semesterCode, sectionNo));
+
+		
+		//portletSession.setAttribute(arg0, arg1);
+		
 		model.addAttribute(
 							"track", 
 							UtilRenderTrack.getTrack(
@@ -271,6 +305,60 @@ public class TeachingSurveyMainController
 		
 		return "surveyAnalysis";
 	}
+
+	
+	
+	/**
+	 * 
+	 * method name  : pdfTeachingSurveyAnalysis
+	 * @param empNumber
+	 * @param req
+	 * @param res
+	 * @param locale
+	 * @throws DocumentException
+	 * @throws IOException
+	 * TeachingSurveyMainController
+	 * return type  : void
+	 * 
+	 * purpose		: PDF generation
+	 *
+	 * Date    		:	Feb 15, 2016 1:44:48 PM
+	 */
+	@ResourceMapping(value="pdfSurveyAnalysis")
+	private void pdfTeachingSurveyAnalysis(
+			@RequestParam("semesterYear") 		String semesterYear,
+			ResourceRequest req, ResourceResponse res, Locale locale) throws DocumentException, IOException
+	{
+		
+		PortletSession	portletSession	=	req.getPortletSession();
+		Staff			staff			=	null;
+		if(null != portletSession.getAttribute(Constants.CONST_SESSION_STAFF))
+		{
+			staff	=	(Staff)portletSession.getAttribute(Constants.CONST_SESSION_STAFF);
+			Survey 		survey			=	teachingSurveyServiceDao.getSurVeyAnalysis(staff.getEmpNumber(), staff.getCourseCode(), staff.getSemesterCode(), staff.getSectionNo(), locale);
+			
+			ByteArrayOutputStream	byos		=	new ByteArrayOutputStream();
+			OutputStream os = teachingSurveyServiceDao.getPdfContent(Constants.CONST_SURVEY_ANALYSIS, survey, byos,semesterYear, res, locale);
+
+			
+			logger.info("CourseCode : "+survey.getCourseCode());
+			
+			
+			res.setContentType("application/pdf");
+			
+			res.setContentLength(byos.size());
+
+			byos.writeTo(os);
+			
+			
+			os.flush();
+			os.close();
+		}
+		
+		
+
+	}
+	
 	
 	/**
 	 * 
@@ -528,6 +616,10 @@ public class TeachingSurveyMainController
 		model.addAttribute("track", UtilRenderTrack.getTrack(request, "listCollegeCoursesForAsstDean", UtilProperty.getMessage("prop.course.teaching.survey.link.survey.admin", null, locale),null));
 		return "admin/adminWelcome";
 	}
+
+	
+	
+	
 	
 	/**
 	 * 
@@ -548,5 +640,47 @@ public class TeachingSurveyMainController
 	{
 		return welcome(request, model, locale);
 	}
+	
+	
+	public static void main(String[] args) 
+	{
+		try
+		{
+			myPdfTest();
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+	
+	
+	private static void myPdfTest() throws IOException,
+	FileNotFoundException, DocumentException {
+			System.out.println("function called");
+			PdfReader pdfTemplate = new PdfReader("testTem.pdf");
+			System.out.println("data : "+pdfTemplate.getAcroFields().getFields());
+			FileOutputStream fileOutputStream = new FileOutputStream("C://temp/testRes.pdf");
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			PdfStamper stamper = new PdfStamper(pdfTemplate, fileOutputStream);
+			
+			PdfContentByte canvas = stamper.getOverContent(1);
+			ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Hello people!"), 250, 750, 0);
+			
+			
+			
+			stamper.getAcroFields().setField("txtName", "Testing...");
+			//stamper.getAcroFields().setField("id", "1\n2\n3\n");
+			//stamper.getAcroFields().setField("friendname","kumar\nsirisha\nsuresh\n");
+			//stamper.getAcroFields().setField("relation", "self\nwife\nfriend\n");
+			
+			
+			
+			
+			stamper.close();
+			pdfTemplate.close();
+			stamper.setFormFlattening(true);
+
+}
 	
 }

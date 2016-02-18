@@ -29,8 +29,10 @@
  */
 package om.edu.squ.squportal.portlet.tsurvey.dao.service;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -40,6 +42,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import javax.portlet.PortletRequest;
+import javax.portlet.ResourceResponse;
 import javax.xml.transform.stream.StreamSource;
 
 import om.edu.squ.squportal.portlet.tsurvey.bo.AccessSurvey;
@@ -58,6 +61,7 @@ import om.edu.squ.squportal.portlet.tsurvey.bo.survey.Survey;
 import om.edu.squ.squportal.portlet.tsurvey.bo.survey.SurveyResponse;
 import om.edu.squ.squportal.portlet.tsurvey.bo.survey.SurveyYear;
 import om.edu.squ.squportal.portlet.tsurvey.dao.db.TeachingSurveyDbDao;
+import om.edu.squ.squportal.portlet.tsurvey.dao.pdf.TeachingSurveyPdfImpl;
 import om.edu.squ.squportal.portlet.tsurvey.utility.Constants;
 import om.edu.squ.squportal.portlet.tsurvey.utility.UtilProperty;
 import om.edu.squ.squportal.portlet.tsurvey.utility.UtilService;
@@ -71,6 +75,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.oxm.Unmarshaller;
 
 import com.google.gson.Gson;
+import com.itextpdf.text.DocumentException;
 
 /**
  * @author Bhabesh
@@ -808,6 +813,43 @@ public class TeachingSurveyServiceImpl implements TeachingSurveyServiceDao
 			}
 		}
 		return null;
+	}
+	
+	
+	/**
+	 * 
+	 * method name  : getPdfContent
+	 * @param strTemplateName
+	 * @param byos
+	 * @param res
+	 * @param locale
+	 * @return
+	 * @throws IOException
+	 * @throws DocumentException
+	 * TeachingSurveyServiceImpl
+	 * return type  : OutputStream
+	 * 
+	 * purpose		: Get PDF Content
+	 *
+	 * Date    		:	Feb 15, 2016 12:56:06 PM
+	 */
+	public OutputStream getPdfContent(String strTemplateName, Object object, ByteArrayOutputStream	byos, String semesterYear, ResourceResponse res, Locale locale) throws IOException, DocumentException
+	{
+		Resource				resource		=	null;
+		InputStream				inputStream		=	null;
+		TeachingSurveyPdfImpl	pdfImpl			=	new TeachingSurveyPdfImpl();
+		OutputStream			outputStream	=	null;
+		
+		if(strTemplateName.equals(Constants.CONST_SURVEY_ANALYSIS))
+		{
+			
+					resource		=	new ClassPathResource(Constants.CONST_FILE_PDF_TEMPLATE_SURVEY_ANALYSIS);
+					inputStream		=	resource.getInputStream();
+					outputStream	=	pdfImpl.getPdfSurveyAnalysis(object,semesterYear,byos,inputStream, res);
+			
+		}
+		
+		return outputStream;
 	}
 	
 	

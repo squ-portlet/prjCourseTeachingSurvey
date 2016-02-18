@@ -27,7 +27,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c"       uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="portlet" uri="http://java.sun.com/portlet" %>
+<%@ taglib prefix="portlet" uri="http://java.sun.com/portlet_2_0" %>
+<%-- <%@ taglib prefix="portlet" uri="http://java.sun.com/portlet" %> --%>
 <%@ taglib prefix="spring"  uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form"    uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -53,6 +54,21 @@
 
 <c:if test="${not empty survey}" >
 
+
+<%-- <portlet:actionURL var="urlPdfSurveyAnalysis">
+	<portlet:param name="action" value="pdfSurveyAnalysis"/>
+	
+</portlet:actionURL> --%>
+
+<portlet:resourceURL id="pdfSurveyAnalysis" var="urlPdfSurveyAnalysis" escapeXml="false">
+	<portlet:param name="semesterYear" value="${semesterYear}"/>
+	
+</portlet:resourceURL>
+
+<div>
+	<div class="col-xs-10"></div>
+	<div class="col-xs-1"><a href="${urlPdfSurveyAnalysis}">pdf view</a></div>
+</div>
 				<div class="panel panel-default">
 				  <div class="panel-heading">
 				    <h5 class="panel-title"><div align="center"><spring:message code="prop.course.teaching.survey.heading"/></div></h5>

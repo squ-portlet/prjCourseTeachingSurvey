@@ -146,5 +146,16 @@ public interface Constants
 	/**********CONSTANTS XML FILES *************/
 	public static String	CONST_FILE_XML_SQL_PRESURVEY_LOAD					=	"sql/sql_preSurveyLoading.xml";
 	
+	/**********CONSTANTS PDF TEMPLATE NAME *************/
+	public static String	CONST_SURVEY_ANALYSIS								=	"SURVEY_ANALYSIS";
+	
+	
+	/**********CONSTANTS PDF TEMPLATE FILES *************/
+	public static String	CONST_FILE_PDF_TEMPLATE_SURVEY_ANALYSIS				=	"template/pdf/temSurveyAnalysisEn.pdf";
+	
+	/**********CONSTANTS FOR SESSIONS  *************/
+	public static String	CONST_SESSION_STAFF									=	"SESSION_STAFF";
+	
+	
 	
 }
