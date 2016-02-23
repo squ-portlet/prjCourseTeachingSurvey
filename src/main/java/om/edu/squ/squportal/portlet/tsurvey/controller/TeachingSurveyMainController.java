@@ -327,6 +327,7 @@ public class TeachingSurveyMainController
 	@ResourceMapping(value="pdfSurveyAnalysis")
 	private void pdfTeachingSurveyAnalysis(
 			@RequestParam("semesterYear") 		String semesterYear,
+			@RequestParam("questionByYear") 	String questionByYear,
 			ResourceRequest req, ResourceResponse res, Locale locale) throws DocumentException, IOException
 	{
 		
@@ -338,7 +339,7 @@ public class TeachingSurveyMainController
 			Survey 		survey			=	teachingSurveyServiceDao.getSurVeyAnalysis(staff.getEmpNumber(), staff.getCourseCode(), staff.getSemesterCode(), staff.getSectionNo(), locale);
 			
 			ByteArrayOutputStream	byos		=	new ByteArrayOutputStream();
-			OutputStream os = teachingSurveyServiceDao.getPdfContent(Constants.CONST_SURVEY_ANALYSIS, survey, byos,semesterYear, res, locale);
+			OutputStream os = teachingSurveyServiceDao.getPdfContent(Constants.CONST_SURVEY_ANALYSIS, survey, byos,semesterYear,questionByYear, res, locale);
 
 			
 			logger.info("CourseCode : "+survey.getCourseCode());

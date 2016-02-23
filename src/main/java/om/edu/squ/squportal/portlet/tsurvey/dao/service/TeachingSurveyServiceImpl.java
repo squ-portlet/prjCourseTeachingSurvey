@@ -833,7 +833,7 @@ public class TeachingSurveyServiceImpl implements TeachingSurveyServiceDao
 	 *
 	 * Date    		:	Feb 15, 2016 12:56:06 PM
 	 */
-	public OutputStream getPdfContent(String strTemplateName, Object object, ByteArrayOutputStream	byos, String semesterYear, ResourceResponse res, Locale locale) throws IOException, DocumentException
+	public OutputStream getPdfContent(String strTemplateName, Object object, ByteArrayOutputStream	byos, String semesterYear, String questionByYear, ResourceResponse res, Locale locale) throws IOException, DocumentException
 	{
 		Resource				resource		=	null;
 		InputStream				inputStream		=	null;
@@ -845,7 +845,7 @@ public class TeachingSurveyServiceImpl implements TeachingSurveyServiceDao
 			
 					resource		=	new ClassPathResource(Constants.CONST_FILE_PDF_TEMPLATE_SURVEY_ANALYSIS);
 					inputStream		=	resource.getInputStream();
-					outputStream	=	pdfImpl.getPdfSurveyAnalysis(object,semesterYear,byos,inputStream, res);
+					outputStream	=	pdfImpl.getPdfSurveyAnalysis(object,semesterYear,questionByYear, byos,inputStream, res);
 			
 		}
 		

@@ -62,7 +62,7 @@
 
 <portlet:resourceURL id="pdfSurveyAnalysis" var="urlPdfSurveyAnalysis" escapeXml="false">
 	<portlet:param name="semesterYear" value="${semesterYear}"/>
-	
+	<portlet:param name="questionByYear" value="${questionByYear}"/>
 </portlet:resourceURL>
 
 <div>

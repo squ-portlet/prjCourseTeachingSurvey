@@ -361,6 +361,6 @@ public interface TeachingSurveyServiceDao
 	 *
 	 * Date    		:	Feb 15, 2016 12:56:06 PM
 	 */
-	public OutputStream getPdfContent(String strTemplateName, Object object, ByteArrayOutputStream	byos, String semesterYear, ResourceResponse res, Locale locale) throws IOException, DocumentException;
+	public OutputStream getPdfContent(String strTemplateName, Object object, ByteArrayOutputStream	byos, String semesterYear,  String questionByYear, ResourceResponse res, Locale locale) throws IOException, DocumentException;
 	
 }
