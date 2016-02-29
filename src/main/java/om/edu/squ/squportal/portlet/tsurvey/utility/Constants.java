@@ -155,6 +155,13 @@ public interface Constants
 	
 	/**********CONSTANTS FOR SESSIONS  *************/
 	public static String	CONST_SESSION_STAFF									=	"SESSION_STAFF";
+
+	
+	/**********CONSTANTS FOR TEXT ALIGN  *************/
+	public static String	RIGHT												=	"R";
+	public static String	LEFT												=	"L";
+	public static String	CENTER												=	"C";
+	
 	
 	
 	

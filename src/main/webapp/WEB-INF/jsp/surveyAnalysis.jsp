@@ -54,21 +54,17 @@
 
 <c:if test="${not empty survey}" >
 
-
-<%-- <portlet:actionURL var="urlPdfSurveyAnalysis">
-	<portlet:param name="action" value="pdfSurveyAnalysis"/>
-	
-</portlet:actionURL> --%>
-
 <portlet:resourceURL id="pdfSurveyAnalysis" var="urlPdfSurveyAnalysis" escapeXml="false">
 	<portlet:param name="semesterYear" value="${semesterYear}"/>
 	<portlet:param name="questionByYear" value="${questionByYear}"/>
 </portlet:resourceURL>
 
-<div>
-	<div class="col-xs-10"></div>
-	<div class="col-xs-1"><a href="${urlPdfSurveyAnalysis}">pdf view</a></div>
-</div>
+<c:if test="${rc.locale.language == 'en'}" >
+	<div>
+		<div class="col-xs-10"></div>
+		<div class="col-xs-1"><a href="${urlPdfSurveyAnalysis}"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> <spring:message code="prop.course.teaching.survey.print.pdf"/> </a></div>
+	</div>
+</c:if>
 				<div class="panel panel-default">
 				  <div class="panel-heading">
 				    <h5 class="panel-title"><div align="center"><spring:message code="prop.course.teaching.survey.heading"/></div></h5>
