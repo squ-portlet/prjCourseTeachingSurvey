@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.portlet.PortletRequest;
 import javax.portlet.ResourceResponse;
@@ -362,5 +363,26 @@ public interface TeachingSurveyServiceDao
 	 * Date    		:	Feb 15, 2016 12:56:06 PM
 	 */
 	public OutputStream getPdfContent(String strTemplateName, Object object, ByteArrayOutputStream	byos, String semesterYear,  String questionByYear, ResourceResponse res, Locale locale) throws IOException, DocumentException;
+	
+	
+	/**
+	 * 
+	 * method name  : getExcelContent
+	 * @param strTemplateName
+	 * @param response
+	 * @param object
+	 * @param params
+	 * @param locale
+	 * @return
+	 * @throws DocumentException
+	 * @throws IOException
+	 * TeachingSurveyServiceDao
+	 * return type  : OutputStream
+	 * 
+	 * purpose		: Get Excel Content
+	 *
+	 * Date    		:	Mar 16, 2016 1:23:01 PM
+	 */
+	public OutputStream getExcelContent(String strTemplateName, ResourceResponse response, Object object, Map<String, String> params, Locale locale) throws DocumentException, IOException;
 	
 }

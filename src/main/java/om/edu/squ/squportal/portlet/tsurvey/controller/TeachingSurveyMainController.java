@@ -30,31 +30,28 @@
 package om.edu.squ.squportal.portlet.tsurvey.controller;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
-import javax.portlet.ActionRequest;
-import javax.portlet.ActionResponse;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletSession;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
 import om.edu.squ.squportal.portlet.tsurvey.bo.AccessSurvey;
 import om.edu.squ.squportal.portlet.tsurvey.bo.Param;
+import om.edu.squ.squportal.portlet.tsurvey.bo.ReportSummary;
 import om.edu.squ.squportal.portlet.tsurvey.bo.Staff;
 import om.edu.squ.squportal.portlet.tsurvey.bo.StaffRole;
 import om.edu.squ.squportal.portlet.tsurvey.bo.survey.Survey;
 import om.edu.squ.squportal.portlet.tsurvey.bo.survey.SurveyYear;
-import om.edu.squ.squportal.portlet.tsurvey.dao.pdf.TeachingSurveyPdfImpl;
 import om.edu.squ.squportal.portlet.tsurvey.dao.service.TeachingSurveyServiceDao;
 import om.edu.squ.squportal.portlet.tsurvey.utility.Constants;
 import om.edu.squ.squportal.portlet.tsurvey.utility.UtilProperty;
@@ -70,17 +67,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.portlet.bind.annotation.ResourceMapping;
 
-import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.Phrase;
-import com.itextpdf.text.pdf.ColumnText;
-import com.itextpdf.text.pdf.PdfContentByte;
-import com.itextpdf.text.pdf.PdfFormField;
-import com.itextpdf.text.pdf.PdfReader;
-import com.itextpdf.text.pdf.PdfStamper;
-import com.itextpdf.text.pdf.PdfWriter;
 
 /**
  * @author Bhabesh
@@ -340,10 +327,6 @@ public class TeachingSurveyMainController
 			
 			ByteArrayOutputStream	byos		=	new ByteArrayOutputStream();
 			OutputStream os = teachingSurveyServiceDao.getPdfContent(Constants.CONST_SURVEY_ANALYSIS, survey, byos,semesterYear,questionByYear, res, locale);
-
-			
-			logger.info("CourseCode : "+survey.getCourseCode());
-			
 			
 			res.setContentType("application/pdf");
 			
@@ -511,11 +494,15 @@ public class TeachingSurveyMainController
 			statement	=	UtilProperty.getMessage("prop.course.teaching.survey.statement.16", null, locale);
 		}
 		
+		logger.info("semesterCode(1) : "+semesterCode);
+		
+		model.addAttribute("semCode",semesterCode);
 		model.addAttribute("statement", statement);
 		model.addAttribute("staffRole", staffRole);
 		model.addAttribute("validSurveyReportJSON", teachingSurveyServiceDao.getValidReportSummariesJSON(empNumber, semesterCode, locale) );
 		model.addAttribute("validSurveyReport", teachingSurveyServiceDao.getValidReportSummaries(empNumber, semesterCode, locale) );
 		
+		logger.info("reportSummaries0 : "+teachingSurveyServiceDao.getValidReportSummaries(empNumber, semesterCode, locale).size() );
 		
 		Param			param	=	new Param("semesterCode", semesterCode);
 
@@ -524,6 +511,28 @@ public class TeachingSurveyMainController
 		return "surveyReportSummaryValid";
 	}
 
+	
+	
+	@ResourceMapping(value="excelValidSurveyReportSummary")
+	private void excelSurveyReportValid (@RequestParam("semCode")  String semesterCode, @RequestParam("staffRole")  String staffRole, ResourceRequest req, ResourceResponse res, Locale locale) throws IOException, DocumentException
+	{
+		
+		String 		empNumber 		=	teachingSurveyServiceDao.getEmployeeNumber(req);
+
+		
+		Map<String, String> params			=	new HashMap<String,String>();
+		params.put(Constants.CONST_ROLE_STAFF, staffRole);
+		params.put(Constants.CONST_PARAM_VALID_SURVEY, UtilProperty.getMessage("prop.course.teaching.survey.report.survey.valid", null, locale));
+		params.put(Constants.CONST_PARAM_SEMESTER_CODE, semesterCode);
+
+		List<ReportSummary> reportSummaries	=	teachingSurveyServiceDao.getValidReportSummaries(empNumber, semesterCode, locale);
+		
+		teachingSurveyServiceDao.getExcelContent(Constants.CONST_VALID_SURVEY_REPORT, res, reportSummaries,params,locale);
+		
+	}
+	
+	
+	
 	
 	/**
 	 * 
@@ -643,45 +652,8 @@ public class TeachingSurveyMainController
 	}
 	
 	
-	public static void main(String[] args) 
-	{
-		try
-		{
-			myPdfTest();
-		}
-		catch(Exception ex)
-		{
-			ex.printStackTrace();
-		}
-	}
 	
 	
-	private static void myPdfTest() throws IOException,
-	FileNotFoundException, DocumentException {
-			System.out.println("function called");
-			PdfReader pdfTemplate = new PdfReader("testTem.pdf");
-			System.out.println("data : "+pdfTemplate.getAcroFields().getFields());
-			FileOutputStream fileOutputStream = new FileOutputStream("C://temp/testRes.pdf");
-			ByteArrayOutputStream out = new ByteArrayOutputStream();
-			PdfStamper stamper = new PdfStamper(pdfTemplate, fileOutputStream);
-			
-			PdfContentByte canvas = stamper.getOverContent(1);
-			ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase("Hello people!"), 250, 750, 0);
-			
-			
-			
-			stamper.getAcroFields().setField("txtName", "Testing...");
-			//stamper.getAcroFields().setField("id", "1\n2\n3\n");
-			//stamper.getAcroFields().setField("friendname","kumar\nsirisha\nsuresh\n");
-			//stamper.getAcroFields().setField("relation", "self\nwife\nfriend\n");
-			
-			
-			
-			
-			stamper.close();
-			pdfTemplate.close();
-			stamper.setFormFlattening(true);
-
-}
+	
 	
 }

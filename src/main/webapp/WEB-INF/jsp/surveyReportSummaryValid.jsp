@@ -28,7 +28,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c"       uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="portlet" uri="http://java.sun.com/portlet" %>
+<%-- <%@ taglib prefix="portlet" uri="http://java.sun.com/portlet" %> --%>
+<%@ taglib prefix="portlet" uri="http://java.sun.com/portlet_2_0" %>
 <%@ taglib prefix="spring"  uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form"    uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -147,11 +148,15 @@
         });
     </script>
 
+<portlet:resourceURL id="excelValidSurveyReportSummary" var="urlExcelValidSurveyReportSummary" escapeXml="false">
+	<portlet:param name="semCode" value="${semCode}"/>
+	<portlet:param name="staffRole" value="${staffRole.staffRole}"/>
+</portlet:resourceURL>
+
+	<div>
+		<div class="col-xs-10"></div>
+		<div class="col-xs-1"><a href="${urlExcelValidSurveyReportSummary}"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> <spring:message code="prop.course.teaching.survey.print.pdf"/> </a></div>
+	</div>    
+	<div class="clearfix"></div>
     <div id="dataTable"></div>
-	<portlet:renderURL var="urlSurveyAnalysis" >
-		<portlet:param name="action" value="surveyAnalysis"/>
-		<portlet:param name="empNumber" value="${report.empNumber}"/>
-		<portlet:param name="courseCode" value="${report.courseCode}"/>
-		<portlet:param name="semesterCode" value="${report.yearSemester}"/>
-		<portlet:param name="sectionNo" value="${report.sectionNo}"/>
-	</portlet:renderURL>
+

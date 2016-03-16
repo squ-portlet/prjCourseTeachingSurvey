@@ -38,6 +38,7 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -61,6 +62,7 @@ import om.edu.squ.squportal.portlet.tsurvey.bo.survey.Survey;
 import om.edu.squ.squportal.portlet.tsurvey.bo.survey.SurveyResponse;
 import om.edu.squ.squportal.portlet.tsurvey.bo.survey.SurveyYear;
 import om.edu.squ.squportal.portlet.tsurvey.dao.db.TeachingSurveyDbDao;
+import om.edu.squ.squportal.portlet.tsurvey.dao.excel.TeachingSurveyExcelImpl;
 import om.edu.squ.squportal.portlet.tsurvey.dao.pdf.TeachingSurveyPdfImpl;
 import om.edu.squ.squportal.portlet.tsurvey.utility.Constants;
 import om.edu.squ.squportal.portlet.tsurvey.utility.UtilProperty;
@@ -851,6 +853,38 @@ public class TeachingSurveyServiceImpl implements TeachingSurveyServiceDao
 		
 		return outputStream;
 	}
+
 	
+	/**
+	 * 
+	 * method name  : getExcelContent
+	 * @param strTemplateName
+	 * @param response
+	 * @param object
+	 * @param params
+	 * @param locale
+	 * @return
+	 * @throws DocumentException
+	 * @throws IOException
+	 * TeachingSurveyServiceDao
+	 * return type  : OutputStream
+	 * 
+	 * purpose		: Get Excel Content
+	 *
+	 * Date    		:	Mar 16, 2016 1:23:01 PM
+	 */
+	public OutputStream getExcelContent(String strTemplateName, ResourceResponse response, Object object, Map<String, String> params, Locale locale) throws DocumentException, IOException
+	{
+		TeachingSurveyExcelImpl	excelImpl		=	new TeachingSurveyExcelImpl();
+		OutputStream			outputStream	=	null;
+		
+		if(strTemplateName.equals(Constants.CONST_VALID_SURVEY_REPORT))
+		{
+			outputStream	=	excelImpl.getExcelValidSurveyReport(object, response, params, locale);
+		}
+		
+		return outputStream;
+		
+	}
 	
 }

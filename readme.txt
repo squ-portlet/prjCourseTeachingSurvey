@@ -5,6 +5,7 @@ Version : 1.1
 --------------------
 	1)	PDF file generation for Survey analysis
 		a) Only english version at this time
+	2)  Excel report generation for valid survey
 
 
 

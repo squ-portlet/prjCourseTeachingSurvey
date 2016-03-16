@@ -148,6 +148,7 @@ public interface Constants
 	
 	/**********CONSTANTS PDF TEMPLATE NAME *************/
 	public static String	CONST_SURVEY_ANALYSIS								=	"SURVEY_ANALYSIS";
+	public static String	CONST_VALID_SURVEY_REPORT							=	"VALID_SURVEY_REPORT";
 	
 	
 	/**********CONSTANTS PDF TEMPLATE FILES *************/
@@ -156,11 +157,21 @@ public interface Constants
 	/**********CONSTANTS FOR SESSIONS  *************/
 	public static String	CONST_SESSION_STAFF									=	"SESSION_STAFF";
 
+	/**********CONSTANTS FOR STAFF_ROLE  *************/
+	public static String	CONST_ROLE_STAFF									=	"staffRole";
+	public static String	CONST_ROLE_STAFF_HOD								=	"HOD";
+
+	/**********CONSTANTS FOR PARAMS  *************/
 	
+	public static String	CONST_PARAM_VALID_SURVEY							=	"param_valid_survey";
+	public static String	CONST_PARAM_SEMESTER_CODE							=	"param_semester_code";
+
 	/**********CONSTANTS FOR TEXT ALIGN  *************/
 	public static String	RIGHT												=	"R";
 	public static String	LEFT												=	"L";
 	public static String	CENTER												=	"C";
+	
+
 	
 	
 	
