@@ -154,8 +154,8 @@
 </portlet:resourceURL>
 
 	<div>
-		<div class="col-xs-10"></div>
-		<div class="col-xs-1"><a href="${urlExcelValidSurveyReportSummary}"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> <spring:message code="prop.course.teaching.survey.print.pdf"/> </a></div>
+		<div class="col-md-8 col-xs-5"></div>
+		<div class="col-md-3 col-xs-5"><a href="${urlExcelValidSurveyReportSummary}"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> <spring:message code="prop.course.teaching.survey.export.excel"/> </a></div>
 	</div>    
 	<div class="clearfix"></div>
     <div id="dataTable"></div>
