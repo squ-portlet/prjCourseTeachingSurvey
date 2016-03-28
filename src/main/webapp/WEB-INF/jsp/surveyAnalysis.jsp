@@ -57,6 +57,7 @@
 <portlet:resourceURL id="pdfSurveyAnalysis" var="urlPdfSurveyAnalysis" escapeXml="false">
 	<portlet:param name="semesterYear" value="${semesterYear}"/>
 	<portlet:param name="questionByYear" value="${questionByYear}"/>
+	<portlet:param name="questionSetNo" value="${questionSetNo}"/>
 </portlet:resourceURL>
 
 <c:if test="${rc.locale.language == 'en'}" >
@@ -135,7 +136,7 @@
 										<c:if test="${(analysis.question == 'Q2') || (analysis.question == 'Q14') || analysis.question == questionByYear}">
 												<tr>
 													<td>${analysis.question}</td>
-													<td style="${txtAlign}"><spring:message code="prop.course.teaching.survey.analysis.question${analysis.questionLabel}"/></td>
+													<td style="${txtAlign}"><spring:message code="prop.course.teaching.survey.analysis.set${questionSetNo}.question${analysis.questionLabel}"/></td>
 													<td class="active">${analysis.strongDisagree}</td>
 													<td>${analysis.disAgree}</td>
 													<td class="active">${analysis.agree}</td>
@@ -186,7 +187,7 @@
 										<c:if test="${!((analysis.question == 'Q2') || (analysis.question == 'Q14') || (analysis.question == questionByYear))}">
 												<tr>
 													<td >${analysis.question}</td>
-													<td style="${txtAlign}"><spring:message code="prop.course.teaching.survey.analysis.question${analysis.questionLabel}"/></td>
+													<td style="${txtAlign}"><spring:message code="prop.course.teaching.survey.analysis.set${questionSetNo}.question${analysis.questionLabel}"/></td>
 													<td class="active">${analysis.strongDisagree}</td>
 													<td>${analysis.disAgree}</td>
 													<td class="active">${analysis.agree}</td>

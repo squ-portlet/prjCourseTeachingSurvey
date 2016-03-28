@@ -245,23 +245,28 @@ public class TeachingSurveyMainController
 											PortletRequest request, Model model, Locale locale
 											)
 	{
-		
+		int			questionSetNo	=	0;
 		String		questionByYear	=	null;
 		Survey 		survey			=	teachingSurveyServiceDao.getSurVeyAnalysis(empNumber, courseCode, semesterCode, sectionNo, locale);
 		int 		year2digit		=	Integer.parseInt(semesterCode.substring(0,2));
 		
+		
+		
 		if(year2digit > 10)
 		{
+			questionSetNo	=	2;
 			questionByYear	=	"Q13";
 		}
 		else
 		{
+			questionSetNo	=	1;
 			questionByYear	=	"Q15";
 		}
 		
 		model.addAttribute("semesterYear", teachingSurveyServiceDao.getSemesterYear(semesterCode, locale));
 		model.addAttribute("survey", survey);
 		model.addAttribute("questionByYear", questionByYear.trim());
+		model.addAttribute("questionSetNo", questionSetNo);
 		
 		Param			paramEmpNumber		=	new Param("empNumber", empNumber);
 		Param			paramCourseCode		=	new Param("courseCode", courseCode);
@@ -315,6 +320,7 @@ public class TeachingSurveyMainController
 	private void pdfTeachingSurveyAnalysis(
 			@RequestParam("semesterYear") 		String semesterYear,
 			@RequestParam("questionByYear") 	String questionByYear,
+			@RequestParam("questionSetNo") 		int questionSetNo,
 			ResourceRequest req, ResourceResponse res, Locale locale) throws DocumentException, IOException
 	{
 		
@@ -326,7 +332,7 @@ public class TeachingSurveyMainController
 			Survey 		survey			=	teachingSurveyServiceDao.getSurVeyAnalysis(staff.getEmpNumber(), staff.getCourseCode(), staff.getSemesterCode(), staff.getSectionNo(), locale);
 			
 			ByteArrayOutputStream	byos		=	new ByteArrayOutputStream();
-			OutputStream os = teachingSurveyServiceDao.getPdfContent(Constants.CONST_SURVEY_ANALYSIS, survey, byos,semesterYear,questionByYear, res, locale);
+			OutputStream os = teachingSurveyServiceDao.getPdfContent(Constants.CONST_SURVEY_ANALYSIS, survey, byos,semesterYear,questionByYear, questionSetNo, res, locale);
 			
 			res.setContentType("application/pdf");
 			

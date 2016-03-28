@@ -349,20 +349,24 @@ public interface TeachingSurveyServiceDao
 	 * 
 	 * method name  : getPdfContent
 	 * @param strTemplateName
+	 * @param object
 	 * @param byos
+	 * @param semesterYear
+	 * @param questionByYear
+	 * @param questionSetNo
 	 * @param res
 	 * @param locale
 	 * @return
 	 * @throws IOException
 	 * @throws DocumentException
-	 * TeachingSurveyServiceImpl
+	 * TeachingSurveyServiceDao
 	 * return type  : OutputStream
 	 * 
 	 * purpose		: Get PDF Content
 	 *
-	 * Date    		:	Feb 15, 2016 12:56:06 PM
+	 * Date    		:	Mar 28, 2016 7:19:41 PM
 	 */
-	public OutputStream getPdfContent(String strTemplateName, Object object, ByteArrayOutputStream	byos, String semesterYear,  String questionByYear, ResourceResponse res, Locale locale) throws IOException, DocumentException;
+	public OutputStream getPdfContent(String strTemplateName, Object object, ByteArrayOutputStream	byos, String semesterYear,  String questionByYear, int questionSetNo, ResourceResponse res, Locale locale) throws IOException, DocumentException;
 	
 	
 	/**

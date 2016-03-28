@@ -67,7 +67,28 @@ import com.itextpdf.text.pdf.PdfStamper;
 public class TeachingSurveyPdfImpl 
 {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	public OutputStream  getPdfSurveyAnalysis(Object object, String semesterYear, String questionByYear, ByteArrayOutputStream	byos,  InputStream	inputStream,  ResourceResponse res) throws DocumentException, IOException
+	
+	/**
+	 * 
+	 * method name  : getPdfSurveyAnalysis
+	 * @param object
+	 * @param semesterYear
+	 * @param questionByYear
+	 * @param questionSetNo
+	 * @param byos
+	 * @param inputStream
+	 * @param res
+	 * @return
+	 * @throws DocumentException
+	 * @throws IOException
+	 * TeachingSurveyPdfImpl
+	 * return type  : OutputStream
+	 * 
+	 * purpose		: Generate PDF content
+	 *
+	 * Date    		:	Mar 28, 2016 7:21:04 PM
+	 */
+	public OutputStream  getPdfSurveyAnalysis(Object object, String semesterYear, String questionByYear, int questionSetNo,  ByteArrayOutputStream	byos,  InputStream	inputStream,  ResourceResponse res) throws DocumentException, IOException
 	{
 
 		Font	font	=	FontFactory.getFont(FontFactory.TIMES_ROMAN,10,BaseColor.BLACK);
@@ -82,12 +103,6 @@ public class TeachingSurveyPdfImpl
 		String			RIGHT				=	Constants.RIGHT;
 		String			CENTER				=	Constants.CENTER;
 		String			LEFT				=	Constants.LEFT;
-		
-		
-		logger.info("CourseCode : "+survey.getCourseCode());
-		
-
-		//		pdfStamper.getAcroFields().setFieldProperty("txtName", "setfflags", PdfFormField.FF_READ_ONLY, null);
 		
 		
 		pdfStamper.getAcroFields().setField("txtCourse", survey.getCourseCode() + " / " +survey.getCourseName());
@@ -153,7 +168,7 @@ public class TeachingSurveyPdfImpl
 				{
 					/***  First part    ***/
 					table.addCell(getPdfCell(analysis.getQuestion(),0,0,font));
-					table.addCell(getPdfCell(UtilProperty.getMessage("prop.course.teaching.survey.analysis.question"+analysis.getQuestionLabel(), null),0,0,font,LEFT));
+					table.addCell(getPdfCell(UtilProperty.getMessage("prop.course.teaching.survey.analysis.set"+questionSetNo+".question"+analysis.getQuestionLabel(), null),0,0,font,LEFT));
 					table.addCell(getPdfCell(String.valueOf(analysis.getStrongDisagree()),0,0,font,RIGHT));
 					table.addCell(getPdfCell(String.valueOf(analysis.getDisAgree()),0,0,font,RIGHT));
 					table.addCell(getPdfCell(String.valueOf(analysis.getAgree()),0,0,font,RIGHT));
@@ -213,7 +228,7 @@ public class TeachingSurveyPdfImpl
 				{
 
 					table.addCell(getPdfCell(analysis.getQuestion(),0,0,font));
-					table.addCell(getPdfCell(UtilProperty.getMessage("prop.course.teaching.survey.analysis.question"+analysis.getQuestionLabel(), null),0,0,font,LEFT));
+					table.addCell(getPdfCell(UtilProperty.getMessage("prop.course.teaching.survey.analysis.set"+questionSetNo+".question"+analysis.getQuestionLabel(), null),0,0,font,LEFT));
 					table.addCell(getPdfCell(String.valueOf(analysis.getStrongDisagree()),0,0,font,RIGHT));
 					table.addCell(getPdfCell(String.valueOf(analysis.getDisAgree()),0,0,font,RIGHT));
 					table.addCell(getPdfCell(String.valueOf(analysis.getAgree()),0,0,font,RIGHT));
