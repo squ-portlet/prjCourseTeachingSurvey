@@ -40,8 +40,8 @@
 			         FROM    V_COURSE_DETAILS  ,                                    
 			         		 V_CURRENT_YRSEM_PORTAL                                 
 			         WHERE   EMPNO  = :paramEmpNumber                                               
-			              --AND   (EVALUATE_COURSE(COURSE_CODE, CRS_TYPE_CODE)='Y')             
-			              --AND   IS_SEMESTER_EVALUATED(L_ABR_YRSEM)='N'                 
+			              AND   (EVALUATE_COURSE(COURSE_CODE, CRS_TYPE_CODE)='Y')             
+			              AND   IS_SEMESTER_EVALUATED(L_ABR_YRSEM)='N'                 
 			        	  AND  SEATSTAKEN > 4   
     	]]>
     </entry>
