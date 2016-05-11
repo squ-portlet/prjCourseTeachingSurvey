@@ -66,6 +66,8 @@ public class TeachingSurveyDbImpl implements TeachingSurveyDbDao
 	
 	private	NamedParameterJdbcTemplate	namedParameterJdbcTemplate;
 	private	Properties					queryProps;
+	private	Properties					queryPropsPostSurveyControl;
+	
 	
 	/**
 	 * 
@@ -101,6 +103,19 @@ public class TeachingSurveyDbImpl implements TeachingSurveyDbDao
 	}
 
 	
+	
+	/**
+	 * Setter method : setQueryPropsPostSurveyControl
+	 * @param queryPropsPostSurveyControl the queryPropsPostSurveyControl to set
+	 * 
+	 * Date          : May 10, 2016 1:59:59 PM
+	 */
+	public void setQueryPropsPostSurveyControl(
+			Properties queryPropsPostSurveyControl)
+	{
+		this.queryPropsPostSurveyControl = queryPropsPostSurveyControl;
+	}
+
 	/**
 	 * 
 	 * method name  : getAccessToSurvey
@@ -893,6 +908,26 @@ public class TeachingSurveyDbImpl implements TeachingSurveyDbDao
 		return message;
 	}
 	
+	/************************************************ POST SURVEY CONTROL OPERATIONS ***************************************/ 
+	/**
+	 * 
+	 * method name  : postSurveyStartAnalysis
+	 * @return
+	 * TeachingSurveyDbImpl
+	 * return type  : int
+	 * 
+	 * purpose		:
+	 *
+	 * Date    		:	May 10, 2016 2:33:53 PM
+	 */
+	public int postSurveyStartAnalysis()
+	{
+		String	SQL_POST_SURVEY_ANALYSIS_PROCESS		=	queryPropsPostSurveyControl.getProperty(Constants.SQL_POST_SURVEY_ANALYSIS_PROCESS);
+		logger.info("Result : "+SQL_POST_SURVEY_ANALYSIS_PROCESS);
+		return 0;
+	}
 	
+	
+
 	
 }

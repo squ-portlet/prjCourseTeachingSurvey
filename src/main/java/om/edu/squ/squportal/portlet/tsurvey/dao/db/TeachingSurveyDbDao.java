@@ -328,4 +328,18 @@ public interface TeachingSurveyDbDao
 	 */
 	public  String loadPreSurvey(StatementSqlBo  sqlBo);
 	
+	/************************************************ POST SURVEY CONTROL OPERATIONS ***************************************/ 
+	/**
+	 * 
+	 * method name  : postSurveyStartAnalysis
+	 * @return
+	 * TeachingSurveyDbImpl
+	 * return type  : int
+	 * 
+	 * purpose		:
+	 *
+	 * Date    		:	May 10, 2016 2:33:53 PM
+	 */
+	public int postSurveyStartAnalysis();
+	
 }

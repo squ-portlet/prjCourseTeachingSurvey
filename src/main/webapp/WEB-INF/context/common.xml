@@ -77,6 +77,10 @@
 	 <bean id="queryProps" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
     	<property name="locations" value="classpath:sql/query.xml" />
 	</bean>
+	<bean id="queryPropsPostSurveyControl" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+    	<property name="locations" value="classpath:sql/sql_postSurveyControl.xml" />
+	</bean>
+	
 	
 	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean"> 
     	<property name="jndiName" value="java:comp/env/jdbc/pool/teaching_survey"/> 
@@ -89,7 +93,7 @@
 
  		<property name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate"/> 
 		<property name="queryProps" ref="queryProps" />
-
+		<property name="queryPropsPostSurveyControl" ref="queryPropsPostSurveyControl" />
  	</bean>	 
 
 	<bean id="teachingSurveyServiceDao"	class="om.edu.squ.squportal.portlet.tsurvey.dao.service.TeachingSurveyServiceImpl"/>
@@ -115,18 +119,29 @@
 	
 	<!-- Spring's scheduling support -->
 	
-	<!-- TODO Enable this code for scheduling  0 0 21 11 5 2015 
-	    *******  minute 0,hour 0,day of month 22,month 11 (november),day of week (friday/saturday),year 2015 *****
-	--> 
-	 
-<!--	
-    <task:scheduled-tasks scheduler="taskScheduler">
-        <task:scheduled ref="preSurveyOperation" method="operation" cron="0 * * * * *"/>
-    </task:scheduled-tasks>
--->	
-	
 	<!-- Defines a ThreadPoolTaskScheduler instance with configurable pool size. -->
     <task:scheduler id="taskScheduler" pool-size="1"/>
+    	
+	<!--
+		Format followed using quart-schedular 
+		Example from : http://www.quartz-scheduler.org/documentation/quartz-2.x/tutorials/tutorial-lesson-06.html
+		helpful doc : http://docs.spring.io/spring/docs/current/spring-framework-reference/html/scheduling.html
+		TODO Enable this code for scheduling  0 30 10 15 4 FRI 
+	    *******seconds 0,  minute 30,hour 10,day of month 15,month 4 (april),day of week (friday) *****
+	--> 
+	
+<!--    
+
+	<task:scheduled-tasks scheduler="taskScheduler">
+        <task:scheduled ref="preSurveyOperation" method="operation" cron="0 30 10 15 4 FRI"/>
+    </task:scheduled-tasks>	 
+    
+  --> 
+	
+
+	
+	
+
 	
 	<!-- ******************************************* -->
 <!-- Servlet Configuration -->

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment>Post Teaching Survey Control</comment>
+    <entry key="post.survey.analysis.process">
+    	INSERT INTO  V_COURSE_EVALUATION_HISTORY_16 
+			(
+			  	YR_SEM,
+			  	COURSE_CODE, 
+				CRSNAME, 
+				A_CRSNAME, 
+				SECTNO, 
+				SEATSTAKEN, 
+				ACTUAL_STD, 
+				EMPNO, 
+				CRED_HRS, 
+				CRS_COL_CODE, 
+				CRS_COL_NAME, 
+				CRS_COL_NAME_ARABIC, 
+				CRS_DEPT_CODE, 
+				CRS_DEPT_NAME, 
+				CRS_DEPT_NAME_ARABIC, 
+				CRS_TYPE_CODE, 
+				CRS_TYPE_NAME  
+			)
+		SELECT 
+			  	(SELECT L_ABR_YRSEM FROM V_CURRENT_YRSEM_PORTAL) ,
+				COURSE_CODE, 
+				CRSNAME, 
+				A_CRSNAME, 
+				SECTNO, 
+				SEATSTAKEN, 
+			  	ACTUAL_STD, 
+				EMPNO, 
+				CRED_HRS, 
+				CRS_COL_CODE, 
+				CRS_COL_NAME, 
+				CRS_COL_NAME_ARABIC, 
+				CRS_DEPT_CODE, 
+				CRS_DEPT_NAME, 
+				CRS_DEPT_NAME_ARABIC, 
+				CRS_TYPE_CODE, 
+				CRS_TYPE_NAME
+		
+		FROM V_COURSE_DETAILS
+    </entry>
+    
+</properties>  

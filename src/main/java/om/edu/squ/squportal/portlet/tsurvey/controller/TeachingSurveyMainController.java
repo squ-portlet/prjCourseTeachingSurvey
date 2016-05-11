@@ -658,6 +658,13 @@ public class TeachingSurveyMainController
 	}
 	
 	
+	/************************************************ POST SURVEY CONTROL OPERATIONS ***************************************/ 
+	@RequestMapping(params="action=analysisDataTransfer")
+	private	String analysisDataTransfer(PortletRequest	request, Model model, Locale locale)
+	{
+		logger.info("Result : "+teachingSurveyServiceDao.postSurveyStartAnalysis());
+		return "test";
+	}
 	
 	
 	

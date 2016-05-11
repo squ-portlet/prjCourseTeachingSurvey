@@ -66,6 +66,8 @@ public interface Constants
 	public	static	String	SQL_UPDATE_DATE_ADMIN_COMITTEE_VIEW					=	"update.date.admin.committee.view";
 	public	static	String	SQL_UPDATE_DATE_ADMIN_FACULTY_VIEW					=	"update.date.admin.faculty.view";
 	
+	public	static	String	SQL_POST_SURVEY_ANALYSIS_PROCESS					=	"post.survey.analysis.process";
+	
 	
 	
 	

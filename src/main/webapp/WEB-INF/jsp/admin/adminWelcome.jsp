@@ -27,7 +27,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c"       uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="portlet" uri="http://java.sun.com/portlet" %>
+<%@ taglib prefix="portlet" uri="http://java.sun.com/portlet_2_0" %>
+<%-- <%@ taglib prefix="portlet" uri="http://java.sun.com/portlet" %> --%>
 <%@ taglib prefix="spring"  uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form"    uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -163,6 +164,10 @@
             
         </script>
 
+<portlet:renderURL var="urlAnalysisStart">
+	<portlet:param name="action" value="analysisDataTransfer"/>
+</portlet:renderURL>
+
 <div class="panel panel-default">
 	  <div class="panel-heading">
 	    <h3 class="panel-title"><spring:message code="prop.course.teaching.survey.title"/></h3>
@@ -214,6 +219,13 @@
 							
 							<div class="clearfix"></div>
 							
+							<div>
+								<spring:message code="prop.course.teaching.survey.committee.member.control.survey.week" />	
+							</div>
+							
+							
+							<div class="clearfix"></div>
+							
 							<p>&nbsp;</p>						
 							<div class="well col-xs-11">
 								<div>
@@ -235,6 +247,8 @@
 				   		 	</div>
 						
 						<p>&nbsp;</p>
+						
+						<a href="${urlAnalysisStart}">Test Analysis</a>
 						
 				    </div>
 			   </div>
