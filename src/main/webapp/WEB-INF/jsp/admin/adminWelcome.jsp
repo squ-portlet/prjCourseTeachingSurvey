@@ -192,7 +192,6 @@
 		        	<tbody>
 		        		<c:forEach items="${committeeMembers}" var="member">
 		        				<tr>
-		        					<td>${member.empNo}</td>
 		        					<td>
 		        						<div>${member.empName} &nbsp; 
 		        						<c:if test="${member.role == 'admin'}">
@@ -233,6 +232,13 @@
 								</div>
 							
 								<div class="col-xs-12">
+									<div class="col-xs-6"><spring:message code="prop.course.teaching.survey.analysis.process"/> </div>
+									<div class="col-xs-2"><input id="chkSurveyVisibleAnalysis" type="checkbox" data-toggle="toggle" data-on='<spring:message code="prop.course.teaching.survey.committee.member.button.on"/>' data-off='<spring:message code="prop.course.teaching.survey.committee.member.button.off"/>' data-onstyle="success" data-offstyle="danger"> </div>
+									<div class="col-xs-4"> </div>
+								</div>
+							
+							
+								<div class="col-xs-12">
 						        	<div class="col-xs-6"><spring:message code="prop.course.teaching.survey.committee.member.control.survey.visible.committee" />  </div>
 						        	<div class="col-xs-2"><input id="chkSurveyVisibleCommittee" type="checkbox" data-toggle="toggle" data-on='<spring:message code="prop.course.teaching.survey.committee.member.button.yes"/>' data-off='<spring:message code="prop.course.teaching.survey.committee.member.button.no"/>' data-onstyle="success" data-offstyle="danger"></div>
 						        	<div  class="col-xs-4"> <div id='dateCommittee'></div> </div>
@@ -248,6 +254,7 @@
 						
 						<p>&nbsp;</p>
 						
+						URL : ${resourceURL}
 						<a href="${urlAnalysisStart}">Test Analysis</a>
 						
 				    </div>
