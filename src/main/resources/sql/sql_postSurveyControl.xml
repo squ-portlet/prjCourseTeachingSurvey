@@ -44,5 +44,51 @@
 		
 		FROM V_COURSE_DETAILS
     </entry>
+    <entry key="post.survey.analysis.execute.teaching.survey.proc">
+    	<![CDATA[
+    		BEGIN
+		  			EXECUTE_TEACHING_SURVEY_PROC(:paramYrSem);
+			END;
+    	]]>
+    </entry>
+    <entry key="post.survey.analysis.process.count.success">
+    	<![CDATA[
+	    	SELECT 
+				(
+					COUNT(SUCCESS_ANALYSIS_1)
+					+
+					COUNT(SUCCESS_ANALYSIS_2)
+					+
+					COUNT(SUCCESS_ANALYSIS_3)
+				) 																	AS 	COUNT_SUCCESS_ANALYSIS
+			FROM
+				TEACHING_SURVEY_ADMIN_START
+			WHERE
+				L_ABR_YRSEM = :paramYrSem
+    	]]>
+    </entry>
+    <entry key="post.survey.analysis.process.check">
+    	<![CDATA[
+	    	SELECT 
+				  START_ANALYSIS
+			FROM
+				  TEACHING_SURVEY_ADMIN_START
+			WHERE
+				  L_ABR_YRSEM = :paramYrSem
+    	]]>
+    
+    </entry>
+    <entry key="post.survey.analysis.process.check.update">
+    	<![CDATA[
+    		UPDATE
+		  		TEACHING_SURVEY_ADMIN_START
+			SET
+		  		START_ANALYSIS = 'Y'
+			WHERE
+		  		L_ABR_YRSEM = :paramYrSem
+    	]]>
+    </entry>
+    
+    
     
 </properties>  

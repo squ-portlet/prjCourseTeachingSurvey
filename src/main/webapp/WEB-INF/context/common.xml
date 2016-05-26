@@ -74,6 +74,8 @@
 		</property>
 	</bean>
    
+
+   
 	 <bean id="queryProps" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
     	<property name="locations" value="classpath:sql/query.xml" />
 	</bean>
@@ -88,7 +90,13 @@
 	<bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">  
 		<constructor-arg ref="dataSource"></constructor-arg>  
 	</bean>
+   <tx:annotation-driven/>
 
+    <bean id="txManagerAnalysis" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+        <qualifier value="qAnalysis"/>
+    </bean>
+    
   	<bean id="teachingSurveyDbDao"	class="om.edu.squ.squportal.portlet.tsurvey.dao.db.TeachingSurveyDbImpl">
 
  		<property name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate"/> 

@@ -34,14 +34,71 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- link href="http://externalcdn.com/respond-proxy.html" id="respond-proxy" rel="respond-proxy" /-->
 
+<portlet:resourceURL id="analysisDataTransferAjax" var="urlAnalysisDataTransfer">
+		
+</portlet:resourceURL>
 
 <%@include file="../ui/cssWelcome.jsp" %>
 <%@include file="../ui/jsCode.jsp" %>
 
 <c:url value="/AccessVisibilitySurveyServlet" var="servletSurveyAccess"/>
 
- <script type="text/javascript">
 
+isPostSurveyAnalysisAvailable : ${isPostSurveyAnalysisAvailable}
+
+
+ <script type="text/javascript">
+ 
+ $(document).ready(function() {
+
+	 var $loading = $('#dvImgAjaxReload');
+
+	 <c:if test="${!isPostSurveyAnalysisAvailable}">
+		$('#chkSurveyVisibleAnalysis').bootstrapToggle('on');
+		   $('#dvVisibleCommittee').show();
+		   $('#dvVisibleFaculty').show();
+	</c:if>
+	 
+	 
+	 $(document).ajaxStart(function () {
+	   $loading.show();
+	 });
+	 
+	 $(document).ajaxStop(function () {
+	   $loading.hide();
+	   $('#dvVisibleCommittee').show();
+	   $('#dvVisibleFaculty').show();
+	 });
+	 
+	 
+	 $('#chkSurveyVisibleAnalysis').change(function() {
+		 
+		 if($('#chkSurveyVisibleAnalysis').prop('checked'))
+			 {
+			 	//TODO
+				$.ajax({
+					
+					url: "${urlAnalysisDataTransfer}",
+					type: 'POST',
+					 datatype:'json',
+					success : function(data){
+						var obj = $.parseJSON(data);
+
+					}
+					
+					
+				});
+			 	
+			 }
+		 else
+			 {
+			 	// Make the control on and it should not be off
+			 	$('#chkSurveyVisibleAnalysis').bootstrapToggle('on');
+			 }
+	 });
+	 
+ } );
+ 
             $(document).ready(function () {  
                        
                 // Create a jqxDateTimeInput
@@ -92,6 +149,8 @@
 	 		var chkSurveyVisibleFaculty="na";
 	 		var dateCommittee="na";
 	 		var dateFaculty="na";
+	 		
+	 		
 	 		
  		       
            $('#chkSurveyVisibleCommittee').change(function() {
@@ -185,7 +244,6 @@
 		        <table class="table table-boardered">
 		        	<thead>
 		        		<tr>
-		        			<th><spring:message code="prop.course.teaching.survey.committee.member.number"/> <span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span></th>
 		        			<th><spring:message code="prop.course.teaching.survey.committee.member.name"/> <span class="glyphicon glyphicon-user" aria-hidden="true"></span></th>
 		        		</tr>
 		        	</thead>
@@ -218,10 +276,12 @@
 							
 							<div class="clearfix"></div>
 							
-							<div>
+							<div class="col-xs-5">
 								<spring:message code="prop.course.teaching.survey.committee.member.control.survey.week" />	
 							</div>
-							
+							<div  class="col-xs-3" id="dvImgAjaxReload" style="display: none;">
+								<b><spring:message code="prop.course.teaching.survey.wait.msg"/></b> &nbsp; <img  alt="" src="${urlImgAjaxReload}" >
+							</div>
 							
 							<div class="clearfix"></div>
 							
@@ -238,13 +298,13 @@
 								</div>
 							
 							
-								<div class="col-xs-12">
+								<div class="col-xs-12" id="dvVisibleCommittee" style="display: none;">
 						        	<div class="col-xs-6"><spring:message code="prop.course.teaching.survey.committee.member.control.survey.visible.committee" />  </div>
 						        	<div class="col-xs-2"><input id="chkSurveyVisibleCommittee" type="checkbox" data-toggle="toggle" data-on='<spring:message code="prop.course.teaching.survey.committee.member.button.yes"/>' data-off='<spring:message code="prop.course.teaching.survey.committee.member.button.no"/>' data-onstyle="success" data-offstyle="danger"></div>
 						        	<div  class="col-xs-4"> <div id='dateCommittee'></div> </div>
 					        	</div>
 								<div class="col-xs-12">&nbsp;</div>
-								<div class="col-xs-12">
+								<div class="col-xs-12" id="dvVisibleFaculty" style="display: none;">
 						        	<div class="col-xs-6"><spring:message code="prop.course.teaching.survey.committee.member.control.survey.visible.faculty" />  </div>
 						        	<div class="col-xs-2"><input id="chkSurveyVisibleFaculty" type="checkbox" data-toggle="toggle" data-on='<spring:message code="prop.course.teaching.survey.committee.member.button.yes"/>' data-off='<spring:message code="prop.course.teaching.survey.committee.member.button.no"/>' data-onstyle="success" data-offstyle="danger"></div>
 						        	<div  class="col-xs-4"><div id='dateFaculty'></div></div>
@@ -252,10 +312,6 @@
 					        	
 				   		 	</div>
 						
-						<p>&nbsp;</p>
-						
-						URL : ${resourceURL}
-						<a href="${urlAnalysisStart}">Test Analysis</a>
 						
 				    </div>
 			   </div>

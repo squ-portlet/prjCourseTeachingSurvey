@@ -41,9 +41,13 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.portlet.PortletRequest;
+import javax.portlet.PortletResponse;
 import javax.portlet.PortletSession;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
+import javax.portlet.ResourceURL;
 
 import om.edu.squ.squportal.portlet.tsurvey.bo.AccessSurvey;
 import om.edu.squ.squportal.portlet.tsurvey.bo.Param;
@@ -67,6 +71,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.portlet.bind.annotation.ResourceMapping;
 
+import com.google.gson.Gson;
 import com.itextpdf.text.DocumentException;
 
 /**
@@ -624,9 +629,12 @@ public class TeachingSurveyMainController
 	 * Date    		:	Sep 16, 2015 1:20:01 PM
 	 */
 	@RequestMapping(params="action=adminWelcome")
-	private String adminWelcome(PortletRequest	request, Model model, Locale locale)
+	private String adminWelcome(PortletRequest	request, RenderResponse response, Model model, Locale locale)
 	{
-		model.addAttribute("yrSem", teachingSurveyServiceDao.getCurrentYrSemAdmin());
+		String	yearSemester	=	teachingSurveyServiceDao.getCurrentYrSemAdmin();
+
+		model.addAttribute("isPostSurveyAnalysisAvailable",teachingSurveyServiceDao.isPostSurveyAnalysisAvailable(yearSemester));
+		model.addAttribute("yrSem", yearSemester);
 		model.addAttribute("committeeMembers", teachingSurveyServiceDao.getCommitteeMembers(locale));
 		model.addAttribute("viewRights", teachingSurveyServiceDao.getAccessViewRights());
 		model.addAttribute("track", UtilRenderTrack.getTrack(request, "listCollegeCoursesForAsstDean", UtilProperty.getMessage("prop.course.teaching.survey.link.survey.admin", null, locale),null));
@@ -658,12 +666,19 @@ public class TeachingSurveyMainController
 	}
 	
 	
-	/************************************************ POST SURVEY CONTROL OPERATIONS ***************************************/ 
-	@RequestMapping(params="action=analysisDataTransfer")
-	private	String analysisDataTransfer(PortletRequest	request, Model model, Locale locale)
+	/************************************************ POST SURVEY CONTROL OPERATIONS 
+	 * @throws IOException ***************************************/ 
+	@ResourceMapping(value="analysisDataTransferAjax") 
+	private	void analysisDataTransfer(ResourceRequest request, ResourceResponse response, Locale locale) throws IOException
 	{
-		logger.info("Result : "+teachingSurveyServiceDao.postSurveyStartAnalysis());
-		return "test";
+		String	yrSem	=	teachingSurveyServiceDao.getCurrentYrSemAdmin();
+		
+		//logger.info("Result : "+teachingSurveyServiceDao.postSurveyStartAnalysis(yrSem));
+
+		Gson	gson	= new Gson();
+		String strTest = gson.toJson(teachingSurveyServiceDao.postSurveyStartAnalysis(yrSem));
+		response.getWriter().write(strTest);
+		
 	}
 	
 	

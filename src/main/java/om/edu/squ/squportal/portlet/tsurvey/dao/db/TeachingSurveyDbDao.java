@@ -329,6 +329,35 @@ public interface TeachingSurveyDbDao
 	public  String loadPreSurvey(StatementSqlBo  sqlBo);
 	
 	/************************************************ POST SURVEY CONTROL OPERATIONS ***************************************/ 
+
+	/**
+	 * 
+	 * method name  : isPostSurveyAnalysisAvailable
+	 * @param semesterCode
+	 * @return
+	 * TeachingSurveyDbImpl
+	 * return type  : boolean
+	 * 
+	 * purpose		: To check whether the analysis process already started. It will help to stop accidental parallel approach; 
+	 *
+	 * Date    		:	May 26, 2016 12:52:36 PM
+	 */
+	public boolean isPostSurveyAnalysisAvailable(String semesterCode );
+	
+	/**
+	 * 
+	 * method name  : postSurveyAnalysisAvailableUpdate
+	 * @param semesterCode
+	 * @return
+	 * TeachingSurveyDbImpl
+	 * return type  : int
+	 * 
+	 * purpose		: 
+	 *
+	 * Date    		:	May 26, 2016 11:53:16 AM
+	 */
+	public int postSurveyAnalysisAvailableUpdate(String semesterCode);
+	
 	/**
 	 * 
 	 * method name  : postSurveyStartAnalysis
@@ -341,5 +370,33 @@ public interface TeachingSurveyDbDao
 	 * Date    		:	May 10, 2016 2:33:53 PM
 	 */
 	public int postSurveyStartAnalysis();
+	
+	/**
+	 * 
+	 * method name  : postSurveyAnalysisExecuteSurveyProc
+	 * @param semCode
+	 * @return
+	 * TeachingSurveyDbImpl
+	 * return type  : int
+	 * 
+	 * purpose		:
+	 *
+	 * Date    		:	May 25, 2016 9:38:14 AM
+	 */
+	public int postSurveyAnalysisExecuteSurveyProc(String semCode);
+	
+	/**
+	 * 
+	 * method name  : countSuccessAnalysisProcess
+	 * @param semesterCode
+	 * @return
+	 * TeachingSurveyDbImpl
+	 * return type  : int
+	 * 
+	 * purpose		: Count the number of each success of individual three process for analysing 
+	 *
+	 * Date    		:	May 25, 2016 12:08:06 PM
+	 */
+	public int countSuccessAnalysisProcess(String semesterCode);
 	
 }

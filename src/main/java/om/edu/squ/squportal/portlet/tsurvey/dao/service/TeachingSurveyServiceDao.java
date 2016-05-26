@@ -391,18 +391,34 @@ public interface TeachingSurveyServiceDao
 	
 
 	/************************************************ POST SURVEY CONTROL OPERATIONS ***************************************/ 
+	
+	/**
+	 * 
+	 * method name  : isPostSurveyAnalysisAvailable
+	 * @param semesterCode
+	 * @return
+	 * TeachingSurveyDbImpl
+	 * return type  : boolean
+	 * 
+	 * purpose		: To check whether the analysis process already started. It will help to stop accidental parallel approach; 
+	 *
+	 * Date    		:	May 26, 2016 12:52:36 PM
+	 */
+	public boolean isPostSurveyAnalysisAvailable(String semesterCode );
+	
 	/**
 	 * 
 	 * method name  : postSurveyStartAnalysis
+	 * @param semesterYear
 	 * @return
-	 * TeachingSurveyDbImpl
-	 * return type  : int
+	 * TeachingSurveyServiceDao
+	 * return type  : boolean
 	 * 
-	 * purpose		: 
+	 * purpose		: Analysis process - post student survey
 	 *
-	 * Date    		:	May 10, 2016 2:33:53 PM
+	 * Date    		:	May 26, 2016 1:15:26 PM
 	 */
-	public int postSurveyStartAnalysis();
+	public boolean postSurveyStartAnalysis(String semesterYear);
 	
 	
 }

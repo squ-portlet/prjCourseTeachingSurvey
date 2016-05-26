@@ -53,8 +53,10 @@ import om.edu.squ.squportal.portlet.tsurvey.utility.Constants;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Bhabesh
@@ -746,6 +748,7 @@ public class TeachingSurveyDbImpl implements TeachingSurveyDbDao
 	 * return type  : String
 	 * 
 	 * purpose		: Get current yr semester for administrator
+	 *                !!!!! --- IMPORTANT ---  Use this method before any admin work !!!!!
 	 *
 	 * Date    		:	Sep 20, 2015 12:34:42 PM
 	 */
@@ -909,6 +912,52 @@ public class TeachingSurveyDbImpl implements TeachingSurveyDbDao
 	}
 	
 	/************************************************ POST SURVEY CONTROL OPERATIONS ***************************************/ 
+
+	/**
+	 * 
+	 * method name  : isPostSurveyAnalysisAvailable
+	 * @param semesterCode
+	 * @return
+	 * TeachingSurveyDbImpl
+	 * return type  : boolean
+	 * 
+	 * purpose		: To check whether the analysis process already started. It will help to stop accidental parallel approach; 
+	 *
+	 * Date    		:	May 26, 2016 12:52:36 PM
+	 */
+	public boolean isPostSurveyAnalysisAvailable(String semesterCode )
+	{
+		String 				strResult;
+		boolean				booLeanResult;
+		String				SQL_POST_SURVEY_ANALYSIS_PROCESS_CHECK		=	queryPropsPostSurveyControl.getProperty(Constants.SQL_POST_SURVEY_ANALYSIS_PROCESS_CHECK);
+		Map<String, String> namedParameterMap							=	new HashMap<String, String>();
+		namedParameterMap.put("paramYrSem", semesterCode);
+		strResult	=	 namedParameterJdbcTemplate.queryForObject(SQL_POST_SURVEY_ANALYSIS_PROCESS_CHECK, namedParameterMap, String.class);
+		return strResult.equals("N")?true:false;
+	}
+	
+	/**
+	 * 
+	 * method name  : postSurveyAnalysisAvailableUpdate
+	 * @param semesterCode
+	 * @return
+	 * TeachingSurveyDbImpl
+	 * return type  : int
+	 * 
+	 * purpose		: 
+	 *
+	 * Date    		:	May 26, 2016 11:53:16 AM
+	 */
+	@Transactional("qAnalysis")
+	public int postSurveyAnalysisAvailableUpdate(String semesterCode)
+	{
+		String	SQL_POST_SURVEY_ANALYSIS_PROCESS_CHECK_UPDATE				=	queryPropsPostSurveyControl.getProperty(Constants.SQL_POST_SURVEY_ANALYSIS_PROCESS_CHECK_UPDATE);
+		Map<String, String> namedParameterMap	=	new HashMap<String, String>();
+		namedParameterMap.put("paramYrSem", semesterCode);
+		
+		return  namedParameterJdbcTemplate.update(SQL_POST_SURVEY_ANALYSIS_PROCESS_CHECK_UPDATE, namedParameterMap);
+	}
+	
 	/**
 	 * 
 	 * method name  : postSurveyStartAnalysis
@@ -916,15 +965,64 @@ public class TeachingSurveyDbImpl implements TeachingSurveyDbDao
 	 * TeachingSurveyDbImpl
 	 * return type  : int
 	 * 
-	 * purpose		:
+	 * purpose		: 
 	 *
 	 * Date    		:	May 10, 2016 2:33:53 PM
 	 */
+	@Transactional("qAnalysis")
 	public int postSurveyStartAnalysis()
 	{
+		
 		String	SQL_POST_SURVEY_ANALYSIS_PROCESS		=	queryPropsPostSurveyControl.getProperty(Constants.SQL_POST_SURVEY_ANALYSIS_PROCESS);
-		logger.info("Result : "+SQL_POST_SURVEY_ANALYSIS_PROCESS);
-		return 0;
+		/* Make Sure Current Year Semester is in correnct place for admin operation */
+		Map<String, String> 	namedParameterMap	=	new HashMap<String, String>();
+		
+		return namedParameterJdbcTemplate.update(SQL_POST_SURVEY_ANALYSIS_PROCESS, namedParameterMap);
+	}
+
+
+	
+	
+	/**
+	 * 
+	 * method name  : postSurveyAnalysisExecuteSurveyProc
+	 * @param semCode
+	 * @return
+	 * TeachingSurveyDbImpl
+	 * return type  : int
+	 * 
+	 * purpose		:
+	 *
+	 * Date    		:	May 25, 2016 9:38:14 AM
+	 */
+	@Transactional("qAnalysis")
+	public int postSurveyAnalysisExecuteSurveyProc(String semesterCode)
+	{
+		String	SQL_POST_SURVEY_ANALYSIS_EXE_TEACHING_SURVEY_PROC		=	queryPropsPostSurveyControl.getProperty(Constants.SQL_POST_SURVEY_ANALYSIS_EXE_TEACHING_SURVEY_PROC);
+		Map<String, String> namedParameterMap	=	new HashMap<String, String>();
+		namedParameterMap.put("paramYrSem", semesterCode);
+		return  namedParameterJdbcTemplate.update(SQL_POST_SURVEY_ANALYSIS_EXE_TEACHING_SURVEY_PROC, namedParameterMap);
+	}
+
+	/**
+	 * 
+	 * method name  : countSuccessAnalysisProcess
+	 * @param semesterCode
+	 * @return
+	 * TeachingSurveyDbImpl
+	 * return type  : int
+	 * 
+	 * purpose		: Count the number of each success of individual three process for analysing 
+	 *
+	 * Date    		:	May 25, 2016 12:08:06 PM
+	 */
+	public int countSuccessAnalysisProcess(String semesterCode)
+	{
+		String	SQL_POST_SURVEY_ANALYSIS_PROC_COUNT_SUCCESS				=	queryPropsPostSurveyControl.getProperty(Constants.SQL_POST_SURVEY_ANALYSIS_PROC_COUNT_SUCCESS);
+		Map<String, String> namedParameterMap	=	new HashMap<String, String>();
+		namedParameterMap.put("paramYrSem", semesterCode);
+		
+		return namedParameterJdbcTemplate.queryForInt(SQL_POST_SURVEY_ANALYSIS_PROC_COUNT_SUCCESS, namedParameterMap);
 	}
 	
 	

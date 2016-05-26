@@ -67,6 +67,10 @@ public interface Constants
 	public	static	String	SQL_UPDATE_DATE_ADMIN_FACULTY_VIEW					=	"update.date.admin.faculty.view";
 	
 	public	static	String	SQL_POST_SURVEY_ANALYSIS_PROCESS					=	"post.survey.analysis.process";
+	public	static	String	SQL_POST_SURVEY_ANALYSIS_EXE_TEACHING_SURVEY_PROC	=	"post.survey.analysis.execute.teaching.survey.proc";
+	public	static	String	SQL_POST_SURVEY_ANALYSIS_PROC_COUNT_SUCCESS			=	"post.survey.analysis.process.count.success";
+	public	static	String	SQL_POST_SURVEY_ANALYSIS_PROCESS_CHECK				=	"post.survey.analysis.process.check";
+	public	static	String	SQL_POST_SURVEY_ANALYSIS_PROCESS_CHECK_UPDATE		=	"post.survey.analysis.process.check.update";
 	
 	
 	
@@ -131,6 +135,8 @@ public interface Constants
 	public 	static	String	CONST_COLMN_COMMITTEE_ROLE							=	"COMMITTEE_ROLE";
 	public 	static	String	CONST_COLMN_COMMITTEE_VIEW_DATE						=	"COMMITTEE_VIEW_DATE";
 	public 	static	String	CONST_COLMN_OTHERS_VIEW_DATE						=	"OTHERS_VIEW_DATE";
+	public 	static	String	CONST_COUNT_SUCCESS_ANALYSIS						=	"COUNT_SUCCESS_ANALYSIS";
+	public 	static	String	CONST_START_ANALYSIS								=	"START_ANALYSIS";
 	
 	
 	/******************************************************/

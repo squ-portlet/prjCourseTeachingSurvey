@@ -39,6 +39,8 @@
 <c:url value="${urlCdn}/bootstrap/3.1.1/dist/fonts/glyphicons-halflings-regular.svg" var="urlGlyphregularSvg"/>
 
 <!-- **** Image - icons **** -->
+
+<c:url value="/ui/gen/img/reload.gif" var="urlImgAjaxReload"/>
 <c:url value="/ui/bootstrap-3.3.1/images/calendar52.png" var="urlImgGlyphLeaveAnnual"/>
 <c:url value="/ui/bootstrap-3.3.1/images/university2.png" var="urlImgGlyphScholarship"/>
 <c:url value="/ui/bootstrap-3.3.1/images/glyphicons_190_circle_plus.png" var="urlImgGlyphAdd"/>
