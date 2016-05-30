@@ -40,6 +40,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+
+import java.util.Random;
+
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.portlet.PortletSession;
@@ -634,6 +637,8 @@ public class TeachingSurveyMainController
 		String	yearSemester	=	teachingSurveyServiceDao.getCurrentYrSemAdmin();
 
 		model.addAttribute("isPostSurveyAnalysisAvailable",teachingSurveyServiceDao.isPostSurveyAnalysisAvailable(yearSemester));
+		model.addAttribute("fakeRandomId", new Random(System.currentTimeMillis()).nextLong()); 
+		
 		model.addAttribute("yrSem", yearSemester);
 		model.addAttribute("committeeMembers", teachingSurveyServiceDao.getCommitteeMembers(locale));
 		model.addAttribute("viewRights", teachingSurveyServiceDao.getAccessViewRights());
@@ -668,13 +673,25 @@ public class TeachingSurveyMainController
 	
 	/************************************************ POST SURVEY CONTROL OPERATIONS 
 	 * @throws IOException ***************************************/ 
+	/**
+	 * 
+	 * method name  : analysisDataTransfer
+	 * @param request
+	 * @param response
+	 * @param locale
+	 * @throws IOException
+	 * TeachingSurveyMainController
+	 * return type  : void
+	 * 
+	 * purpose		: Resource rendering for ajax control to start analysis process
+	 *
+	 * Date    		:	May 29, 2016 9:39:58 AM
+	 */
 	@ResourceMapping(value="analysisDataTransferAjax") 
 	private	void analysisDataTransfer(ResourceRequest request, ResourceResponse response, Locale locale) throws IOException
 	{
 		String	yrSem	=	teachingSurveyServiceDao.getCurrentYrSemAdmin();
 		
-		//logger.info("Result : "+teachingSurveyServiceDao.postSurveyStartAnalysis(yrSem));
-
 		Gson	gson	= new Gson();
 		String strTest = gson.toJson(teachingSurveyServiceDao.postSurveyStartAnalysis(yrSem));
 		response.getWriter().write(strTest);

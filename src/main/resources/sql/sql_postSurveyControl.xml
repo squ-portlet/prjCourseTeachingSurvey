@@ -2,8 +2,9 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
     <comment>Post Teaching Survey Control</comment>
+    <!-- For testing study and use table  'V_COURSE_EVALUATION_HISTORY_16' -->
     <entry key="post.survey.analysis.process">
-    	INSERT INTO  V_COURSE_EVALUATION_HISTORY_16 
+    	INSERT INTO  V_COURSE_EVALUATION_HISTORY 
 			(
 			  	YR_SEM,
 			  	COURSE_CODE, 
@@ -41,28 +42,28 @@
 				CRS_DEPT_NAME_ARABIC, 
 				CRS_TYPE_CODE, 
 				CRS_TYPE_NAME
-		
 		FROM V_COURSE_DETAILS
     </entry>
+    <!-- For tesing study and use  stored procedure 'EXECUTE_TEACHING_SURVEY_PROC16' -->
     <entry key="post.survey.analysis.execute.teaching.survey.proc">
     	<![CDATA[
     		BEGIN
-		  			EXECUTE_TEACHING_SURVEY_PROC(:paramYrSem);
+		  			EXECUTE_TEACHING_SURVEY_PROC(:paramYrSem);       
 			END;
     	]]>
     </entry>
     <entry key="post.survey.analysis.process.count.success">
     	<![CDATA[
-	    	SELECT 
+	     	SELECT 
 				(
-					COUNT(SUCCESS_ANALYSIS_1)
+					Sum(nvl(SUCCESS_ANALYSE,0))
 					+
-					COUNT(SUCCESS_ANALYSIS_2)
+					Sum(nvl(SUCCESS_MEAN,0))
 					+
-					COUNT(SUCCESS_ANALYSIS_3)
+					Sum(nvl(SUCCESS_RANK,0))
 				) 																	AS 	COUNT_SUCCESS_ANALYSIS
 			FROM
-				TEACHING_SURVEY_ADMIN_START
+				 TEACHING_SURVEY_ADMIN_START
 			WHERE
 				L_ABR_YRSEM = :paramYrSem
     	]]>
@@ -70,7 +71,7 @@
     <entry key="post.survey.analysis.process.check">
     	<![CDATA[
 	    	SELECT 
-				  START_ANALYSIS
+				  UPPER(START_ANALYSIS)
 			FROM
 				  TEACHING_SURVEY_ADMIN_START
 			WHERE

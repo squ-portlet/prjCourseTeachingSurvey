@@ -34,70 +34,20 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- link href="http://externalcdn.com/respond-proxy.html" id="respond-proxy" rel="respond-proxy" /-->
 
+
+
 <portlet:resourceURL id="analysisDataTransferAjax" var="urlAnalysisDataTransfer">
-		
+
 </portlet:resourceURL>
+
+<c:url value="/AccessVisibilitySurveyServlet" var="servletSurveyAccess"/>
 
 <%@include file="../ui/cssWelcome.jsp" %>
 <%@include file="../ui/jsCode.jsp" %>
 
-<c:url value="/AccessVisibilitySurveyServlet" var="servletSurveyAccess"/>
-
-
-isPostSurveyAnalysisAvailable : ${isPostSurveyAnalysisAvailable}
-
-
  <script type="text/javascript">
  
- $(document).ready(function() {
 
-	 var $loading = $('#dvImgAjaxReload');
-
-	 <c:if test="${!isPostSurveyAnalysisAvailable}">
-		$('#chkSurveyVisibleAnalysis').bootstrapToggle('on');
-		   $('#dvVisibleCommittee').show();
-		   $('#dvVisibleFaculty').show();
-	</c:if>
-	 
-	 
-	 $(document).ajaxStart(function () {
-	   $loading.show();
-	 });
-	 
-	 $(document).ajaxStop(function () {
-	   $loading.hide();
-	   $('#dvVisibleCommittee').show();
-	   $('#dvVisibleFaculty').show();
-	 });
-	 
-	 
-	 $('#chkSurveyVisibleAnalysis').change(function() {
-		 
-		 if($('#chkSurveyVisibleAnalysis').prop('checked'))
-			 {
-			 	//TODO
-				$.ajax({
-					
-					url: "${urlAnalysisDataTransfer}",
-					type: 'POST',
-					 datatype:'json',
-					success : function(data){
-						var obj = $.parseJSON(data);
-
-					}
-					
-					
-				});
-			 	
-			 }
-		 else
-			 {
-			 	// Make the control on and it should not be off
-			 	$('#chkSurveyVisibleAnalysis').bootstrapToggle('on');
-			 }
-	 });
-	 
- } );
  
             $(document).ready(function () {  
                        

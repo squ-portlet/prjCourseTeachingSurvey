@@ -922,7 +922,7 @@ public class TeachingSurveyServiceImpl implements TeachingSurveyServiceDao
 	public boolean postSurveyStartAnalysis(String semesterYear)
 	{
 		boolean booResult	=	true;
-		if( isPostSurveyAnalysisAvailable(semesterYear))
+		if( isPostSurveyAnalysisAvailable(semesterYear) && teachingSurveyDbDao.countSuccessAnalysisProcess(semesterYear) == 0)
 		{
 			teachingSurveyDbDao.postSurveyStartAnalysis();		// Copy the records
 			teachingSurveyDbDao.postSurveyAnalysisExecuteSurveyProc(semesterYear); // Call the stored procedure for analysis
