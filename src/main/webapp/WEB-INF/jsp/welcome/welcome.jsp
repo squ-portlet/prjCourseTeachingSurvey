@@ -60,9 +60,8 @@
 		    <div class="thumbnail">
 			<h1> <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span></h1>
 		      <div class="caption">
-		        <h3><spring:message code="prop.course.teaching.survey.report"/></h3>
+		        <h3><a href="${urlSurveyReport}" ><spring:message code="prop.course.teaching.survey.report"/></a></h3>
 		        <p>&nbsp;</p>
-		        <p><a href="${urlSurveyReport}" class="btn btn-primary" role="button"><spring:message code="prop.course.teaching.survey.button.submit"/></a></p>
 		      </div>
 		    </div>
 		  </div>
@@ -71,9 +70,8 @@
 		    <div class="thumbnail">
 			<h1> <span class="glyphicon glyphicon-th" aria-hidden="true"></span></h1>
 		      <div class="caption">
-		        <h3><spring:message code="prop.course.teaching.survey.summary.self"/></h3>
+		        <h3><a href="${urlFacultySummary}" ><spring:message code="prop.course.teaching.survey.summary.self"/></a></h3>
 		        <p>&nbsp;</p>
-		        <p><a href="${urlFacultySummary}" class="btn btn-primary" role="button"><spring:message code="prop.course.teaching.survey.button.submit"/></a></p>
 		      </div>
 		    </div>
 		  </div>
