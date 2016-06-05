@@ -508,7 +508,7 @@ public class TeachingSurveyMainController
 			statement	=	UtilProperty.getMessage("prop.course.teaching.survey.statement.16", null, locale);
 		}
 		
-		logger.info("semesterCode(1) : "+semesterCode);
+
 		
 		model.addAttribute("semCode",semesterCode);
 		model.addAttribute("statement", statement);
