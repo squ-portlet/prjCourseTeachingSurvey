@@ -39,6 +39,7 @@ import java.util.Map;
 import javax.portlet.ResourceResponse;
 
 import om.edu.squ.squportal.portlet.tsurvey.bo.ReportSummary;
+import om.edu.squ.squportal.portlet.tsurvey.bo.StudentResponse;
 import om.edu.squ.squportal.portlet.tsurvey.utility.Constants;
 import om.edu.squ.squportal.portlet.tsurvey.utility.UtilProperty;
 
@@ -248,6 +249,132 @@ public class TeachingSurveyExcelImpl
 		
 		return null;
 	}
+
+	/**
+	 * 
+	 * method name  : getExcelCollegeCoursesAsstDean
+	 * @param templateName
+	 * @param object
+	 * @param response
+	 * @param params
+	 * @param locale
+	 * @return
+	 * @throws DocumentException
+	 * @throws IOException
+	 * TeachingSurveyExcelImpl
+	 * return type  : OutputStream
+	 * 
+	 * purpose		: 
+	 *
+	 * Date    		:	Jun 7, 2016 11:49:24 AM
+	 */
+	public OutputStream  getExcelCollegeCoursesAsstDean(String templateName,Object object,ResourceResponse response, Map<String, String> params, Locale locale) throws DocumentException, IOException
+	{
+		int 					colHead					=	0;
+		int 					rowNum 					= 	0;
+		String					paramTypeSurvey			=	params.get(Constants.CONST_PARAM_TYPE_SURVEY);
+		String					titleRegion				=	null;
+		List<StudentResponse> 	studentResponses		=	(List<StudentResponse>) object;
+		
+		Workbook				workbook				=	new HSSFWorkbook();
+		CreationHelper			creationHelper			=	workbook.getCreationHelper();
+		Map<String, CellStyle> 	styles 					= 	createStyles(workbook);
+		Sheet					sheet					=	null;
+		Cell 					cellSH					=	null;
+		
+		sheet	=	workbook.createSheet(UtilProperty.getMessage("prop.course.teaching.survey.courses.list", null, locale));
+		
+		sheet.getPrintSetup().setLandscape(true);
+		sheet.getPrintSetup().setPaperSize(HSSFPrintSetup.A4_PAPERSIZE); 
+		
+/**  Header Footer **/
+		Footer 					footer 				= 	sheet.getFooter();
+		Header					header				=	sheet.getHeader();
+								footer.setRight("Page &P of &N");
+								footer.setLeft("&D");
+								header.setLeft(UtilProperty.getMessage("prop.course.teaching.survey.heading", null, locale));
+								header.setCenter(UtilProperty.getMessage("prop.course.teaching.survey.title", null, locale));
+								header.setRight(paramTypeSurvey);
+		
+		sheet.setRepeatingRows(CellRangeAddress.valueOf("2:2"));
+		sheet.setDisplayGridlines(true);
+		sheet.setPrintGridlines(true);
+
+/**  Title **/		
+		Row titleRow = sheet.createRow(rowNum);
+        titleRow.setHeightInPoints(45);
+        Cell titleCell = titleRow.createCell(0);
+        titleCell.setCellValue(paramTypeSurvey );
+        titleCell.setCellStyle(styles.get(TITLE));
+
+        ++rowNum;
+        titleRegion="$A$"+rowNum+":$O$"+rowNum;
+        sheet.addMergedRegion(CellRangeAddress.valueOf(titleRegion));		
+		
+/**  Header Row **/
+        Row	rowSubHeader	=	sheet.createRow(rowNum++);		
+
+        cellSH 	=	rowSubHeader.createCell(colHead++); 
+        cellSH.setCellValue(creationHelper.createRichTextString(UtilProperty.getMessage("prop.course.teaching.survey.analysis.department", null, locale)));
+		cellSH.setCellStyle(styles.get(SUB_HEADER));
+		
+        cellSH 	=	rowSubHeader.createCell(colHead++); 
+        cellSH.setCellValue(creationHelper.createRichTextString(UtilProperty.getMessage("prop.course.teaching.survey.course", null, locale)));
+		cellSH.setCellStyle(styles.get(SUB_HEADER));
+		
+        cellSH 	=	rowSubHeader.createCell(colHead++); 
+        cellSH.setCellValue(creationHelper.createRichTextString(UtilProperty.getMessage("prop.course.teaching.survey.section", null, locale)));
+		cellSH.setCellStyle(styles.get(SUB_HEADER));
+		
+        cellSH 	=	rowSubHeader.createCell(colHead++); 
+        cellSH.setCellValue(creationHelper.createRichTextString(UtilProperty.getMessage("prop.course.teaching.survey.committee.member.number", null, locale)));
+		cellSH.setCellStyle(styles.get(SUB_HEADER));
+		
+        cellSH 	=	rowSubHeader.createCell(colHead++); 
+        cellSH.setCellValue(creationHelper.createRichTextString(UtilProperty.getMessage("prop.course.teaching.survey.committee.member.name", null, locale)));
+		cellSH.setCellStyle(styles.get(SUB_HEADER));
+		
+        cellSH 	=	rowSubHeader.createCell(colHead++); 
+        cellSH.setCellValue(creationHelper.createRichTextString(UtilProperty.getMessage("prop.course.teaching.survey.seats.taken", null, locale)));
+		cellSH.setCellStyle(styles.get(SUB_HEADER));
+		
+        cellSH 	=	rowSubHeader.createCell(colHead++); 
+        cellSH.setCellValue(creationHelper.createRichTextString(UtilProperty.getMessage("prop.course.teaching.survey.response.students", null, locale)));
+		cellSH.setCellStyle(styles.get(SUB_HEADER));
+		
+        cellSH 	=	rowSubHeader.createCell(colHead++); 
+        cellSH.setCellValue(creationHelper.createRichTextString(UtilProperty.getMessage("prop.course.teaching.survey.include.exclude", null, locale)));
+		cellSH.setCellStyle(styles.get(SUB_HEADER));
+		
+/**  Report details **/
+		for(StudentResponse studentResponse : studentResponses)
+		{
+			int colNum=0;
+			Row		row		=	sheet.createRow((short)rowNum);
+			
+			row.createCell(colNum++).setCellValue(creationHelper.createRichTextString(studentResponse.getDepartmentName()));
+			row.createCell(colNum++).setCellValue(creationHelper.createRichTextString(studentResponse.getCourseCode()));
+			row.createCell(colNum++).setCellValue(Integer.parseInt(studentResponse.getSectionNo()));
+			row.createCell(colNum++).setCellValue(creationHelper.createRichTextString(studentResponse.getEmpNumber()));
+			row.createCell(colNum++).setCellValue(creationHelper.createRichTextString(studentResponse.getEmpName()));
+			row.createCell(colNum++).setCellValue(studentResponse.getSeatsTaken());
+			row.createCell(colNum++).setCellValue(studentResponse.getStudentResponse());
+			row.createCell(colNum++).setCellValue(creationHelper.createRichTextString(studentResponse.getIncludeExclude()));
+			
+			rowNum ++;
+			
+		}
+		
+		response.setContentType("application/vnd.ms-excel");
+		OutputStream	outputStream	=	response.getPortletOutputStream(); 
+		workbook.write(outputStream);
+		outputStream.flush();
+		outputStream.close();
+		
+		return null;
+	}
+	
+	
 	
 	/**
 	 * 

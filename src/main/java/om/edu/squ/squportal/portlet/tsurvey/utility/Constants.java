@@ -158,6 +158,7 @@ public interface Constants
 	public static String	CONST_SURVEY_ANALYSIS								=	"SURVEY_ANALYSIS";
 	public static String	CONST_VALID_SURVEY_REPORT							=	"VALID_SURVEY_REPORT";
 	public static String	CONST_INVALID_SURVEY_REPORT							=	"INVALID_SURVEY_REPORT";
+	public static String	CONST_COL_COURSES_ASST_DEAN							=	"COL_COURSES_ASST_DEAN";
 	
 	
 	/**********CONSTANTS PDF TEMPLATE FILES *************/

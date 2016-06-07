@@ -903,6 +903,11 @@ public class TeachingSurveyServiceImpl implements TeachingSurveyServiceDao
 		{
 			outputStream	=	excelImpl.getExcelSurveyReport(Constants.CONST_INVALID_SURVEY_REPORT,object, response, params, locale);
 		}
+		if(strTemplateName.equals(Constants.CONST_COL_COURSES_ASST_DEAN))
+		{
+			outputStream	=	excelImpl.getExcelCollegeCoursesAsstDean(Constants.CONST_COL_COURSES_ASST_DEAN,object, response, params, locale);
+		}
+		
 		
 		
 		return outputStream;

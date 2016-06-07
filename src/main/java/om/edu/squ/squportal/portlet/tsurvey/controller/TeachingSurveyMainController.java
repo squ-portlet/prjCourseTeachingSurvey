@@ -57,6 +57,7 @@ import om.edu.squ.squportal.portlet.tsurvey.bo.Param;
 import om.edu.squ.squportal.portlet.tsurvey.bo.ReportSummary;
 import om.edu.squ.squportal.portlet.tsurvey.bo.Staff;
 import om.edu.squ.squportal.portlet.tsurvey.bo.StaffRole;
+import om.edu.squ.squportal.portlet.tsurvey.bo.StudentResponse;
 import om.edu.squ.squportal.portlet.tsurvey.bo.survey.Survey;
 import om.edu.squ.squportal.portlet.tsurvey.bo.survey.SurveyYear;
 import om.edu.squ.squportal.portlet.tsurvey.dao.service.TeachingSurveyServiceDao;
@@ -524,7 +525,23 @@ public class TeachingSurveyMainController
 	}
 
 	
-	
+	/**
+	 * 
+	 * method name  : excelSurveyReportValid
+	 * @param semesterCode
+	 * @param staffRole
+	 * @param req
+	 * @param res
+	 * @param locale
+	 * @throws IOException
+	 * @throws DocumentException
+	 * TeachingSurveyMainController
+	 * return type  : void
+	 * 
+	 * purpose		: Ms-Excel generation for valid survey report 
+	 *
+	 * Date    		:	Jun 7, 2016 11:39:42 AM
+	 */
 	@ResourceMapping(value="excelValidSurveyReportSummary")
 	private void excelSurveyReportValid (@RequestParam("semCode")  String semesterCode, @RequestParam("staffRole")  String staffRole, ResourceRequest req, ResourceResponse res, Locale locale) throws IOException, DocumentException
 	{
@@ -655,6 +672,34 @@ public class TeachingSurveyMainController
 		return "listCollegeCoursesForAsstDean";
 	}
 
+	/**
+	 * 
+	 * method name  : listCollegeCoursesForAsstDean
+	 * @param req
+	 * @param res
+	 * @param locale
+	 * @throws IOException
+	 * @throws DocumentException
+	 * TeachingSurveyMainController
+	 * return type  : void
+	 * 
+	 * purpose		:
+	 *
+	 * Date    		:	Jun 7, 2016 1:51:35 PM
+	 */
+	@ResourceMapping(value="excelCollegeCoursesForAsstDean")
+	private void listCollegeCoursesForAsstDean (ResourceRequest req, ResourceResponse res, Locale locale) throws IOException, DocumentException
+	{
+		String 				empNumber 		=	teachingSurveyServiceDao.getEmployeeNumber(req);
+		Map<String, String> params			=	new HashMap<String,String>();
+		params.put(Constants.CONST_PARAM_TYPE_SURVEY, UtilProperty.getMessage("prop.course.teaching.survey.courses.list", null, locale));
+		List<StudentResponse> studentResponses	=	teachingSurveyServiceDao.getCollegeCoursesForAsstDean(empNumber, locale);
+		teachingSurveyServiceDao.getExcelContent(Constants.CONST_COL_COURSES_ASST_DEAN, res, studentResponses,params,locale);
+		
+	}
+	
+	
+	
 	/**
 	 * 
 	 * method name  : adminWelcome

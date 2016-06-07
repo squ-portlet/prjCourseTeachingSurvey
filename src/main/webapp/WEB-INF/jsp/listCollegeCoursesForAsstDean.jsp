@@ -28,7 +28,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c"       uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="portlet" uri="http://java.sun.com/portlet" %>
+<%@ taglib prefix="portlet" uri="http://java.sun.com/portlet_2_0" %>
 <%@ taglib prefix="spring"  uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form"    uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -173,9 +173,14 @@
 
 
     <div id="treeGrid"></div>
+    
+   <portlet:resourceURL id="excelCollegeCoursesForAsstDean" var="urlExcelCollegeCoursesForAsstDean"></portlet:resourceURL> 
 	 <div style='float: ${cellsAlign};'>
-	     <button type="button" class="btn btn-default" id='excelExport' dir="${varDirection}">
-	     	<div dir="${varDirection}"><spring:message code="prop.course.teaching.survey.export.excel"/> <span class="glyphicon glyphicon-export" aria-hidden="true"></span></div>
-	     </button>
+	     <a class="btn btn-default" href="${urlExcelCollegeCoursesForAsstDean}">
+	     		<div dir="${varDirection}">
+	     			<spring:message code="prop.course.teaching.survey.export.excel"/> 
+	     			<span class="glyphicon glyphicon-export" aria-hidden="true"></span>
+	     		</div>
+	     </a>
      </div>
 
