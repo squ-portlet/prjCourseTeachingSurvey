@@ -516,8 +516,6 @@ public class TeachingSurveyMainController
 		model.addAttribute("validSurveyReportJSON", teachingSurveyServiceDao.getValidReportSummariesJSON(empNumber, semesterCode, locale) );
 		model.addAttribute("validSurveyReport", teachingSurveyServiceDao.getValidReportSummaries(empNumber, semesterCode, locale) );
 		
-		logger.info("reportSummaries0 : "+teachingSurveyServiceDao.getValidReportSummaries(empNumber, semesterCode, locale).size() );
-		
 		Param			param	=	new Param("semesterCode", semesterCode);
 
 		model.addAttribute("track", UtilRenderTrack.getTrack(request, "validSurveyReportSummary", UtilProperty.getMessage("prop.course.teaching.survey.link.survey.report.valid", null, locale),param));
@@ -536,7 +534,7 @@ public class TeachingSurveyMainController
 		
 		Map<String, String> params			=	new HashMap<String,String>();
 		params.put(Constants.CONST_ROLE_STAFF, staffRole);
-		params.put(Constants.CONST_PARAM_VALID_SURVEY, UtilProperty.getMessage("prop.course.teaching.survey.report.survey.valid", null, locale));
+		params.put(Constants.CONST_PARAM_TYPE_SURVEY, UtilProperty.getMessage("prop.course.teaching.survey.report.survey.valid", null, locale));
 		params.put(Constants.CONST_PARAM_SEMESTER_CODE, semesterCode);
 
 		List<ReportSummary> reportSummaries	=	teachingSurveyServiceDao.getValidReportSummaries(empNumber, semesterCode, locale);
@@ -587,12 +585,52 @@ public class TeachingSurveyMainController
 		Param			param	=	new Param("semesterCode", semesterCode);
 		model.addAttribute("track", UtilRenderTrack.getTrack(request, "notValidSurveyReportSummary", UtilProperty.getMessage("prop.course.teaching.survey.link.survey.report.valid.not", null, locale),param));
 		
+		model.addAttribute("semCode", semesterCode);
 		model.addAttribute("statement", statement);
 		model.addAttribute("staffRole", staffRole);
 		model.addAttribute("notValidSurveyReport", teachingSurveyServiceDao.getNotValidReportSummaries(empNumber, semesterCode, locale) );
 		model.addAttribute("notValidSurveyReportJSON", teachingSurveyServiceDao.getNotValidReportSummariesJSON(empNumber, semesterCode, locale) );		
 		return "surveyReportSummaryNotValid";
 	}
+	
+	
+	/**
+	 * 
+	 * method name  : excelSurveyReportInValid
+	 * @param semesterCode
+	 * @param staffRole
+	 * @param req
+	 * @param res
+	 * @param locale
+	 * @throws IOException
+	 * @throws DocumentException
+	 * TeachingSurveyMainController
+	 * return type  : void
+	 * 
+	 * purpose		: 
+	 *
+	 * Date    		:	Jun 6, 2016 8:52:43 AM
+	 */
+	@ResourceMapping(value="excelNotValidSurveyReportSummary")
+	private void excelSurveyReportInValid (@RequestParam("semsCode")  String semesterCode, @RequestParam("stafRole")  String staffRole, ResourceRequest req, ResourceResponse res, Locale locale) throws IOException, DocumentException
+	{
+		
+		String 		empNumber 		=	teachingSurveyServiceDao.getEmployeeNumber(req);
+
+		
+		Map<String, String> params			=	new HashMap<String,String>();
+		params.put(Constants.CONST_ROLE_STAFF, staffRole);
+		params.put(Constants.CONST_PARAM_TYPE_SURVEY, UtilProperty.getMessage("prop.course.teaching.survey.report.survey.invalid", null, locale));
+		params.put(Constants.CONST_PARAM_SEMESTER_CODE, semesterCode);
+
+		List<ReportSummary> reportSummaries	=	teachingSurveyServiceDao.getNotValidReportSummaries(empNumber, semesterCode, locale);
+		
+		teachingSurveyServiceDao.getExcelContent(Constants.CONST_INVALID_SURVEY_REPORT, res, reportSummaries,params,locale);
+		
+	}
+	
+	
+	
 	
 	/**
 	 * 
@@ -612,7 +650,7 @@ public class TeachingSurveyMainController
 	private String listCollegeCoursesForAsstDean (PortletRequest	request, Model model, Locale locale)
 	{
 		String 				empNumber 		=	teachingSurveyServiceDao.getEmployeeNumber(request);
-		model.addAttribute("colCourseList", teachingSurveyServiceDao.getCollegeCoursesForAsstDean(empNumber, locale));
+		model.addAttribute("colCourseList", teachingSurveyServiceDao.getCollegeCoursesForAsstDeanJSON(empNumber, locale));
 		model.addAttribute("track", UtilRenderTrack.getTrack(request, "listCollegeCoursesForAsstDean", UtilProperty.getMessage("prop.course.teaching.survey.link.survey.list.college.courses", null, locale),null));
 		return "listCollegeCoursesForAsstDean";
 	}

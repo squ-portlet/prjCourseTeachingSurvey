@@ -620,10 +620,27 @@ public class TeachingSurveyServiceImpl implements TeachingSurveyServiceDao
 		return strJson;
 	}
 	
+	/**
+	 * method name  : getCollegeCoursesForAsstDean
+	 * @param empNumber
+	 * @param locale
+	 * @return
+	 * TeachingSurveyDbDao
+	 * return type  : List<StudentResponse>
+	 * 
+	 * purpose		: get list of college courses (can be viewed by assistant dean)
+	 *
+	 * Date    		:	Oct 1, 2015 1:26:28 PM
+	 */
+	public List<StudentResponse> getCollegeCoursesForAsstDean(String empNumber, Locale locale)
+	{
+		return teachingSurveyDbDao.getCollegeCoursesForAsstDean(empNumber, locale);
+	}
+
 	
 	/**
 	 * 
-	 * method name  : getCollegeCoursesForAsstDean
+	 * method name  : getCollegeCoursesForAsstDeanJSON
 	 * @param empNumber
 	 * @return
 	 * TeachingSurveyServiceImpl
@@ -633,7 +650,7 @@ public class TeachingSurveyServiceImpl implements TeachingSurveyServiceDao
 	 *
 	 * Date    		:	Sep 10, 2015 9:42:01 AM
 	 */
-	public String getCollegeCoursesForAsstDean(String empNumber, Locale locale)
+	public String getCollegeCoursesForAsstDeanJSON(String empNumber, Locale locale)
 	{
 		List<StudentResponse> 	studentResponses	=	teachingSurveyDbDao.getCollegeCoursesForAsstDean(empNumber, locale);
 		Set<Department> 		departments			=	new LinkedHashSet<Department>();
@@ -880,8 +897,13 @@ public class TeachingSurveyServiceImpl implements TeachingSurveyServiceDao
 		
 		if(strTemplateName.equals(Constants.CONST_VALID_SURVEY_REPORT))
 		{
-			outputStream	=	excelImpl.getExcelValidSurveyReport(object, response, params, locale);
+			outputStream	=	excelImpl.getExcelSurveyReport(Constants.CONST_VALID_SURVEY_REPORT,object, response, params, locale);
 		}
+		if(strTemplateName.equals(Constants.CONST_INVALID_SURVEY_REPORT))
+		{
+			outputStream	=	excelImpl.getExcelSurveyReport(Constants.CONST_INVALID_SURVEY_REPORT,object, response, params, locale);
+		}
+		
 		
 		return outputStream;
 		

@@ -157,6 +157,7 @@ public interface Constants
 	/**********CONSTANTS PDF TEMPLATE NAME *************/
 	public static String	CONST_SURVEY_ANALYSIS								=	"SURVEY_ANALYSIS";
 	public static String	CONST_VALID_SURVEY_REPORT							=	"VALID_SURVEY_REPORT";
+	public static String	CONST_INVALID_SURVEY_REPORT							=	"INVALID_SURVEY_REPORT";
 	
 	
 	/**********CONSTANTS PDF TEMPLATE FILES *************/
@@ -171,7 +172,8 @@ public interface Constants
 
 	/**********CONSTANTS FOR PARAMS  *************/
 	
-	public static String	CONST_PARAM_VALID_SURVEY							=	"param_valid_survey";
+	public static String	CONST_PARAM_TYPE_SURVEY								=	"param_type_survey";
+//	public static String	CONST_PARAM_INVALID_SURVEY							=	"param_invalid_survey";
 	public static String	CONST_PARAM_SEMESTER_CODE							=	"param_semester_code";
 
 	/**********CONSTANTS FOR TEXT ALIGN  *************/

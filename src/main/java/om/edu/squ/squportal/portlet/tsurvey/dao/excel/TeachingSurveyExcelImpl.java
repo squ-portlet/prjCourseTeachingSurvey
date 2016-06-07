@@ -76,7 +76,7 @@ public class TeachingSurveyExcelImpl
 	
 	/**
 	 * 
-	 * method name  : getExcelValidSurveyReport
+	 * method name  : getExcelSurveyReport
 	 * @param object
 	 * @param response
 	 * @param params
@@ -87,26 +87,34 @@ public class TeachingSurveyExcelImpl
 	 * TeachingSurveyExcelImpl
 	 * return type  : OutputStream
 	 * 
-	 * purpose		: Get Streaming excel object for valid survey report
+	 * purpose		: Get Streaming excel object for valid/invalid survey report
 	 *
 	 * Date    		:	Mar 16, 2016 1:23:57 PM
 	 */
-	public OutputStream  getExcelValidSurveyReport(Object object,ResourceResponse response, Map<String, String> params, Locale locale) throws DocumentException, IOException
+	public OutputStream  getExcelSurveyReport(String templateName,Object object,ResourceResponse response, Map<String, String> params, Locale locale) throws DocumentException, IOException
 	{
 		int 					colHead				=	0;
 		int 					rowNum 				= 	0;
 		String					paramStaffRole		=	params.get(Constants.CONST_ROLE_STAFF);
-		String					paramValidSurvey	=	params.get(Constants.CONST_PARAM_VALID_SURVEY);
+		String					paramTypeSurvey		=	params.get(Constants.CONST_PARAM_TYPE_SURVEY);
 		String					paramSemesterCode	=	params.get(Constants.CONST_PARAM_SEMESTER_CODE);
 		String					titleRegion			=	null;
 		
 		Workbook				workbook			=	new HSSFWorkbook();
 		CreationHelper			creationHelper		=	workbook.getCreationHelper();
 		Map<String, CellStyle> 	styles 				= 	createStyles(workbook);
-		Sheet					sheet				=	workbook.createSheet("Valid Survey report");
+		Sheet					sheet				=	null;
 		Cell 					cellSH				=	null;
 		List<ReportSummary> 	reportSummaries		=	(List<ReportSummary>) object;
 		
+		if(templateName.equals(Constants.CONST_VALID_SURVEY_REPORT))
+		{
+			sheet	=	workbook.createSheet(UtilProperty.getMessage("prop.course.teaching.survey.report.survey.valid", null, locale));
+		}
+		if(templateName.equals(Constants.CONST_INVALID_SURVEY_REPORT))
+		{
+			sheet	=	workbook.createSheet(UtilProperty.getMessage("prop.course.teaching.survey.report.survey.invalid", null, locale));
+		}
 		
 		sheet.getPrintSetup().setLandscape(true);
 		sheet.getPrintSetup().setPaperSize(HSSFPrintSetup.A4_PAPERSIZE); 
@@ -118,7 +126,7 @@ public class TeachingSurveyExcelImpl
 								footer.setLeft("&D");
 								header.setLeft(UtilProperty.getMessage("prop.course.teaching.survey.heading", null, locale));
 								header.setCenter(UtilProperty.getMessage("prop.course.teaching.survey.title", null, locale));
-								header.setRight(paramValidSurvey +" - "+paramSemesterCode);
+								header.setRight(paramTypeSurvey +" - "+paramSemesterCode);
 		
 		sheet.setRepeatingRows(CellRangeAddress.valueOf("2:2"));
 		sheet.setDisplayGridlines(true);
@@ -131,7 +139,7 @@ public class TeachingSurveyExcelImpl
 		Row titleRow = sheet.createRow(rowNum);
         titleRow.setHeightInPoints(45);
         Cell titleCell = titleRow.createCell(0);
-        titleCell.setCellValue(paramValidSurvey +" - "+paramSemesterCode);
+        titleCell.setCellValue(paramTypeSurvey +" - "+paramSemesterCode);
         titleCell.setCellStyle(styles.get(TITLE));
 
         ++rowNum;
@@ -142,7 +150,7 @@ public class TeachingSurveyExcelImpl
 /**  Header Row **/
         Row	rowSubHeader	=	sheet.createRow(rowNum++);
         
-		if(!paramStaffRole.equals(Constants.CONST_ROLE_STAFF_HOD))
+		if(!paramStaffRole.equals(Constants.CONST_ROLE_STAFF_HOD) && !templateName.equals(Constants.CONST_INVALID_SURVEY_REPORT))
 		{
 			
 		cellSH = 	rowSubHeader.createCell(colHead++); cellSH.setCellValue(creationHelper.createRichTextString(UtilProperty.getMessage("prop.course.teaching.survey.rank.university", null, locale))); 
@@ -188,7 +196,7 @@ public class TeachingSurveyExcelImpl
 			Row		row		=	sheet.createRow((short)rowNum);
 			
 			
-			if(!paramStaffRole.equals(Constants.CONST_ROLE_STAFF_HOD))
+			if(!paramStaffRole.equals(Constants.CONST_ROLE_STAFF_HOD) && !templateName.equals(Constants.CONST_INVALID_SURVEY_REPORT) )
 			{
 				row.createCell(colNum++).setCellValue(reportSummary.getUniversityRank());
 				row.createCell(colNum++).setCellValue(reportSummary.getCollegeRank());

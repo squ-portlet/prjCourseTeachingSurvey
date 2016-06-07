@@ -244,7 +244,8 @@
                               OR (:paramStaffRole = 'HOD' and get_course_dept(r.SEM_CODE,r.COURSE_CODE) = :paramDepartment  and :paramCollege != 'LAN')   
                               OR (ACCESS_ALL_SURVEYS(:paramEmpNumber)='Y')                         
                             )                                                     
-                        AND   SEM_CODE = :paramSemester      
+                        AND   SEM_CODE = :paramSemester 
+                 ORDER BY COLLEGE_CODE     
      		
     	]]>
     </entry>

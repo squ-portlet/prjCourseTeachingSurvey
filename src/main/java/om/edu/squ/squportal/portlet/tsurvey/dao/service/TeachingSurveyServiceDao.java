@@ -241,6 +241,7 @@ public interface TeachingSurveyServiceDao
 	 */
 	public String getValidReportSummariesJSON(String empNumber, String semesterCode, Locale locale);
 	
+	
 	/**
 	 * 
 	 * method name  : getNotValidReportSummaries
@@ -258,6 +259,21 @@ public interface TeachingSurveyServiceDao
 	public List<ReportSummary>  getNotValidReportSummaries(String empNumber, String semesterCode, Locale locale);
 	
 	/**
+	 * method name  : getCollegeCoursesForAsstDean
+	 * @param empNumber
+	 * @param locale
+	 * @return
+	 * TeachingSurveyDbDao
+	 * return type  : List<StudentResponse>
+	 * 
+	 * purpose		: get list of college courses (can be viewed by assistant dean)
+	 *
+	 * Date    		:	Oct 1, 2015 1:26:28 PM
+	 */
+	public List<StudentResponse> getCollegeCoursesForAsstDean(String empNumber, Locale locale);
+	
+	
+	/**
 	 * 
 	 * method name  : getNotValidReportSummariesJSON
 	 * @param empNumber
@@ -273,6 +289,10 @@ public interface TeachingSurveyServiceDao
 	 */
 	public String  getNotValidReportSummariesJSON(String empNumber, String semesterCode, Locale locale);
 	
+
+	
+	
+	
 	/**
 	 * 
 	 * method name  : getCollegeCoursesForAsstDean
@@ -286,7 +306,7 @@ public interface TeachingSurveyServiceDao
 	 *
 	 * Date    		:	Sep 10, 2015 9:42:01 AM
 	 */
-	public String getCollegeCoursesForAsstDean(String empNumber, Locale locale);
+	public String getCollegeCoursesForAsstDeanJSON(String empNumber, Locale locale);
 	
 	/**
 	 * 

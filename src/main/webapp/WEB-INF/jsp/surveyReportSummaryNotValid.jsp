@@ -180,6 +180,16 @@
         });
     </script>
     
+<portlet:resourceURL id="excelNotValidSurveyReportSummary" var="urlExcelNotValidSurveyReportSummary" escapeXml="false">
+	<portlet:param name="semsCode" value="${semCode}"/>
+	<portlet:param name="stafRole" value="${staffRole.staffRole}"/>
+</portlet:resourceURL>
+
+	<div>
+		<div class="col-md-8 col-xs-5"></div>
+		<div class="col-md-3 col-xs-5"><a href="${urlExcelNotValidSurveyReportSummary}"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> <spring:message code="prop.course.teaching.survey.export.excel"/> </a></div>
+	</div>  
+    
     <div id="dataTable"></div>
 	<portlet:renderURL var="urlSurveyAnalysis" >
 		<portlet:param name="action" value="surveyAnalysis"/>
