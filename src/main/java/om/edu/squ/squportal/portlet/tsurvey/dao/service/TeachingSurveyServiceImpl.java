@@ -33,7 +33,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -55,6 +57,7 @@ import om.edu.squ.squportal.portlet.tsurvey.bo.ReportSummary;
 import om.edu.squ.squportal.portlet.tsurvey.bo.ReportYrSem;
 import om.edu.squ.squportal.portlet.tsurvey.bo.StaffRole;
 import om.edu.squ.squportal.portlet.tsurvey.bo.StudentResponse;
+import om.edu.squ.squportal.portlet.tsurvey.bo.StudentSurveyStartDay;
 import om.edu.squ.squportal.portlet.tsurvey.bo.load.StatementSqlBo;
 import om.edu.squ.squportal.portlet.tsurvey.bo.load.StatementSqlListBo;
 import om.edu.squ.squportal.portlet.tsurvey.bo.survey.OpenEndQuestion;
@@ -782,6 +785,33 @@ public class TeachingSurveyServiceImpl implements TeachingSurveyServiceDao
 	/************************************************ SURVEY LOADING OPERATIONS ***************************************/ 
 	/**
 	 * 
+	 * method name  : getCronStudentSurveyStart
+	 * @return
+	 * TeachingSurveyServiceImpl
+	 * return type  : String
+	 * 
+	 * purpose		: Cron Format for date input from DB
+	 *
+	 * Date    		:	Nov 17, 2016 9:53:51 AM
+	 */
+	public String getCronStudentSurveyStart()
+	{
+		String 		cronExpression	=	null;
+		// Following are example of cron expression
+		//cron="5 * * * * *" -- Every fifth seconds of each minute
+		//
+		// 0 30 10 15 4 FRI
+		// seconds 0,  minute 30,hour 10,day of month 15,month 4 (april),day of week (friday)
+		StudentSurveyStartDay	studentSurveyStartDay	 = 	teachingSurveyDbDao.getSurveyStartDate();
+								cronExpression			=	"0 01 01 "+studentSurveyStartDay.getSurveyDay()+" "+studentSurveyStartDay.getSurveyMonth()+" ?";
+		
+		
+		return cronExpression;
+	}
+	
+	
+	/**
+	 * 
 	 * method name  : getPreSurveyQueries
 	 * @return
 	 * @throws IOException
@@ -800,6 +830,8 @@ public class TeachingSurveyServiceImpl implements TeachingSurveyServiceDao
 		
 		return (StatementSqlListBo) unmarshaller.unmarshal(new StreamSource(stream));
 	}
+	
+	
 /**
  * 	
  * method name  : loadPreSurvey
@@ -810,7 +842,7 @@ public class TeachingSurveyServiceImpl implements TeachingSurveyServiceDao
  * 
  * purpose		: DB preparation before survey start
  *
- * Date    		:	Nov 5, 2015 12:36:54 PM
+ * Date    		:	Nov 5, 2015 12:36:54 PM 
  */
 	public String	loadPreSurvey() throws IOException
 	{
@@ -818,17 +850,20 @@ public class TeachingSurveyServiceImpl implements TeachingSurveyServiceDao
 		if(true)
 		{
 			StatementSqlListBo	sqlListBo	=	getPreSurveyQueries();
-			try
+			if(null != sqlListBo)
 			{
-				for(StatementSqlBo sqlBo : sqlListBo.getSqlBos())
+				try
 				{
-					logger.info("success in loading survey data");
-					teachingSurveyDbDao.loadPreSurvey(sqlBo);
+					for(StatementSqlBo sqlBo : sqlListBo.getSqlBos())
+					{
+						logger.info("success in loading survey data");
+						teachingSurveyDbDao.loadPreSurvey(sqlBo);
+					}
 				}
-			}
-			catch (Exception ex)
-			{
-				logger.error("failure in pre loading survey data");
+				catch (Exception ex)
+				{
+					logger.error("failure in pre loading survey data");
+				}
 			}
 		}
 		return null;

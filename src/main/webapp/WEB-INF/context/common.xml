@@ -146,7 +146,12 @@
     
   --> 
 	
-
+		<task:executor id="executorWithPoolSizeRange"
+	               pool-size="5-25"
+	               queue-capacity="100"/>
+	               
+	<!-- Activates @Scheduled and @Async annotations for scheduling -->
+	<task:annotation-driven executor="executorWithPoolSizeRange" scheduler="taskScheduler"/>
 	
 	
 

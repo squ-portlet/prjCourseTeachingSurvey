@@ -46,4 +46,16 @@ public interface SurveyLoader
 	 * Date    		:	Nov 5, 2015 11:45:14 AM
 	 */
 	public void operation();
+	
+	/**
+	 * 
+	 * method name  : preSurveyLoadOperation
+	 * SurveyLoader
+	 * return type  : void
+	 * 
+	 * purpose		:
+	 *
+	 * Date    		:	Nov 16, 2016 11:15:54 AM
+	 */
+	public void preSurveyLoadOperation();
 }

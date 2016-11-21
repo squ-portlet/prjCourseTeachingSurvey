@@ -44,10 +44,13 @@ public interface Constants
 	
 	/************* PROPERTY FILE ******************************/
 	public	static	String	RESOURCE_PROPERTY_FILE_NAME							=	"messages";
+	public	static	String	RESOURCE_PROPERTY_FILE_NAME_EMAIL					=	"mailProp";
 	/******************************************************/
 
 	
 	/**********CONSTANTS - SQL - QUERY - NAME**************/	
+	public	static	String	SQL_STUDENT_SURVEY_START_DATE						=	"student.survey.start.date";
+	
 	public	static	String	SQL_SURVEY_ACCESS									=	"access.survey";
 	public	static	String	SQL_SURVEY_ACCESS_REPORT							=	"access.survey.report";
 	public	static	String	SQL_SURVEY_ACCESS_VIEW_RIGHTS						=	"view.survey.committee.faculty.admin";
@@ -138,6 +141,8 @@ public interface Constants
 	public 	static	String	CONST_COUNT_SUCCESS_ANALYSIS						=	"COUNT_SUCCESS_ANALYSIS";
 	public 	static	String	CONST_START_ANALYSIS								=	"START_ANALYSIS";
 	
+	public 	static	String	CONST_COLMN_SURVEY_START_DAY						=	"SURVEY_START_DAY";
+	public 	static	String	CONST_COLMN_SURVEY_START_MONTH						=	"SURVEY_START_MONTH";
 	
 	/******************************************************/
 	
@@ -182,8 +187,9 @@ public interface Constants
 	public static String	LEFT												=	"L";
 	public static String	CENTER												=	"C";
 	
-
-	
+	/**********CONSTANTS FOR E-MAIL   *************/
+	public	static	String	MAIL_SMTP_HOST										=	"smtpHost";
+	public	static	String	MAIL_SMTP_PORT										=	"smtpPort";	
 	
 	
 	

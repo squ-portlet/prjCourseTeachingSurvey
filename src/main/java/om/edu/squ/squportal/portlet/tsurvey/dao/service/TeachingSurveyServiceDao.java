@@ -351,6 +351,20 @@ public interface TeachingSurveyServiceDao
 	/************************************************ SURVEY LOADING OPERATIONS ***************************************/ 
 	
 	/**
+	 * 
+	 * method name  : getCronStudentSurveyStart
+	 * @return
+	 * TeachingSurveyServiceImpl
+	 * return type  : String
+	 * 
+	 * purpose		: Cron Format for date input from DB
+	 *
+	 * Date    		:	Nov 17, 2016 9:53:51 AM
+	 */
+	public String getCronStudentSurveyStart();
+	
+	
+	/**
 	 * 	
 	 * method name  : loadPreSurvey
 	 * @return

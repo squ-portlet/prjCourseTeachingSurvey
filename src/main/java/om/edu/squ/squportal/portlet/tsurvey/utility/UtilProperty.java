@@ -30,9 +30,6 @@
 package om.edu.squ.squportal.portlet.tsurvey.utility;
 
 import java.util.Locale;
-
-
-
 import org.springframework.context.support.ResourceBundleMessageSource;
 
 /**
@@ -58,11 +55,23 @@ public class UtilProperty
 		 	return resourceBundle.getMessage(code, args,Locale.ENGLISH);
 	    }
 
+	    public static String getMessageMail(String code, Object[] args) 
+	    {	
+	    	activateResourceMail();
+		 	return resourceBundle.getMessage(code, args,Locale.ENGLISH);
+	    }	    
+	    
 	    private static void activateResource()
 	    {
 	    	resourceBundle = new ResourceBundleMessageSource();
 		 	resourceBundle.setBasenames(new String[] {Constants.RESOURCE_PROPERTY_FILE_NAME});     
 
+	    }
+	    
+	    private static void activateResourceMail()
+	    {
+	    	resourceBundle = new ResourceBundleMessageSource();
+	 		resourceBundle.setBasenames(new String[] {Constants.RESOURCE_PROPERTY_FILE_NAME_EMAIL});
 	    }
 	    
 }

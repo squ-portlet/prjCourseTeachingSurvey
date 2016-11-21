@@ -30,25 +30,40 @@
 package om.edu.squ.squportal.portlet.tsurvey.schedular;
 
 import java.io.IOException;
+import java.util.Date;
 
 import om.edu.squ.squportal.portlet.tsurvey.dao.service.TeachingSurveyServiceDao;
+import om.edu.squ.squportal.portlet.tsurvey.utility.MailUtility;
+import om.edu.squ.squportal.portlet.tsurvey.utility.UtilProperty;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.Trigger;
+import org.springframework.scheduling.TriggerContext;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.scheduling.annotation.SchedulingConfigurer;
+import org.springframework.scheduling.config.ScheduledTaskRegistrar;
+import org.springframework.scheduling.support.CronTrigger;
+
+
 
 /**
  * @author Bhabesh
  *
  */
-
-public class PreSurveyOperation implements SurveyLoader
+@EnableScheduling
+public class PreSurveyOperation implements SurveyLoader, SchedulingConfigurer
 {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 @Autowired
 TeachingSurveyServiceDao teachingSurveyServiceDao;	
 
+	/**
+	 * This method configured in spring context level for cron scheduling. Normally no need to call
+	 */
 	@Override
 	public void operation()
 	{
@@ -64,5 +79,77 @@ TeachingSurveyServiceDao teachingSurveyServiceDao;
 		}
 		
 	}
+	
+	/**
+	 * 	TODO - This method is an example of Spring scheduling 
+	 */
+	//@Scheduled(cron="5 * * * * *")
+	public void preSurveyLoadOperation()
+	{
+		logger.info("Testing of cron schedule" );
+	}
+
+	/**
+	 *  This method triggering to pass custom parameter from DB for scheduling 
+	 */
+	
+	@Override
+	public void configureTasks(ScheduledTaskRegistrar taskRegistrar)
+	{
+		
+		final MailUtility	mailUtility	=	new MailUtility();
+		
+		taskRegistrar.addTriggerTask(new Runnable()
+		{
+			
+			@Override
+			public void run()
+			{
+				try
+				{
+					teachingSurveyServiceDao.loadPreSurvey();
+					mailUtility.sendEmail
+					(
+					UtilProperty.getMessage("prop.course.teaching.survey.email.presurvey.data.upload.subject.success", null), 
+					UtilProperty.getMessage("prop.course.teaching.survey.email.presurvey.data.upload.body.student.success", null)
+					);
+				}
+				catch (IOException ex)
+				{
+
+					logger.error("Failure in loading pre survey data into db tables");
+					mailUtility.sendEmail
+							(
+							UtilProperty.getMessage("prop.course.teaching.survey.email.presurvey.data.upload.subject.fail", null), 
+							UtilProperty.getMessage("prop.course.teaching.survey.email.presurvey.data.upload.body.student.fail", null)
+							);
+				}
+				
+			}
+		}, new Trigger()
+		{
+			
+			@Override
+			public Date nextExecutionTime(TriggerContext triggerContext)
+			{
+				Date	nextExec		= null;
+			
+				try
+				{
+				String 		cron		=	teachingSurveyServiceDao.getCronStudentSurveyStart();
+				CronTrigger	cronTrigger	=	new CronTrigger(cron);
+							nextExec	=	cronTrigger.nextExecutionTime(triggerContext);
+				}
+				catch(Exception ex)
+				{
+					logger.error("Error occurs in cron scheduling for data transfer. Details : "+ex.getMessage());
+				}
+				return nextExec;
+			}
+		});
+		
+	}
+
+
 	
 }

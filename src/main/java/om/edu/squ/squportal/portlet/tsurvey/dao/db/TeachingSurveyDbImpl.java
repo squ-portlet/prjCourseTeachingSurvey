@@ -29,6 +29,7 @@
  */
 package om.edu.squ.squportal.portlet.tsurvey.dao.db;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -44,6 +45,7 @@ import om.edu.squ.squportal.portlet.tsurvey.bo.ReportSummary;
 import om.edu.squ.squportal.portlet.tsurvey.bo.ReportYrSem;
 import om.edu.squ.squportal.portlet.tsurvey.bo.StaffRole;
 import om.edu.squ.squportal.portlet.tsurvey.bo.StudentResponse;
+import om.edu.squ.squportal.portlet.tsurvey.bo.StudentSurveyStartDay;
 import om.edu.squ.squportal.portlet.tsurvey.bo.load.StatementSqlBo;
 import om.edu.squ.squportal.portlet.tsurvey.bo.survey.Analysis;
 import om.edu.squ.squportal.portlet.tsurvey.bo.survey.OpenEndQuestion;
@@ -54,6 +56,7 @@ import om.edu.squ.squportal.portlet.tsurvey.utility.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.transaction.annotation.Transactional;
@@ -874,6 +877,40 @@ public class TeachingSurveyDbImpl implements TeachingSurveyDbDao
 	
 	/************************************************ SURVEY LOADING OPERATIONS ***************************************/ 
 	
+    /**
+     * 
+     * method name  : getSurveyStartDate
+     * @return
+     * StdRegCourseDaoImpl
+     * return type  : StudentSurveyStartDay
+     * 
+     * purpose		: Get Student Survey start date 
+     *
+     * Date    		:	Nov 16, 2016 2:03:40 PM
+     */
+    public StudentSurveyStartDay getSurveyStartDate() 
+    {
+    	String SQL_STUDENT_SURVEY_START_DATE=queryProps.getProperty(Constants.SQL_STUDENT_SURVEY_START_DATE);
+    	RowMapper<StudentSurveyStartDay> mapper	=	new RowMapper<StudentSurveyStartDay>()
+		{
+			
+			@Override
+			public StudentSurveyStartDay mapRow(ResultSet rs, int rowNum)
+					throws SQLException
+			{
+				StudentSurveyStartDay	surveyStartDay	=	new StudentSurveyStartDay();
+				surveyStartDay.setSurveyDay(rs.getString(Constants.CONST_COLMN_SURVEY_START_DAY));
+				surveyStartDay.setSurveyMonth(rs.getString(Constants.CONST_COLMN_SURVEY_START_MONTH));
+				return surveyStartDay;
+			}
+		};
+    	
+    	Map<String,String> parameters=new HashMap<String, String>();
+    	return namedParameterJdbcTemplate.queryForObject(SQL_STUDENT_SURVEY_START_DATE, parameters, mapper);
+    }
+    
+   
+	
 	/**
 	 * 
 	 * method name  : loadPreSurvey
@@ -1025,7 +1062,7 @@ public class TeachingSurveyDbImpl implements TeachingSurveyDbDao
 		return namedParameterJdbcTemplate.queryForInt(SQL_POST_SURVEY_ANALYSIS_PROC_COUNT_SUCCESS, namedParameterMap);
 	}
 	
-	
+
 
 	
 }

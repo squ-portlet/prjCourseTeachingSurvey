@@ -312,7 +312,23 @@
     	 ]]>
     	
     </entry>
-    
+	<entry key="student.survey.start.date">
+		<![CDATA[
+			SELECT 
+			  		TO_CHAR(CONVERT_SEM_WEEK_TO_DATE(FROM_WEEK),'DD') 											AS SURVEY_START_DAY
+        			,TO_CHAR(CONVERT_SEM_WEEK_TO_DATE(FROM_WEEK),'MM') 											AS SURVEY_START_MONTH
+			FROM 
+			  TEACHING_SURVEY_PERIOD
+			WHERE
+			  YRSEM=(
+			      SELECT 
+			          L_ABR_YRSEM
+			      FROM
+			        V_CURRENT_YRSEM_PORTAL@sis_link.squ.edu.om
+			    )
+		]]>
+	</entry>
+	    
     <entry key="update.date.admin.committee.view">
     	<![CDATA[ 
     		UPDATE 
