@@ -42,6 +42,8 @@ import javax.portlet.PortletRequest;
 
 
 
+
+import om.edu.squ.portal.common.EmpCommon;
 import om.edu.squ.squportal.portlet.tsurvey.dao.ldap.LdapDao;
 
 import org.slf4j.Logger;
@@ -67,7 +69,8 @@ private  final Logger logger = LoggerFactory.getLogger(UtilService.class);
 			String remoteUser	=	request.getRemoteUser();
 			try
 			{
-				empNumber			=	ldapDao.getEmpNumber(remoteUser);
+				EmpCommon	empCommon	=	new EmpCommon();
+				empNumber = empCommon.getEmployeeNumber(request.getRemoteUser());
 			}
 			catch(NullPointerException  nulEx)
 			{
