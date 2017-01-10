@@ -126,45 +126,54 @@
 						</div>
 						<br>
 					<c:forEach items="${aSurveyYear.surveys}" var="aSurvey">
-						<c:if test="${ isCurrentSemesterViewable || !(aSurvey.yearSemester == currentSemester) }">
-								<div  class="row show-grid" >
-									<div class="col-xs-2">
-										${aSurvey.yearSemester}
+						<c:choose>
+							<c:when test="${ isCurrentSemesterViewable || !(aSurvey.yearSemester == currentSemester) }">
+									<div  class="row show-grid" >
+										<div class="col-xs-2">
+											${aSurvey.yearSemester}
+										</div>
+										<div class="col-xs-2">
+											${aSurvey.courseCode}
+										</div>
+										<div class="col-xs-5">
+											<c:forEach items="${aSurvey.surveyResponses}" var="aSurveyResponse">
+													<portlet:renderURL var="varSurveyAnalysis">
+														<portlet:param name="action" value="surveyAnalysis"/>
+														<portlet:param name="empNumber" value="${aSurvey.empNumber}"/>
+														<portlet:param name="courseCode" value="${aSurvey.courseCode}"/>
+														<portlet:param name="semesterCode" value="${aSurvey.yearSemester}"/>
+														<portlet:param name="sectionNo" value="${aSurveyResponse.sectionNo}"/>
+													</portlet:renderURL>
+													<portlet:renderURL var="varOpenEndQuestion">
+														<portlet:param name="action" value="openEndQuestions"/>
+														<portlet:param name="empNumber" value="${aSurvey.empNumber}"/>
+														<portlet:param name="courseCode" value="${aSurvey.courseCode}"/>
+														<portlet:param name="semesterCode" value="${aSurvey.yearSemester}"/>
+														<portlet:param name="sectionNo" value="${aSurveyResponse.sectionNo}"/>
+													</portlet:renderURL>
+												<div class="row show-grid">
+													<div class="col-xs-2" align="right">${aSurveyResponse.sectionNo}</div>
+													<div class="col-xs-3"><a href="${varSurveyAnalysis}"><spring:message code="prop.course.teaching.survey.link.survey.summary"/></a></div>
+													<div class="col-xs-4"><a href="${varOpenEndQuestion}"><spring:message code="prop.course.teaching.survey.link.open.end.question.summary"/></a></div>
+												</div>
+												<br>
+											</c:forEach>
+										</div>
 									</div>
-									<div class="col-xs-2">
-										${aSurvey.courseCode}
-									</div>
-									<div class="col-xs-5">
-										<c:forEach items="${aSurvey.surveyResponses}" var="aSurveyResponse">
-												<portlet:renderURL var="varSurveyAnalysis">
-													<portlet:param name="action" value="surveyAnalysis"/>
-													<portlet:param name="empNumber" value="${aSurvey.empNumber}"/>
-													<portlet:param name="courseCode" value="${aSurvey.courseCode}"/>
-													<portlet:param name="semesterCode" value="${aSurvey.yearSemester}"/>
-													<portlet:param name="sectionNo" value="${aSurveyResponse.sectionNo}"/>
-												</portlet:renderURL>
-												<portlet:renderURL var="varOpenEndQuestion">
-													<portlet:param name="action" value="openEndQuestions"/>
-													<portlet:param name="empNumber" value="${aSurvey.empNumber}"/>
-													<portlet:param name="courseCode" value="${aSurvey.courseCode}"/>
-													<portlet:param name="semesterCode" value="${aSurvey.yearSemester}"/>
-													<portlet:param name="sectionNo" value="${aSurveyResponse.sectionNo}"/>
-												</portlet:renderURL>
-											<div class="row show-grid">
-												<div class="col-xs-2" align="right">${aSurveyResponse.sectionNo}</div>
-												<div class="col-xs-3"><a href="${varSurveyAnalysis}"><spring:message code="prop.course.teaching.survey.link.survey.summary"/></a></div>
-												<div class="col-xs-4"><a href="${varOpenEndQuestion}"><spring:message code="prop.course.teaching.survey.link.open.end.question.summary"/></a></div>
-											</div>
-											<br>
-										</c:forEach>
-									</div>
+							</c:when>
+							<c:otherwise>
+								<div class="alert alert-warning">
+											  <strong><spring:message code="prop.course.teaching.survey.report.not.available"/></strong>
 								</div>
-						</c:if>
+							</c:otherwise>
+						</c:choose>
 					</c:forEach>
 				</div>
 			</div>
 			
 		</div>
+		
+		
 	</c:forEach>
 </div>
 
