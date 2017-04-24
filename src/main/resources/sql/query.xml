@@ -28,13 +28,35 @@
 			                             NVL(DECODE(:paramLocale,                      
 			                                             'en',CRSNAME,A_CRSNAME),'-')						AS 	COURSE_NAME,   
 			                             SECTNO 															AS	SECTION_NO,                                     
-			                             SEATSTAKEN															AS  SEATS_TAKEN,                                            
-			                             GET_STD_RESPONSES
-			                             (
-			                             	L_ABR_YRSEM, COURSE_CODE, 
-			                             	SECTNO, EMPNO,
-			                             	NULL, NULL
-			                             ) 																	AS	STUDENT_RESPONSE,        
+			                             SEATSTAKEN															AS  SEATS_TAKEN, 
+                                   
+		                            DECODE(
+		                                       GET_STD_RESPONSES
+		                                       (
+		                                        L_ABR_YRSEM, COURSE_CODE, 
+		                                        SECTNO, EMPNO,
+		                                        NULL, NULL
+		                                       ),
+		                                        
+		                                       0,							
+		                                       
+		                                       GET_STD_RESPONSES_CLIN
+		                                       (
+		                                        L_ABR_YRSEM, COURSE_CODE, 
+		                                        SECTNO, EMPNO,
+		                                        NULL, NULL
+		                                       ),
+		                                       
+		                                       GET_STD_RESPONSES
+		                                       (
+		                                        L_ABR_YRSEM, COURSE_CODE, 
+		                                        SECTNO, EMPNO,
+		                                        NULL, NULL
+		                                       )                                           
+                                      )                      												AS	STUDENT_RESPONSE,
+                                   
+                                   
+                                   
 			                             L_ABR_YRSEM														AS  YR_SEM,                                  
 			                             EMPNO  															AS  EMP_NUMBER                                           
 			         FROM    V_COURSE_DETAILS  ,                                    

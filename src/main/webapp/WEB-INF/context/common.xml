@@ -83,10 +83,16 @@
     	<property name="locations" value="classpath:sql/sql_postSurveyControl.xml" />
 	</bean>
 	
-	
+	<!--  Production -->
 	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean"> 
     	<property name="jndiName" value="java:comp/env/jdbc/pool/teaching_survey"/> 
  	</bean> 
+ 	 
+ 	 <!-- Test 
+	 	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean"> 
+	    	<property name="jndiName" value="java:comp/env/jdbc/pool/teaching_survey_test"/> 
+	 	</bean> 
+ 	-->
 	<bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">  
 		<constructor-arg ref="dataSource"></constructor-arg>  
 	</bean>
@@ -141,10 +147,10 @@
 <!--    
 
 	<task:scheduled-tasks scheduler="taskScheduler">
-        <task:scheduled ref="preSurveyOperation" method="operation" cron="0 30 10 15 4 FRI"/>
+        <task:scheduled ref="preSurveyOperation" method="operation" cron="0 33 17 09 4 SUN"/>
     </task:scheduled-tasks>	 
-    
-  --> 
+-->    
+   
 	
 		<task:executor id="executorWithPoolSizeRange"
 	               pool-size="5-25"
