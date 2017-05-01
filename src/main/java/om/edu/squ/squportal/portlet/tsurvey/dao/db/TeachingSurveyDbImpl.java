@@ -1062,7 +1062,28 @@ public class TeachingSurveyDbImpl implements TeachingSurveyDbDao
 		return namedParameterJdbcTemplate.queryForInt(SQL_POST_SURVEY_ANALYSIS_PROC_COUNT_SUCCESS, namedParameterMap);
 	}
 	
-
+	/**
+	 * 
+	 * method name  : isSurveyOver
+	 * @return
+	 * TeachingSurveyDbImpl
+	 * return type  : boolean
+	 * 
+	 * purpose		: Find out whether the Survey period is over or not 
+	 * 				  (including extra week for Clinical and Language Center) 
+	 *
+	 * Date    		:	May 1, 2017 10:54:27 AM
+	 */
+	public boolean isSurveyOver()
+	{
+		String				result										=	null;
+		String				SQL_SURVEY_PERIOD							=	queryProps.getProperty(Constants.SQL_SURVEY_PERIOD);
+		Map<String, String> namedParameterMap							=	new HashMap<String, String>();
+		namedParameterMap.put("paramClinicalOrLanc", Constants.CONST_YES);
+		result	=	namedParameterJdbcTemplate.queryForObject(SQL_SURVEY_PERIOD, namedParameterMap, String.class);
+		
+		return (result.equals(Constants.CONST_AFTER_SURVEY)?true:false);
+	}
 
 	
 }

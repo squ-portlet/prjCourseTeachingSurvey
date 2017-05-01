@@ -412,5 +412,19 @@ public interface TeachingSurveyDbDao
      * Date    		:	Nov 16, 2016 2:03:40 PM
      */
     public StudentSurveyStartDay getSurveyStartDate();
+    
+	/**
+	 * 
+	 * method name  : isSurveyOver
+	 * @return
+	 * TeachingSurveyDbImpl
+	 * return type  : boolean
+	 * 
+	 * purpose		: Find out whether the Survey period is over or not 
+	 * 				  (including extra week for Clinical and Language Center) 
+	 *
+	 * Date    		:	May 1, 2017 10:54:27 AM
+	 */
+	public boolean isSurveyOver();
 	
 }

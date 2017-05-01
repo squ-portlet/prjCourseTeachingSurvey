@@ -776,12 +776,32 @@ public class TeachingSurveyMainController
 		String	yrSem	=	teachingSurveyServiceDao.getCurrentYrSemAdmin();
 		
 		Gson	gson	= new Gson();
-		String strTest = gson.toJson(teachingSurveyServiceDao.postSurveyStartAnalysis(yrSem));
+		String strTest = "";//gson.toJson(teachingSurveyServiceDao.postSurveyStartAnalysis(yrSem));
 		response.getWriter().write(strTest);
 		
 	}
-	
-	
+
+	/**
+	 * 
+	 * method name  : surveyPeriodIndicator
+	 * @param request
+	 * @param response
+	 * @param locale
+	 * @throws IOException
+	 * TeachingSurveyMainController
+	 * return type  : void
+	 * 
+	 * purpose		:  Resource rendering for survey period indicator (Survey period is over or not)
+	 *
+	 * Date    		:	May 1, 2017 11:12:47 AM
+	 */
+	@ResourceMapping(value="surveyPeriodAjax")
+	private void surveyPeriodIndicator(ResourceRequest request, ResourceResponse response, Locale locale) throws IOException
+	{
+		Gson	gson		= 	new Gson();
+		String	strResult	=	gson.toJson(teachingSurveyServiceDao.isSurveyOver());
+		response.getWriter().write(strResult);
+	}
 	
 	
 }

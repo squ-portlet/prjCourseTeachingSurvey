@@ -999,6 +999,21 @@ public class TeachingSurveyServiceImpl implements TeachingSurveyServiceDao
 	}
 	
 	
-	
+	/**
+	 * 
+	 * method name  : isSurveyOver
+	 * @return
+	 * TeachingSurveyDbImpl
+	 * return type  : boolean
+	 * 
+	 * purpose		: Find out whether the Survey period is over or not 
+	 * 				  (including extra week for Clinical and Language Center) 
+	 *
+	 * Date    		:	May 1, 2017 10:54:27 AM
+	 */
+	public boolean isSurveyOver()
+	{
+		return teachingSurveyDbDao.isSurveyOver();
+	}
 	
 }

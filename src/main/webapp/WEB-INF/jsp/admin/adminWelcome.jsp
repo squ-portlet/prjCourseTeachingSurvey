@@ -40,6 +40,8 @@
 
 </portlet:resourceURL>
 
+<portlet:resourceURL id="surveyPeriodAjax" var="urlSurveyPeriodAjax"/>
+
 <c:url value="/AccessVisibilitySurveyServlet" var="servletSurveyAccess"/>
 
 <%@include file="../ui/cssWelcome.jsp" %>
@@ -47,7 +49,25 @@
 
  <script type="text/javascript">
  
-
+		$(function(){
+			$.ajax({
+				url : 	'${urlSurveyPeriodAjax}',
+				type:	'GET',
+				success : function(data)
+				{
+						console.log("data : "+data);
+						if($.parseJSON(data))
+							{
+								$('#divIdChkSurveyAnalyis').show();
+							}
+						else
+							{
+								$('#divIdChkSurveyAnalyis').hide();
+							}
+				}
+				
+			});
+		});
  
             $(document).ready(function () {  
                        
@@ -241,7 +261,7 @@
 									<div class="col-xs-12"><spring:message code="prop.course.teaching.survey.current.semester" arguments="${yrSem}"/>  </div>
 								</div>
 							
-								<div class="col-xs-12">
+								<div class="col-xs-12" id="divIdChkSurveyAnalyis">
 									<div class="col-xs-6"><spring:message code="prop.course.teaching.survey.analysis.process"/> </div>
 									<div class="col-xs-2"><input id="chkSurveyVisibleAnalysis" type="checkbox" data-toggle="toggle" data-on='<spring:message code="prop.course.teaching.survey.committee.member.button.on"/>' data-off='<spring:message code="prop.course.teaching.survey.committee.member.button.off"/>' data-onstyle="success" data-offstyle="danger"> </div>
 									<div class="col-xs-4"> </div>

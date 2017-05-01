@@ -372,6 +372,11 @@
     	 ]]>
     </entry> 
     
+    <entry key="select.survey.period.for.admin">
+    	SELECT 
+    		SURVEY_PERIOD_INDICATOR( :paramClinicalOrLanc ) 
+    	FROM DUAL
     
+    </entry>
     
 </properties>

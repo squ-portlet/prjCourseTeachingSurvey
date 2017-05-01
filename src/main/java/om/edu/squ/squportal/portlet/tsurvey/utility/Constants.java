@@ -74,8 +74,7 @@ public interface Constants
 	public	static	String	SQL_POST_SURVEY_ANALYSIS_PROC_COUNT_SUCCESS			=	"post.survey.analysis.process.count.success";
 	public	static	String	SQL_POST_SURVEY_ANALYSIS_PROCESS_CHECK				=	"post.survey.analysis.process.check";
 	public	static	String	SQL_POST_SURVEY_ANALYSIS_PROCESS_CHECK_UPDATE		=	"post.survey.analysis.process.check.update";
-	
-	
+	public	static	String	SQL_SURVEY_PERIOD									=	"select.survey.period.for.admin";
 	
 	
 	
@@ -190,7 +189,14 @@ public interface Constants
 	/**********CONSTANTS FOR E-MAIL   *************/
 	public	static	String	MAIL_SMTP_HOST										=	"smtpHost";
 	public	static	String	MAIL_SMTP_PORT										=	"smtpPort";	
+
+	/**********CONSTANTS FOR YES/NO   *************/
+	public 	static	String	CONST_YES											=	"Y";
+	public 	static	String	CONST_NO											=	"N";
 	
-	
+	public	static	String	CONST_BEFORE_SURVEY									=	"B";
+	public	static	String	CONST_AFTER_SURVEY									=	"A";
+	public	static	String	CONST_DURING_SURVEY									=	"D";
+	public	static	String	CONST_NOT_AVAILABLE_SURVEY							=	"N";
 	
 }
