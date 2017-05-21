@@ -5,4 +5,5 @@
   <installed facet="wst.jsdt.web" version="1.0"/>
   <installed facet="java" version="1.6"/>
   <installed facet="liferay.portlet" version="6.0"/>
+  <installed facet="portlet.jsr" version="2.0"/>
 </faceted-project>

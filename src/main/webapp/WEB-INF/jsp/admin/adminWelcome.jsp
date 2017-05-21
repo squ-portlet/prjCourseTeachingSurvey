@@ -55,7 +55,6 @@
 				type:	'GET',
 				success : function(data)
 				{
-						console.log("data : "+data);
 						if($.parseJSON(data))
 							{
 								$('#divIdChkSurveyAnalyis').show();

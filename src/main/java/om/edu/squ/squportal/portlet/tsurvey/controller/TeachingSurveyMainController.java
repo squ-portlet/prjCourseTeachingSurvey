@@ -776,7 +776,7 @@ public class TeachingSurveyMainController
 		String	yrSem	=	teachingSurveyServiceDao.getCurrentYrSemAdmin();
 		
 		Gson	gson	= new Gson();
-		String strTest = "";//gson.toJson(teachingSurveyServiceDao.postSurveyStartAnalysis(yrSem));
+		String strTest = gson.toJson(teachingSurveyServiceDao.postSurveyStartAnalysis(yrSem));
 		response.getWriter().write(strTest);
 		
 	}

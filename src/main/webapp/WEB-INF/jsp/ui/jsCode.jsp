@@ -9,7 +9,7 @@
 <script type="text/javascript">
 
 	$(document).ready(function() {
-	
+		
 		 var $loading = $('#dvImgAjaxReload');
 	
 		 <c:if test="${!isPostSurveyAnalysisAvailable}">
@@ -50,7 +50,13 @@
 								{
 									$('#chkSurveyVisibleAnalysis').bootstrapToggle('off');
 								}
-						}
+							},
+							error	:	function(xhr, status, error)
+							{
+								$loading.hide();
+								alert("Analysis process couldn't complete successfully! Please contact - support");
+								
+							}
 	
 					});
 				 	
