@@ -207,7 +207,7 @@
     				STAFF_ROLE 																					AS STAFF_ROLE,                          
             		STAFF_COL  																					AS COLLEGE_CODE,                           
                     STAFF_DEPT		 																			AS DEPARTMENT_CODE                          
-            FROM    V_SIS_STAFF                                      
+            FROM    v_sis_staff@sis_link.squ.edu.om                                      
             WHERE   STAFF_ID = TO_NUMBER(:paramEmpNumber) 
             AND 	ROWNUM < 2 
     	 ]]>

@@ -144,12 +144,12 @@
 	    *******seconds 0,  minute 30,hour 10,day of month 15,month 4 (april),day of week (friday) *****
 	--> 
 	
-<!--    
-
+    
+<!-- 
 	<task:scheduled-tasks scheduler="taskScheduler">
-        <task:scheduled ref="preSurveyOperation" method="operation" cron="0 33 17 09 4 SUN"/>
+        <task:scheduled ref="preSurveyOperation" method="operation" cron="0 59 23 25 11 SAT"/>
     </task:scheduled-tasks>	 
--->    
+ -->    
    
 	
 		<task:executor id="executorWithPoolSizeRange"
