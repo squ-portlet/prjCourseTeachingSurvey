@@ -818,8 +818,15 @@ public class TeachingSurveyDbImpl implements TeachingSurveyDbDao
 			}
 		};
 		Map<String, String> 	namedParameterMap	=	new HashMap<String, String>();
-		
-		return namedParameterJdbcTemplate.queryForObject(SQL_SURVEY_ACCESS_VIEW_RIGHTS, namedParameterMap, mapper);
+		try
+		{
+			return namedParameterJdbcTemplate.queryForObject(SQL_SURVEY_ACCESS_VIEW_RIGHTS, namedParameterMap, mapper);
+		}
+		catch(Exception ex)
+		{
+			logger.warn("No records available at survey admin table. Most probably survey analysis does not started for the current semester");
+			return null;
+		}
 	}
 	
 	/**

@@ -184,7 +184,7 @@ public class TeachingSurveyMainController
 		model.addAttribute("track", UtilRenderTrack.getTrack(request, "facultyWelcome", UtilProperty.getMessage("prop.course.teaching.survey.link.survey.summary", null, locale),null));
 		try
 		{
-			if(accessViewRights.isBooViewOtherSurvey() && new UtilService().dateCompare(new Date(),accessViewRights.getDateOthersView()) >= 0)
+			if((null != accessViewRights) && (accessViewRights.isBooViewOtherSurvey() && new UtilService().dateCompare(new Date(),accessViewRights.getDateOthersView()) >= 0))
 			{
 				model.addAttribute(Constants.CONST_MODEL_IS_CURR_SEMESTER_VIEWABLE, accessViewRights.isBooViewOtherSurvey());
 			}
@@ -424,7 +424,7 @@ public class TeachingSurveyMainController
 			{
 				try
 				{
-					if	( accessViewRights.isBooViewCommitteeSurvey() && new UtilService().dateCompare(new Date(),accessViewRights.getDateCommitteeView()) >= 0 )
+					if	( (null != accessViewRights) && (accessViewRights.isBooViewCommitteeSurvey() && new UtilService().dateCompare(new Date(),accessViewRights.getDateCommitteeView()) >= 0 ))
 					{
 						model.addAttribute(Constants.CONST_MODEL_IS_CURR_SEMESTER_VIEWABLE, accessViewRights.isBooViewCommitteeSurvey());
 					}
@@ -443,7 +443,7 @@ public class TeachingSurveyMainController
 			{
 				try
 				{
-					if(accessViewRights.isBooViewOtherSurvey() && new UtilService().dateCompare(new Date(),accessViewRights.getDateOthersView()) >= 0)
+					if((null != accessViewRights) && (accessViewRights.isBooViewOtherSurvey() && new UtilService().dateCompare(new Date(),accessViewRights.getDateOthersView()) >= 0))
 					{
 						model.addAttribute(Constants.CONST_MODEL_IS_CURR_SEMESTER_VIEWABLE, accessViewRights.isBooViewOtherSurvey());
 					}
